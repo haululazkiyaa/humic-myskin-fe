@@ -29,4 +29,4 @@ npm run dev
 ## Kontributor
 
 - Muhammad Haulul Azkiyaa (Frontend)
--
+- Akmal Rafly Dzunurain (Frontend)
