@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("./assets/fonts/Urbanist-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "Urbanist", sans-serif;
+}
