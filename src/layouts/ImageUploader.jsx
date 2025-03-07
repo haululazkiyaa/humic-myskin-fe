@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ImageCropper from "../components/cropper/ImageCropper";
-import melanoma from "../assets/icon/Ellipse 3.png"
-import keakuratan from "../assets/icon/Ellipse 1.png"
-import status from "../assets/icon/Ellipse 5.png"
+import melanoma from "../assets/icon/Ellipse 3.png";
+import keakuratan from "../assets/icon/Ellipse 1.png";
+import status from "../assets/icon/Ellipse 5.png";
 
 const ImageUploader = () => {
   const [image, setImage] = useState(null);
@@ -13,7 +13,7 @@ const ImageUploader = () => {
     const file = event.target.files[0];
     if (file) {
       setImage(URL.createObjectURL(file));
-      setCroppedImage(null); 
+      setCroppedImage(null);
     }
   };
 
@@ -117,21 +117,23 @@ const ImageUploader = () => {
           )}
         </div>
 
-        <div className="mt-6 text-sm text-gray-700">
-          <p className="text-black">
-            1. Format: JPEG, PNG <span className="text-red-500">*</span>
-          </p>
-          <p className="text-black">
-            2. Ukuran: Maksimum 5 MB <span className="text-red-500">*</span>
-          </p>
-          <p className="text-black">
-            3. Resolusi: Minimal 800 x 600 piksel{" "}
-            <span className="text-red-500">*</span>
-          </p>
-          <p className="text-red-500 mt-2 italic">
-            *Wajib mengikuti aturan gambar
-          </p>
-        </div>
+        {!croppedImage && (
+          <div className="mt-6 text-sm text-gray-700">
+            <p className="text-black">
+              1. Format: JPEG, PNG <span className="text-red-500">*</span>
+            </p>
+            <p className="text-black">
+              2. Ukuran: Maksimum 5 MB <span className="text-red-500">*</span>
+            </p>
+            <p className="text-black">
+              3. Resolusi: Minimal 800 x 600 piksel{" "}
+              <span className="text-red-500">*</span>
+            </p>
+            <p className="text-red-500 mt-2 italic">
+              *Wajib mengikuti aturan gambar
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
