@@ -1,6 +1,8 @@
 import bgHomepage from "../assets/img/foto-dokter.jpg"
 import scan from "../assets/icon/Scan.png"
 import Accordion from "../layouts/Accordion";
+
+import ImageUploader from "../layouts/ImageUploader";
 const Homepage = () => {
   return (
     <div className="w-full h-screen">
@@ -27,6 +29,9 @@ const Homepage = () => {
 
       {/* Benefit with MySkin */}
       <Accordion/>
+
+      {/* Image Uploader */}
+      <ImageUploader/>
     </div>
   );
 }
