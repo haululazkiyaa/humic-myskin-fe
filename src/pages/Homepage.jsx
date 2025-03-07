@@ -2,6 +2,7 @@ import Navbar from "../layouts/Navbar"
 
 import bgHomepage from "../assets/img/foto-dokter.jpg"
 import scan from "../assets/icon/Scan.png"
+import Accordion from "../layouts/Accordion";
 const Homepage = () => {
   return (
     <div className="w-full h-screen relative">
@@ -28,7 +29,8 @@ const Homepage = () => {
         </div>
       </div>
 
-      {/*  */}
+      {/* Benefit with MySkin */}
+      <Accordion/>
     </div>
   );
 }
