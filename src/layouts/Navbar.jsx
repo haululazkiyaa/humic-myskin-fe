@@ -6,10 +6,12 @@ const Navbar = () => {
       <div className="w-6xl flex justify-between items-center px-12 py-5 rounded-xl shadow-md bg-white/60 backdrop-blur-sm">
         <h1 className="font-semibold text-md text-blue-950">MySkin</h1>
         <div className="flex gap-x-4">
-          <ListNavbar>Beranda</ListNavbar>
-          <ListNavbar>FAQ</ListNavbar>
+          <ListNavbar to="/">Beranda</ListNavbar>
+          <ListNavbar to="/faq">FAQ</ListNavbar>
         </div>
-        <button className="font-extralight text-md cursor-pointer">Masuk</button>
+        <button className="font-extralight text-md cursor-pointer">
+          Masuk
+        </button>
       </div>
     </div>
   );

@@ -1,15 +1,13 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import Homepage from "./pages/Homepage";
+import Navbar from "./layouts/Navbar";
 
 function App() {
   return (
-    <>
-      <main>
-        <Homepage />
-        {/* <h1 className="font-bold text-4xl">MySkin</h1>
-        <p className="text-muted">Template starter</p> */}
-      </main>
-    </>
+    <div className="relative w-full h-screen">
+      <Navbar/>
+      <Outlet/>
+    </div>
   );
 }
 
