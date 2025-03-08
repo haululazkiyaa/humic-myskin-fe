@@ -48,7 +48,7 @@ const FAQ = () => {
         {itemMelanoma.map((item, index) => (
           <div key={index} className="rounded-lg shadow-lg w-1/3 bg-white p-5">
             <div className="flex items-center gap-x-2">
-              <span className="border border-gray-300 p-1 rounded-lg">
+              <span className="border border-gray-200 p-1 rounded-lg">
                 <img src={chat} alt="" />
               </span>
               <h1 className="font-semibold">{item.title}</h1>
@@ -68,7 +68,7 @@ const FAQ = () => {
         {itemMySkin.map((item, index) => (
           <div key={index} className="rounded-lg shadow-lg w-1/3 bg-white p-5">
             <div className="flex items-center gap-x-2">
-              <span className="border border-gray-300 p-1 rounded-lg">
+              <span className="border border-gray-200 p-1 rounded-lg">
                 <img src={chat} alt="" />
               </span>
               <h1 className="font-semibold">{item.title}</h1>
