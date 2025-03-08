@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Homepage from "../pages/Homepage";
 import FAQ from "../pages/FAQ";
+import DeteksiPasien from "../pages/DeteksiPasien";
+import PengajuanPasien from "../pages/PengajuanPasien";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ export const router = createBrowserRouter([
       {
         path: "/faq",
         element: <FAQ />,
+      },
+      {
+        path: "/deteksi-pasien",
+        element: <DeteksiPasien />,
+      },
+      {
+        path: "/pengajuan-pasien",
+        element: <PengajuanPasien />,
       },
     ],
   },

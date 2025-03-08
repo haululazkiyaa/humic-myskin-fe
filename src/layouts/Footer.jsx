@@ -20,7 +20,7 @@ const Footer = () => {
         <div className="w-1/2">
           <div className="mt-4 space-y-3">
             <div className="flex items-center gap-3">
-              <FaMapMarkerAlt className="text-4xl text-white bg-sky-500 p-2 rounded-full" />
+              <FaMapMarkerAlt className="text-4xl text-white bg-sky-300 p-2 rounded-full" />
               <div>
                 <h2 className="text-sm font-normal">
                   Gedung Bangkit Telkom University Jl. Telekomunikasi No. 1,
@@ -32,15 +32,15 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <FaPhoneAlt className="text-4xl text-white bg-sky-500 p-2 rounded-full" />
+              <FaPhoneAlt className="text-4xl text-white bg-sky-300 p-2 rounded-full" />
               <span>(+62) 812 0812 0812</span>
             </div>
             <div className="flex items-center gap-3">
-              <FaEnvelope className="text-4xl text-white bg-sky-500 p-2 rounded-full" />
+              <FaEnvelope className="text-4xl text-white bg-sky-300 p-2 rounded-full" />
               <span>admin@gmail.com</span>
             </div>
             <div className="flex items-center gap-3">
-              <FaGlobe className="text-4xl text-white bg-sky-500 p-2 rounded-full" />
+              <FaGlobe className="text-4xl text-white bg-sky-300 p-2 rounded-full" />
               <span>www.admin.com</span>
             </div>
           </div>
@@ -63,11 +63,11 @@ const Footer = () => {
           {/* Social Media */}
           <div className="mt-4 space-y-3">
             <div className="flex items-center gap-3">
-              <FaFacebookF className="text-4xl text-white bg-sky-500 p-2 rounded-full" />
+              <FaFacebookF className="text-4xl text-white bg-sky-300 p-2 rounded-full" />
               <span>Lorem Ipsum</span>
             </div>
             <div className="flex items-center gap-3">
-              <FaInstagram className="text-4xl text-white bg-sky-500 p-2 rounded-full" />
+              <FaInstagram className="text-4xl text-white bg-sky-300 p-2 rounded-full" />
               <span>Lorem Ipsum</span>
             </div>
           </div>

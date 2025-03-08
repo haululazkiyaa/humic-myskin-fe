@@ -36,6 +36,7 @@ const FAQ = () => {
         "My Skin gratis untuk digunakan oleh khalayak umum, dapat diakses dimana saja dan tidak dipungut biaya sepersen pun",
     },
   ];
+  
   return (
     <div className="w-full min-h-screen pt-32">
       <h1 className="text-3xl font-bold text-black text-center">
