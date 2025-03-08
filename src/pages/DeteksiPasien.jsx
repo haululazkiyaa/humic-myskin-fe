@@ -41,13 +41,16 @@ const DeteksiPasien = () => {
         // Ambil persentase sebagai angka
         const percentValue = parseFloat(item.persentase);
         let textColor = "text-green-600";
-        if (percentValue > 50) textColor = "text-red-600";
-        else if (percentValue === 50) textColor = "text-yellow-600";
+        if (percentValue < 50) {
+          textColor = "text-red-600";
+        } else if (percentValue >= 50) {
+          textColor = "text-green-600";
+        }
 
         return (
           <table
             key={index}
-            className="w-full mt-8 mb-5 rounded-xl shadow-lg bg-white/60"
+            className="w-full mt-8 mb-5 rounded-xl shadow-lg bg-white/60 backdrop-blur-md"
           >
             <thead className="border-b border-gray-200 text-left">
               <tr className="text-black font-semibold">
@@ -61,13 +64,13 @@ const DeteksiPasien = () => {
               </tr>
             </thead>
             <tbody className="text-center text-gray-800">
-              <tr className="border-b border-gray-200">
+              <tr>
                 <td className="py-6 px-6">{item.date}</td>
                 <td className={`py-6 px-6 font-semibold ${textColor}`}>
                   {item.persentase}
                 </td>
                 <td className="py-6 px-6">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden mx-auto">
+                  <div className="w-40 h-32 rounded-lg overflow-hidden mx-auto">
                     <img
                       className="w-full h-full object-cover"
                       src={testImage}
