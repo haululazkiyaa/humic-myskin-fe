@@ -5,9 +5,9 @@ import Accordion from "../layouts/Accordion";
 import ImageUploader from "../layouts/ImageUploader";
 const Homepage = () => {
   return (
-    <div className="w-full h-screen">
+    <div className="w-full min-h-screen">
       {/* Hero Section */}
-      <div className="w-full h-[70%]">
+      <div className="w-full h-[32rem]">
         <img
           src={bgHomepage}
           alt="Dokter"
@@ -15,7 +15,7 @@ const Homepage = () => {
         />
 
         {/* Text & Button */}
-        <div className="absolute left-32 top-1/4 max-w-md">
+        <div className="absolute left-32 top-48 max-w-md">
           <h1 className="text-5xl font-light text-sky-900">
             Selamat Datang, <br />
             <span className="font-bold">Muhammad</span>
