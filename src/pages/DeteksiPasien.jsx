@@ -41,10 +41,10 @@ const DeteksiPasien = () => {
         // Ambil persentase sebagai angka
         const percentValue = parseFloat(item.persentase);
         let textColor = "text-green-600";
-        if (percentValue < 50) {
+        if (percentValue > 50) {
           textColor = "text-red-600";
-        } else if (percentValue >= 50) {
-          textColor = "text-green-600";
+        } else if (percentValue == 50) {
+          textColor = "text-yellow-600";
         }
 
         return (
@@ -64,7 +64,7 @@ const DeteksiPasien = () => {
               </tr>
             </thead>
             <tbody className="text-center text-gray-800">
-              <tr>
+              <tr className="*:align-top">
                 <td className="py-6 px-6">{item.date}</td>
                 <td className={`py-6 px-6 font-semibold ${textColor}`}>
                   {item.persentase}
@@ -79,7 +79,7 @@ const DeteksiPasien = () => {
                   </div>
                 </td>
                 <td className="py-6 px-6 text-left">
-                  <p className="w-40 h-20 overflow-hidden text-ellipsis">
+                  <p className="w-40 h-32 overflow-hidden text-ellipsis">
                     {item.keluhan}
                   </p>
                 </td>
