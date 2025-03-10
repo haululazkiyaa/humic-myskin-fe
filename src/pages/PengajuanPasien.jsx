@@ -1,54 +1,14 @@
 import testImage from "../assets/img/test-myskin.jpg";
 import deleteBtn from "../assets/icon/delete-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
+import data from "../json/dataAjuan.json"
 
 const PengajuanPasien = () => {
-  const dataAjuan = [
-    {
-      date: "08/01/2025",
-      persentase: "99% Melanoma (Tidak Aman)",
-      gambar: testImage,
-      keluhan:
-        "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
-      status: "Unverified",
-      tglVerif: "11/01/2025",
-      verifiedBy: "dr. Muhammad Nur Shodiq",
-      melanoma: "Melanoma",
-      catatanDokter:
-        "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter",
-    },
-    {
-      date: "12/03/2025",
-      persentase: "11.26% Melanoma (Aman)",
-      gambar: testImage,
-      keluhan:
-        "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
-      status: "Verified",
-      tglVerif: "16/03/2025",
-      verifiedBy: "dr. Muhammad Nur Shodiq",
-      melanoma: "Melanoma",
-      catatanDokter:
-        "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter",
-    },
-    {
-      date: "15/03/2025",
-      persentase: "50% Melanoma (Tidak Aman)",
-      gambar: testImage,
-      keluhan:
-        "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
-      status: "Unverified",
-      tglVerif: "20/03/2025",
-      verifiedBy: "dr. Muhammad Nur Shodiq",
-      melanoma: "Melanoma",
-      catatanDokter:
-        "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter",
-    },
-  ];
 
   return (
     <div className="pt-32 w-full px-10">
       <h1 className="text-3xl font-bold text-black">Riwayat Pengajuan</h1>
-      {dataAjuan.map((item, index) => {
+      {data.dataAjuan.map((item, index) => {
         // Ambil persentase sebagai angka
         const percentValue = parseFloat(item.persentase);
         let textColor = "text-green-600";

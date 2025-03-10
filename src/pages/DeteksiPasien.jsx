@@ -2,42 +2,13 @@ import testImage from "../assets/img/test-myskin.jpg";
 import editBtn from "../assets/icon/edit-button.png";
 import deleteBtn from "../assets/icon/delete-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
+import data from "../json/dataDeteksi"
 
 const DeteksiPasien = () => {
-  const dataDetect = [
-    {
-      date: "08/01/2025",
-      persentase: "99% Melanoma (Tidak Aman)",
-      gambar: testImage,
-      keluhan:
-        "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
-      pengajuan: "Sudah",
-      status: "Unverified",
-    },
-    {
-      date: "12/03/2025",
-      persentase: "11.26% Melanoma (Aman)",
-      gambar: testImage,
-      keluhan:
-        "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
-      pengajuan: "Sudah",
-      status: "Verified",
-    },
-    {
-      date: "15/03/2025",
-      persentase: "50% Melanoma (Netral)",
-      gambar: testImage,
-      keluhan:
-        "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
-      pengajuan: "Belum",
-      status: "Unverified",
-    },
-  ];
-
   return (
     <div className="pt-32 w-full px-10">
       <h1 className="text-3xl font-bold text-black">Riwayat Deteksi</h1>
-      {dataDetect.map((item, index) => {
+      {data.dataDetect.map((item, index) => {
         // Ambil persentase sebagai angka
         const percentValue = parseFloat(item.persentase);
         let textColor = "text-green-600";

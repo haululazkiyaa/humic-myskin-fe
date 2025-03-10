@@ -1,0 +1,37 @@
+{
+  "dataAjuan": [
+    {
+      "date": "08/01/2025",
+      "persentase": "99% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
+      "status": "Unverified",
+      "tglVerif": "11/01/2025",
+      "verifiedBy": "dr. Muhammad Nur Shodiq",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter"
+    },
+    {
+      "date": "12/03/2025",
+      "persentase": "11.26% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
+      "status": "Verified",
+      "tglVerif": "16/03/2025",
+      "verifiedBy": "dr. Muhammad Nur Shodiq",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter"
+    },
+    {
+      "date": "15/03/2025",
+      "persentase": "50% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
+      "status": "Unverified",
+      "tglVerif": "20/03/2025",
+      "verifiedBy": "dr. Muhammad Nur Shodiq",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "dataDetect": [
+    {
+      "date": "08/01/2025",
+      "persentase": "99% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
+      "pengajuan": "Sudah",
+      "status": "Unverified"
+    },
+    {
+      "date": "12/03/2025",
+      "persentase": "11.26% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
+      "pengajuan": "Sudah",
+      "status": "Verified"
+    },
+    {
+      "date": "15/03/2025",
+      "persentase": "50% Melanoma (Netral)",
+      "gambar": "testImage",
+      "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
+      "pengajuan": "Belum",
+      "status": "Unverified"
+    }
+  ]
+}
