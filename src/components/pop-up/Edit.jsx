@@ -1,13 +1,21 @@
 import PropTypes from "prop-types";
 import { FaPenToSquare } from "react-icons/fa6";
 import data from "../../json/dataDeteksi.json";
+import { useState } from "react";
 
 const Edit = ({ onClose }) => {
+  const [editedKeluhan, setEditedKeluhan] = useState(data.dataDetect[0].keluhan);
+  const [editable, setEditable] = useState(false);
+
+  const handleEdit = () => {
+    setEditable(true);
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30 z-50">
       <div className="bg-white w-96 p-6 rounded-xl shadow-lg relative">
         {/* Header */}
-        <div className="flex justify-between items-center gap-2 border-b border-gray-400 pb-4">
+        <div className="flex justify-between items-center gap-2 border-b border-gray-200 pb-4">
           <div className="flex items-center gap-2">
             <span className="bg-orange-400 p-2 rounded-full">
               <FaPenToSquare className="text-white text-lg" />
@@ -18,7 +26,7 @@ const Edit = ({ onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="text-gray-600 hover:text-gray-900 cursor-pointer"
+            className="text-gray-600 hover:text-red-500 cursor-pointer"
           >
             ✖
           </button>
@@ -26,9 +34,12 @@ const Edit = ({ onClose }) => {
 
         {/* Textarea untuk Keluhan */}
         <textarea
+          onChange={(e) => setEditedKeluhan(e.target.value)}
+          value={editedKeluhan}
+          disabled={!editable}
           className="w-full mt-3 p-3 border rounded-lg text-gray-700 h-40 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
-          {data.dataDetect[0].keluhan}
+          {editedKeluhan}
         </textarea>
 
         {/* Tombol Aksi */}
@@ -39,7 +50,7 @@ const Edit = ({ onClose }) => {
           >
             Kembali
           </button>
-          <button className="w-1/2 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-600 cursor-pointer">
+          <button onClick={handleEdit} className="w-1/2 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-600 cursor-pointer">
             <span className="flex justify-center items-center gap-2">
               <FaPenToSquare className="text-white text-lg" />
               Perbarui

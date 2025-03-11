@@ -13,8 +13,8 @@ const Navbar = () => {
           <ListNavbar to="/">Beranda</ListNavbar>
           {/* {role === "pasien" && (
             <span>
-              <ListNavbar to="/rDeteksi">Riwayat Deteksi</ListNavbar>
-              <ListNavbar to="/rPengajuan">Riwayat Pengajuan</ListNavbar>
+              <ListNavbar to="/deteksi-pasien">Riwayat Deteksi</ListNavbar>
+              <ListNavbar to="/pengajuan-pasien">Riwayat Pengajuan</ListNavbar>
             </span>
           )} */}
           <ListNavbar to="/faq">FAQ</ListNavbar>

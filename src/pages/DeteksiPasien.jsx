@@ -4,18 +4,25 @@ import deleteBtn from "../assets/icon/delete-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
 import data from "../json/dataDeteksi";
 import Edit from "../components/pop-up/edit";
+import Delete from "../components/pop-up/Delete";
 import { useState } from "react";
 
 const DeteksiPasien = () => {
  const [showEdit, setShowEdit] = useState(false);
+ const [showDelete, setShowDelete] = useState(false);
 
  const handleEdit = () => {
   setShowEdit(true);
  };
 
+ const handleDelete = () => {
+  setShowDelete(true);
+ };
+
   return (
     <>
       {showEdit && <Edit onClose={() => setShowEdit(false)} />}
+        {showDelete && <Delete onClose={() => setShowDelete(false)} />}
       <div className="pt-32 w-full px-10">
         <h1 className="text-3xl font-bold text-black">Riwayat Deteksi</h1>
         {data.dataDetect.map((item, index) => {
@@ -87,7 +94,7 @@ const DeteksiPasien = () => {
                       <img src={infoBtn} alt="Info" />
                     </button>
                     <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                      <img src={deleteBtn} alt="Hapus" />
+                      <img src={deleteBtn} alt="Hapus" onClick={handleDelete}/>
                     </button>
                     <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
                       <img src={editBtn} alt="Edit" onClick={handleEdit} />
