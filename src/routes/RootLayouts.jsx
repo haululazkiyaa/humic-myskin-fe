@@ -4,6 +4,7 @@ import Homepage from "../pages/Homepage";
 import FAQ from "../pages/FAQ";
 import DeteksiPasien from "../pages/DeteksiPasien";
 import PengajuanPasien from "../pages/PengajuanPasien";
+import InfoDetect from "../layouts/InfoDetect";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/pengajuan-pasien",
         element: <PengajuanPasien />,
+      },
+      {
+        path: "/info-detect",
+        element: <InfoDetect />,
       },
     ],
   },
