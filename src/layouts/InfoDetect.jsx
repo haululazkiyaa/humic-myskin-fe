@@ -8,7 +8,7 @@ const InfoDetect = () => {
   return (
     <div className="py-32 w-full px-32">
       <div className="w-full rounded-lg shadow-xl bg-white p-10">
-        <button className="flex justify-between gap-x-2 items-center px-4 py-2 text-white font-bold rounded-xl bg-sky-800">
+        <button onClick={() => window.location.href = "/deteksi-pasien"} className="flex justify-between gap-x-2 items-center px-4 py-2 text-white font-bold rounded-xl bg-sky-800 cursor-pointer">
           <FaArrowLeft className="text-lg text-white" />
           kembali
         </button>
