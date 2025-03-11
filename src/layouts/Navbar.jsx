@@ -1,8 +1,9 @@
-// import { useState } from "react";
-import ListNavbar from "../components/ListNavbar"
+import ListNavbar from "../components/ListNavbar";
+import LoginForm from "../components/form/LoginForm";
+import useModal from "../hooks/useModal";
 
 const Navbar = () => {
-  // const [role, setRole] = useState(null);
+  const { Modal, onOpen, onClose } = useModal();
 
   return (
     <div className="w-full flex justify-center pt-5 absolute">
@@ -18,12 +19,18 @@ const Navbar = () => {
           )} */}
           <ListNavbar to="/faq">FAQ</ListNavbar>
         </div>
-        <button className="font-extralight text-md cursor-pointer">
+        <button
+          onClick={onOpen}
+          className="font-extralight text-md cursor-pointer"
+        >
           Masuk
         </button>
       </div>
+      <Modal>
+        <LoginForm onClose={onClose} />
+      </Modal>
     </div>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
