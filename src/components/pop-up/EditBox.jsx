@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import data from "../../json/dataDeteksi.json";
 import { useState } from "react";
 
-const Edit = ({ onClose }) => {
+const EditBox = ({ onClose }) => {
   const [editedKeluhan, setEditedKeluhan] = useState(
     data.dataDetect[0].keluhan
   );
@@ -67,8 +67,8 @@ const Edit = ({ onClose }) => {
   );
 };
 
-Edit.propTypes = {
+EditBox.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default Edit;
+export default EditBox;
