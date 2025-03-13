@@ -1,9 +1,9 @@
-import { FaPenToSquare } from "react-icons/fa6";
+import { FaPenToSquare } from "react-icons/fa";
 import PropTypes from "prop-types";
 import data from "../../json/dataDeteksi.json";
 import { useState } from "react";
 
-const PopUpEdit = ({ onClose }) => {
+const Edit = ({ onClose }) => {
   const [editedKeluhan, setEditedKeluhan] = useState(
     data.dataDetect[0].keluhan
   );
@@ -67,8 +67,8 @@ const PopUpEdit = ({ onClose }) => {
   );
 };
 
-PopUpEdit.propTypes = {
+Edit.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default PopUpEdit;
+export default Edit;
