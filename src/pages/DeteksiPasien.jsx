@@ -1,10 +1,10 @@
-import testImage from "../assets/img/test-myskin.jpg";
-import editBtn from "../assets/icon/edit-button.png";
-import deleteBtn from "../assets/icon/delete-button.png";
-import infoBtn from "../assets/icon/info-btn.png";
-import data from "../json/dataDeteksi";
-import Edit from "../components/pop-up/edit";
 import Delete from "../components/pop-up/Delete";
+import PopUpEdit from "../components/pop-up/edit";
+import data from "../json/dataDeteksi";
+import deleteBtn from "../assets/icon/delete-button.png";
+import editBtn from "../assets/icon/edit-button.png";
+import infoBtn from "../assets/icon/info-btn.png";
+import testImage from "../assets/img/test-myskin.jpg";
 import { useState } from "react";
 
 const DeteksiPasien = () => {
@@ -21,7 +21,7 @@ const DeteksiPasien = () => {
 
   return (
     <>
-      {showEdit && <Edit onClose={() => setShowEdit(false)} />}
+      {showEdit && <PopUpEdit onClose={() => setShowEdit(false)} />}
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
       <div className="pt-32 w-full px-10">
         <h1 className="text-3xl font-bold text-black">Riwayat Deteksi</h1>
@@ -90,7 +90,10 @@ const DeteksiPasien = () => {
                     {item.status}
                   </td>
                   <td className="py-6 px-6 flex justify-center gap-x-3">
-                    <button onClick={() => window.location.href = "/info-detect"} className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                    <button
+                      onClick={() => (window.location.href = "/info-detect")}
+                      className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                    >
                       <img src={infoBtn} alt="Info" />
                     </button>
                     <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">

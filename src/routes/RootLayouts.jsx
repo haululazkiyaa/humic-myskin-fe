@@ -1,10 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Homepage from "../pages/Homepage";
-import FAQ from "../pages/FAQ";
+import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
-import PengajuanPasien from "../pages/PengajuanPasien";
+import FAQ from "../pages/FAQ";
+import Homepage from "../pages/Homepage";
 import InfoDetect from "../layouts/InfoDetect";
+import PengajuanPasien from "../pages/PengajuanPasien";
+import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
         path: "/faq",
         element: <FAQ />,
       },
+      // pasien
       {
         path: "/deteksi-pasien",
         element: <DeteksiPasien />,
@@ -30,6 +32,17 @@ export const router = createBrowserRouter([
       {
         path: "/info-detect",
         element: <InfoDetect />,
+      },
+      // dokter
+      {
+        path: "/dokter",
+        element: <App isDokter={true} />,
+        children: [
+          {
+            path: "dashboard",
+            element: <DashboardDokter />,
+          },
+        ],
       },
     ],
   },

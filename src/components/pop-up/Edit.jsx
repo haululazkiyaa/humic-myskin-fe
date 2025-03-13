@@ -1,10 +1,12 @@
-import PropTypes from "prop-types";
 import { FaPenToSquare } from "react-icons/fa6";
+import PropTypes from "prop-types";
 import data from "../../json/dataDeteksi.json";
 import { useState } from "react";
 
-const Edit = ({ onClose }) => {
-  const [editedKeluhan, setEditedKeluhan] = useState(data.dataDetect[0].keluhan);
+const PopUpEdit = ({ onClose }) => {
+  const [editedKeluhan, setEditedKeluhan] = useState(
+    data.dataDetect[0].keluhan
+  );
   const [editable, setEditable] = useState(false);
 
   const handleEdit = () => {
@@ -50,7 +52,10 @@ const Edit = ({ onClose }) => {
           >
             Kembali
           </button>
-          <button onClick={handleEdit} className="w-1/2 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-600 cursor-pointer">
+          <button
+            onClick={handleEdit}
+            className="w-1/2 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-600 cursor-pointer"
+          >
             <span className="flex justify-center items-center gap-2">
               <FaPenToSquare className="text-white text-lg" />
               Perbarui
@@ -62,8 +67,8 @@ const Edit = ({ onClose }) => {
   );
 };
 
-Edit.propTypes = {
+PopUpEdit.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default Edit;
+export default PopUpEdit;
