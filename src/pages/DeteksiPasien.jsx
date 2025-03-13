@@ -1,5 +1,5 @@
 import Delete from "../components/pop-up/Delete";
-import PopUpEdit from "../components/pop-up/edit";
+// import PopUpEdit from "../components/pop-up/edit";
 import data from "../json/dataDeteksi";
 import deleteBtn from "../assets/icon/delete-button.png";
 import editBtn from "../assets/icon/edit-button.png";
@@ -21,7 +21,7 @@ const DeteksiPasien = () => {
 
   return (
     <>
-      {showEdit && <PopUpEdit onClose={() => setShowEdit(false)} />}
+      {/* {showEdit && <PopUpEdit onClose={() => setShowEdit(false)} />} */}
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
       <div className="pt-32 w-full px-10">
         <h1 className="text-3xl font-bold text-black">Riwayat Deteksi</h1>
