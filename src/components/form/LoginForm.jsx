@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 // import { X } from "lucide-react";
+import banner from "../../assets/img/doctor.jpeg";
 
 const LoginForm = ({ onClose }) => {
   return (
@@ -7,7 +8,7 @@ const LoginForm = ({ onClose }) => {
       {/* Left Image Section */}
       <div className="w-1/2">
         <img
-          src="/src/assets/img/doctor.jpeg"
+          src={banner}
           alt="Doctor"
           className="w-full h-full object-cover rounded-lg"
         />
