@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ImageCropper from "../components/cropper/ImageCropper";
-import melanoma from "../assets/icon/Ellipse 3.png";
-import keakuratan from "../assets/icon/Ellipse 1.png";
-import status from "../assets/icon/Ellipse 5.png";
+import ImageCropper from "../../components/cropper/ImageCropper";
+import melanoma from "../../assets/icon/Ellipse 3.png";
+import keakuratan from "../../assets/icon/Ellipse 1.png";
+import status from "../../assets/icon/Ellipse 5.png";
 
 const ImageUploader = () => {
   const [image, setImage] = useState(null);

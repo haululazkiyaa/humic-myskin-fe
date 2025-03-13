@@ -3,7 +3,7 @@ import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
 import FAQ from "../pages/FAQ";
 import Homepage from "../pages/Homepage";
-import InfoDetect from "../layouts/InfoDetect";
+import InfoDetect from "../layouts/AppLayouts/InfoDetect";
 import PengajuanPasien from "../pages/PengajuanPasien";
 import { createBrowserRouter } from "react-router-dom";
 

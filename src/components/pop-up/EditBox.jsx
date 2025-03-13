@@ -1,4 +1,4 @@
-import { FaPenToSquare } from "react-icons/fa";
+import { FaPenToSquare } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import data from "../../json/dataDeteksi.json";
 import { useState } from "react";
