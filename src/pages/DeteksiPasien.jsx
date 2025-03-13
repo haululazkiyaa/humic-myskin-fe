@@ -1,5 +1,5 @@
 import Delete from "../components/pop-up/Delete";
-import PopUpEdit from "../components/pop-up/edit";
+// import PopUpEdit from "../components/pop-up/edit";
 import data from "../json/dataDeteksi";
 import deleteBtn from "../assets/icon/delete-button.png";
 import editBtn from "../assets/icon/edit-button.png";
