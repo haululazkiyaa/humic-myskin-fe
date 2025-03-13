@@ -1,8 +1,8 @@
 import { FaFileAlt, FaHome } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import LoginForm from "../components/form/LoginForm";
-import useModal from "../hooks/useModal";
+import LoginForm from "../../components/form/LoginForm";
+import useModal from "../../hooks/useModal";
 import { useState } from "react";
 
 const Navbar = () => {

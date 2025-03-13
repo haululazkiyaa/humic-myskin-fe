@@ -1,6 +1,6 @@
-import ListNavbar from "../components/ListNavbar";
-import LoginForm from "../components/form/LoginForm";
-import useModal from "../hooks/useModal";
+import ListNavbar from "../../components/ListNavbar";
+import LoginForm from "../../components/form/LoginForm";
+import useModal from "../../hooks/useModal";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose } = useModal();

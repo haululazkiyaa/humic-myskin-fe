@@ -6,8 +6,8 @@ import {
   FaFacebookF,
   FaInstagram,
 } from "react-icons/fa";
-import ornamen from "../assets/img/footer2.png";
-import ornamen2 from "../assets/img/footer.png";
+import ornamen from "../../assets/img/footer2.png";
+import ornamen2 from "../../assets/img/footer.png";
 
 const Footer = () => {
   return (

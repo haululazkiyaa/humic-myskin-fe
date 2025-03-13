@@ -1,9 +1,9 @@
 import { useState } from "react";
-import image1 from "../assets/img/accordion1.jpg";
-import image2 from "../assets/img/accordion2.jpg";
-import image3 from "../assets/img/accordion3.jpg";
-import arrowUp from "../assets/icon/arrowUp.png";
-import arrowDown from "../assets/icon/arrowDown.png";
+import image1 from "../../assets/img/accordion1.jpg";
+import image2 from "../../assets/img/accordion2.jpg";
+import image3 from "../../assets/img/accordion3.jpg";
+import arrowUp from "../../assets/icon/arrowUp.png";
+import arrowDown from "../../assets/icon/arrowDown.png";
 
 const Accordion = () => {
   const [activeIndex, setActiveIndex] = useState(0);
