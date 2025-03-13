@@ -21,7 +21,7 @@ const DeteksiPasien = () => {
 
   return (
     <>
-      {showEdit && <PopUpEdit onClose={() => setShowEdit(false)} />}
+      {/* {showEdit && <PopUpEdit onClose={() => setShowEdit(false)} />} */}
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
       <div className="pt-32 w-full px-10">
         <h1 className="text-3xl font-bold text-black">Riwayat Deteksi</h1>
