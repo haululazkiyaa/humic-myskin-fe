@@ -28,7 +28,7 @@ const Navbar = () => {
           <ListNavbar to="/">Beranda</ListNavbar>
           {user && user.role === "pasien" && (
             <>
-              <ListNavbar to="deteksi">Daftar Pengajuan</ListNavbar>
+              <ListNavbar to="deteksi">Riwayat Deteksi</ListNavbar>
               <ListNavbar to="pengajuan">Riwayat Verifikasi</ListNavbar>
             </>
           )}
