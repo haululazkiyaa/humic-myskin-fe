@@ -1,9 +1,24 @@
 import ListNavbar from "../../components/ListNavbar";
 import LoginForm from "../../components/form/LoginForm";
 import useModal from "../../hooks/useModal";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose } = useModal();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    window.location.href = "/";
+  };
 
   return (
     <div className="w-full flex justify-center pt-5 absolute">
@@ -11,20 +26,26 @@ const Navbar = () => {
         <h1 className="font-semibold text-md text-blue-950">MySkin</h1>
         <div className="flex gap-x-4">
           <ListNavbar to="/">Beranda</ListNavbar>
-          {/* {role === "pasien" && (
-            <span>
-              <ListNavbar to="/deteksi-pasien">Riwayat Deteksi</ListNavbar>
-              <ListNavbar to="/pengajuan-pasien">Riwayat Pengajuan</ListNavbar>
-            </span>
-          )} */}
+          {user && user.role === "pasien" && (
+            <>
+              <ListNavbar to="deteksi">Daftar Pengajuan</ListNavbar>
+              <ListNavbar to="pengajuan">Riwayat Verifikasi</ListNavbar>
+            </>
+          )}
           <ListNavbar to="/faq">FAQ</ListNavbar>
         </div>
-        <button
-          onClick={onOpen}
-          className="font-extralight text-md cursor-pointer"
-        >
-          Masuk
-        </button>
+        {!user ? (
+          <button
+            onClick={onOpen}
+            className="font-extralight text-md cursor-pointer"
+          >
+            Masuk
+          </button>
+        ) : (
+          <button onClick={handleLogout} className="font-extralight text-md cursor-pointer text-red-500">
+            Logout
+          </button>
+        )}
       </div>
       <Modal>
         <LoginForm onClose={onClose} />
