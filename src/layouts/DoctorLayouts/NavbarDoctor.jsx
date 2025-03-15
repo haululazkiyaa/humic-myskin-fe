@@ -6,8 +6,13 @@ import useModal from "../../hooks/useModal";
 import { useState } from "react";
 
 const Navbar = () => {
-  const { Modal, onOpen, onClose } = useModal();
+  const { Modal, onClose } = useModal();
   const [active, setActive] = useState("dashboard");
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  };
 
   return (
     <div className="w-full flex justify-center">
@@ -15,7 +20,7 @@ const Navbar = () => {
         <h1 className="font-semibold text-md text-blue-950">MySkin</h1>
         <div className="flex gap-x-6 items-center">
           <Link
-            to="/dashboard"
+            to="/dokter"
             className={`flex items-center gap-2 px-3 py-2 rounded-xl ${
               active === "dashboard" ? "bg-blue-900 text-white" : "text-black"
             }`}
@@ -43,7 +48,7 @@ const Navbar = () => {
           </Link>
         </div>
         <button
-          onClick={onOpen}
+          onClick={handleLogout}
           className="font-extralight text-md text-red-600 cursor-pointer"
         >
           Keluar
