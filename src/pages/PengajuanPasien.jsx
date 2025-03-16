@@ -79,7 +79,7 @@ const PengajuanPasien = () => {
                     {item.catatanDokter}
                   </td>
                   <td className="py-6 px-6 flex justify-center gap-x-3">
-                    <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                    <button onClick={() => window.location.href = "/info-pengajuan"} className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
                       <img src={infoBtn} alt="Info" />
                     </button>
                     <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">

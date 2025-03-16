@@ -6,6 +6,7 @@ import FAQ from "../pages/FAQ";
 import Homepage from "../pages/Homepage";
 import InfoDetect from "../layouts/AppLayouts/InfoDetect";
 import PengajuanPasien from "../pages/PengajuanPasien";
+import InfoPengajuan from "../layouts/AppLayouts/infoPengajuan";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
         path: "/info-detect",
         element: <InfoDetect />,
       },
+      {
+        path: "/info-pengajuan",
+        element: <InfoPengajuan/>
+      }
     ],
   },
   {
