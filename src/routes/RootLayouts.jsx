@@ -5,6 +5,7 @@ import DeteksiPasien from "../pages/DeteksiPasien";
 import FAQ from "../pages/FAQ";
 import Homepage from "../pages/Homepage";
 import InfoDetect from "../layouts/AppLayouts/InfoDetect";
+import InfoPengajuan from "../layouts/AppLayouts/infoPengajuan";
 import PengajuanPasien from "../pages/PengajuanPasien";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
           {
             path: "info-detect",
             element: <InfoDetect />,
+          },
+          {
+            path: "/info-pengajuan",
+            element: <InfoPengajuan />,
           },
         ],
       },
