@@ -1,7 +1,7 @@
 import { FaFileAlt, FaHome } from "react-icons/fa";
 
+import AuthForm from "../../components/form/AuthForm";
 import { Link } from "react-router-dom";
-import LoginForm from "../../components/form/LoginForm";
 import useModal from "../../hooks/useModal";
 import { useState } from "react";
 
@@ -55,7 +55,7 @@ const Navbar = () => {
         </button>
       </div>
       <Modal>
-        <LoginForm onClose={onClose} />
+        <AuthForm onClose={onClose} />
       </Modal>
     </div>
   );

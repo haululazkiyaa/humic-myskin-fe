@@ -1,7 +1,8 @@
-import ListNavbar from "../../components/ListNavbar";
-import LoginForm from "../../components/form/LoginForm";
-import useModal from "../../hooks/useModal";
 import { useEffect, useState } from "react";
+
+import AuthForm from "../../components/form/AuthForm";
+import ListNavbar from "../../components/ListNavbar";
+import useModal from "../../hooks/useModal";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose } = useModal();
@@ -36,9 +37,7 @@ const Navbar = () => {
         </div>
         {!user ? (
           <div className="flex gap-x-4">
-            <button
-              className=" font-extralight text-sky-900 text-md cursor-pointer"
-            >
+            <button className=" font-extralight text-sky-900 text-md cursor-pointer">
               Daftar
             </button>
             <button
@@ -58,7 +57,7 @@ const Navbar = () => {
         )}
       </div>
       <Modal>
-        <LoginForm onClose={onClose} />
+        <AuthForm onClose={onClose} />
       </Modal>
     </div>
   );
