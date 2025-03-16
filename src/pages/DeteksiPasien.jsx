@@ -29,11 +29,9 @@ const DeteksiPasien = () => {
           // Ambil persentase sebagai angka
           const percentValue = parseFloat(item.persentase);
           let textColor = "text-green-600";
-          if (percentValue > 50) {
+          if (percentValue >= 50) {
             textColor = "text-red-600";
-          } else if (percentValue == 50) {
-            textColor = "text-yellow-600";
-          }
+          } 
 
           return (
             <table
