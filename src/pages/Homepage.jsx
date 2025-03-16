@@ -20,7 +20,7 @@ const Homepage = () => {
             Selamat Datang, <br />
             <span className="font-bold">Muhammad</span>
           </h1>
-          <button className="mt-6 flex items-center gap-2 bg-white text-blue-900 font-semibold px-6 py-3 rounded-full shadow-lg cursor-pointer hover:bg-blue-100">
+          <button onClick={() => window.location.href = "#deteksi"} className="mt-6 flex items-center gap-2 bg-white text-blue-900 font-semibold px-6 py-3 rounded-full shadow-lg cursor-pointer hover:bg-blue-100">
             <span className="material-icons">
               <img src={scan} alt="" />
             </span>
@@ -33,7 +33,9 @@ const Homepage = () => {
       <Accordion />
 
       {/* Image Uploader */}
-      <ImageUploader />
+      <div id="deteksi">
+        <ImageUploader />
+      </div>
     </div>
   );
 };

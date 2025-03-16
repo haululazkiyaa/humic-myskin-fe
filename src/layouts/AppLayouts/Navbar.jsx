@@ -35,14 +35,24 @@ const Navbar = () => {
           <ListNavbar to="/faq">FAQ</ListNavbar>
         </div>
         {!user ? (
-          <button
-            onClick={onOpen}
-            className="font-extralight text-md cursor-pointer"
-          >
-            Masuk
-          </button>
+          <div className="flex gap-x-4">
+            <button
+              className=" font-extralight text-sky-900 text-md cursor-pointer"
+            >
+              Daftar
+            </button>
+            <button
+              onClick={onOpen}
+              className="bg-sky-800 px-4 py-2 rounded-lg font-extralight text-white text-md cursor-pointer"
+            >
+              Masuk
+            </button>
+          </div>
         ) : (
-          <button onClick={handleLogout} className="font-extralight text-md cursor-pointer text-red-500">
+          <button
+            onClick={handleLogout}
+            className="font-extralight text-md cursor-pointer text-red-500"
+          >
             Keluar
           </button>
         )}

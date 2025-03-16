@@ -52,7 +52,7 @@ const LoginForm = ({ onClose }) => {
       <div className="w-1/2 p-8 relative">
         <button
           onClick={onClose}
-          className="absolute top-0 right-0 bg-[#12476B] text-white px-3 py-1 rounded-full"
+          className="absolute top-0 right-0 bg-[#12476B] text-white px-3 py-1 rounded-full cursor-pointer"
         >
           x
         </button>
@@ -98,7 +98,7 @@ const LoginForm = ({ onClose }) => {
 
           <button
             type="submit"
-            className="w-full bg-[#12476B] text-white py-3 rounded-full"
+            className="w-full bg-[#12476B] text-white py-3 rounded-full cursor-pointer"
           >
             Masuk
           </button>
