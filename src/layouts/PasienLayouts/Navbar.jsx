@@ -30,11 +30,11 @@ const Navbar = () => {
         <div onClick={() => setIsOpen(!isOpen)} className="md:hidden flex">
           <FaBarsStaggered />
         </div>
-        <h1 className="flex md:hidden font-bold mx-auto text-md text-blue-950">
+        <h1 className="flex md:hidden font-bold mx-auto text-lg text-blue-950">
           MySkin
         </h1>
         {isOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white/60 backdrop-blur-md flex flex-col items-center p-5 gap-y-5 shadow-lg">
+          <div className="absolute top-17 left-0 w-full bg-white/60 backdrop-blur-md flex flex-col items-center p-5 gap-y-5 shadow-lg">
             <ListNavbar to="/">Beranda</ListNavbar>
             {user && user.role === "pasien" && (
               <>
@@ -65,7 +65,7 @@ const Navbar = () => {
             )}
           </div>
         )}
-        <h1 className="hidden md:flex font-semibold text-md text-blue-950">
+        <h1 className="hidden md:flex font-bold text-md text-blue-950">
           MySkin
         </h1>
 
