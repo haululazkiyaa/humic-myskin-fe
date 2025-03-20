@@ -5,15 +5,20 @@ import PropTypes from "prop-types";
 const DashboardDokter = () => {
   return (
     <div className="p-6">
-      <p className="text-gray-500">Minggu, 6 Oktober 2024</p>
+      <h2 className="text-[28px]">Hi, Muhammad</h2>
+      <h3 className="text-[16px] text-[#646464]">Minggu, 6 Oktober 2024</h3>
       <div className="grid grid-cols-3 gap-4 mt-4">
         <Card title="Pasien" count={547} icon={<FaUser />} />
         <Card title="Menunggu Verifikasi" count={547} icon={<FaClock />} />
         <Card title="Terferivikasi" count={547} icon={<FaCheckCircle />} />
       </div>
-      <div className="grid grid-cols-2 gap-4 mt-6">
-        <VerificationTable />
-        <PatientsTable />
+      <div className="grid grid-cols-12 gap-4 mt-6">
+        <div className="col-span-7">
+          <VerificationTable />
+        </div>
+        <div className="col-span-5">
+          <PatientsTable />
+        </div>
       </div>
     </div>
   );
@@ -21,11 +26,13 @@ const DashboardDokter = () => {
 
 const Card = ({ title, count, icon }) => {
   return (
-    <div className="flex items-center gap-4 p-4 border rounded-lg shadow-md">
-      <div className="text-2xl">{icon}</div>
-      <div>
-        <p className="text-gray-500">{title}</p>
-        <p className="text-xl font-bold">{count}</p>
+    <div className="space-y-2 p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
+      <p className="text-[16px] text-gray-500">{title}</p>
+      <div className="flex items-center gap-4 ">
+        <div className="text-2xl border border-[#E3E3E3] rounded-full p-3">
+          {icon}
+        </div>
+        <p className="text-xl font-bold text-[20px]">{count}</p>
       </div>
     </div>
   );
@@ -39,25 +46,30 @@ Card.propTypes = {
 
 const VerificationTable = () => {
   return (
-    <div className="border rounded-lg p-4 shadow-md">
-      <h2 className="font-bold mb-3">Ajuan Verifikasi</h2>
-      <table className="w-full">
+    <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
+      <h2 className="font-bold mb-3 text-[30px]">Ajuan Verifikasi</h2>
+      <hr className="border border-[#E3E3E3]" />
+      <table className="w-full mt-5">
         <thead>
-          <tr className="border-b">
-            <th className="text-left">Tanggal</th>
-            <th className="text-left">Pasien</th>
-            <th className="text-left">Diagnosis AI</th>
-            <th>Verifikasi</th>
+          <tr>
+            <th className="text-[16px] py-4">Tanggal</th>
+            <th className="text-[16px] py-4">Pasien</th>
+            <th className="text-[16px] py-4">Diagnosis AI</th>
+            <th className="text-[16px] py-4">Verifikasi</th>
           </tr>
         </thead>
         <tbody>
           {[...Array(3)].map((_, index) => (
-            <tr key={index} className="border-b">
-              <td>06/04/2024</td>
-              <td>Muhammad Nur Shodiq</td>
-              <td className="text-red-500">97.02% Melanoma</td>
-              <td>
-                <button className="bg-blue-900 text-white px-4 py-1 rounded flex items-center gap-2">
+            <tr key={index}>
+              <td className="text-[16px] py-2 text-center">06/04/2024</td>
+              <td className="text-[16px] py-2 text-center">
+                Muhammad Nur Shodiq
+              </td>
+              <td className="text-[16px] py-2 text-center text-[#C11616]">
+                97.02% Melanoma
+              </td>
+              <td className="text-[16px] py-2 text-center">
+                <button className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2">
                   <FaFileAlt /> Verifikasi
                 </button>
               </td>
@@ -71,14 +83,15 @@ const VerificationTable = () => {
 
 const PatientsTable = () => {
   return (
-    <div className="border rounded-lg p-4 shadow-md">
-      <h2 className="font-bold mb-3">Pasien</h2>
-      <table className="w-full">
+    <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
+      <h2 className="font-bold mb-3 text-[30px]">Pasien</h2>
+      <hr className="border border-[#E3E3E3]" />
+      <table className="w-full mt-5">
         <thead>
-          <tr className="border-b">
-            <th className="text-left">Nama</th>
-            <th className="text-left">Nomor Telepon</th>
-            <th className="text-left">Jumlah Ajuan</th>
+          <tr>
+            <th className="text-[16px] py-4">Nama</th>
+            <th className="text-[16px] py-4">Nomor Telepon</th>
+            <th className="text-[16px] py-4">Jumlah Ajuan</th>
           </tr>
         </thead>
         <tbody>
@@ -87,10 +100,15 @@ const PatientsTable = () => {
             { name: "Naufal Zaki", phone: "081208120812", count: 2 },
             { name: "Muhammad Rakha", phone: "081081081081", count: 1 },
           ].map((patient, index) => (
-            <tr key={index} className="border-b">
-              <td>{patient.name}</td>
-              <td>{patient.phone}</td>
-              <td>{patient.count}</td>
+            <tr
+              key={index}
+              className={`text-[16px] py-2 text-center ${
+                index % 2 === 0 ? "bg-[#F6F4F4]" : ""
+              }`}
+            >
+              <td className="py-2">{patient.name}</td>
+              <td className="py-2">{patient.phone}</td>
+              <td className="py-2">{patient.count}</td>
             </tr>
           ))}
         </tbody>
