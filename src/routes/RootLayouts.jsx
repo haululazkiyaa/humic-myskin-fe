@@ -4,8 +4,8 @@ import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
 import FAQ from "../pages/FAQ";
 import Homepage from "../pages/Homepage";
-import InfoDetect from "../layouts/AppLayouts/InfoDetect";
-import InfoPengajuan from "../layouts/AppLayouts/infoPengajuan";
+import InfoDetect from "../layouts/PasienLayouts/Detail-Info/InfoDetect";
+import InfoPengajuan from "../layouts/PasienLayouts/Detail-Info/infoPengajuan";
 import PengajuanPasien from "../pages/PengajuanPasien";
 import { createBrowserRouter } from "react-router-dom";
 

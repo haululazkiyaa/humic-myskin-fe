@@ -1,9 +1,9 @@
 import { FaArrowLeft } from "react-icons/fa";
-import testSkin from "../../assets/img/test-myskin.jpg";
-import melanoma from "../../assets/icon/Ellipse 3.png";
-import keakuratan from "../../assets/icon/Ellipse 1.png";
-import status from "../../assets/icon/Ellipse 5.png";
-import time from "../../assets/icon/Ellipse 4.png";
+import testSkin from "../../../assets/img/test-myskin.jpg";
+import melanoma from "../../../assets/icon/Ellipse 3.png";
+import keakuratan from "../../../assets/icon/Ellipse 1.png";
+import status from "../../../assets/icon/Ellipse 5.png";
+import time from "../../../assets/icon/Ellipse 4.png";
 const InfoDetect = () => {
   return (
     <div className="py-32 w-full px-32">

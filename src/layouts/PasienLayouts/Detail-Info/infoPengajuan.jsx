@@ -1,6 +1,6 @@
 import { FaArrowLeft } from "react-icons/fa";
-import testSkin from "../../assets/img/test-myskin.jpg";
-import ResultDetect from "../../components/ResultDetect";
+import testSkin from "../../../assets/img/test-myskin.jpg";
+import ResultDetect from "../../../components/ResultDetect";
 const InfoPengajuan = () => {
   return (
     <div className="py-32 w-full px-32">
@@ -53,8 +53,15 @@ const InfoPengajuan = () => {
           </div>
           <ResultDetect />
           <div className="w-full text-left">
-            <h1 className="text-2xl font-semibold text-center my-4">Catatan Dokter</h1>
-            <textarea className="shadow-md rounded-lg w-full p-4" name="catatan" id="catatan" value={"Jangan lupa minum obat"}></textarea>
+            <h1 className="text-2xl font-semibold text-center my-4">
+              Catatan Dokter
+            </h1>
+            <textarea
+              className="shadow-md rounded-lg w-full p-4"
+              name="catatan"
+              id="catatan"
+              value={"Jangan lupa minum obat"}
+            ></textarea>
           </div>
         </div>
       </div>

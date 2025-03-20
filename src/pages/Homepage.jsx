@@ -1,8 +1,8 @@
 import bgHomepage from "../assets/img/foto-dokter.jpg";
 import scan from "../assets/icon/Scan.png";
-import Accordion from "../layouts/AppLayouts/Accordion";
+import Accordion from "../layouts/PasienLayouts/Accordion";
 
-import ImageUploader from "../layouts/AppLayouts/ImageUploader";
+import ImageUploader from "../layouts/PasienLayouts/ImageUploader";
 const Homepage = () => {
   return (
     <div className="w-full min-h-screen">
@@ -20,7 +20,10 @@ const Homepage = () => {
             Selamat Datang, <br />
             <span className="font-bold">Muhammad</span>
           </h1>
-          <button onClick={() => window.location.href = "#deteksi"} className="mt-6 flex items-center gap-2 bg-white text-blue-900 font-semibold px-6 py-3 rounded-full shadow-lg cursor-pointer hover:bg-blue-100">
+          <button
+            onClick={() => (window.location.href = "#deteksi")}
+            className="mt-6 flex items-center gap-2 bg-white text-blue-900 font-semibold px-6 py-3 rounded-full shadow-lg cursor-pointer hover:bg-blue-100"
+          >
             <span className="material-icons">
               <img src={scan} alt="" />
             </span>
