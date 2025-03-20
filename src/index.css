@@ -5,6 +5,18 @@
   src: url("./assets/fonts/Urbanist-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Urbanist";
+  font-weight: 600;
+  src: url("./assets/fonts/Urbanist-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Urbanist";
+  font-weight: 700;
+  src: url("./assets/fonts/Urbanist-Bold.ttf") format("truetype");
+}
+
 html {
   scroll-behavior: smooth;
 }
