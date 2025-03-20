@@ -46,7 +46,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex gap-4">
         <input
           type="text"
@@ -54,7 +54,7 @@ const SignUpForm = () => {
           placeholder="Nama depan kamu"
           value={formData.firstName}
           onChange={handleChange}
-          className="w-1/2 p-3 rounded-xl text-black"
+          className="w-1/2 p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
         />
         <input
           type="text"
@@ -62,7 +62,7 @@ const SignUpForm = () => {
           placeholder="Nama belakang kamu"
           value={formData.lastName}
           onChange={handleChange}
-          className="w-1/2 p-3 rounded-xl text-black"
+          className="w-1/2 p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
         />
       </div>
 
@@ -73,7 +73,7 @@ const SignUpForm = () => {
           placeholder="Masukkan email kamu"
           value={formData.email}
           onChange={handleChange}
-          className="w-1/2 p-3 rounded-xl text-black"
+          className="w-1/2 p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
         />
         <input
           type="tel"
@@ -81,7 +81,7 @@ const SignUpForm = () => {
           placeholder="Masukkan nomor telepon kamu"
           value={formData.phone}
           onChange={handleChange}
-          className="w-1/2 p-3 rounded-xl text-black"
+          className="w-1/2 p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
         />
       </div>
 
@@ -90,7 +90,7 @@ const SignUpForm = () => {
         name="birthDate"
         value={formData.birthDate}
         onChange={handleChange}
-        className="w-full p-3 rounded-xl text-black"
+        className="w-full p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
       />
 
       <div className="flex gap-4">
@@ -100,7 +100,7 @@ const SignUpForm = () => {
           placeholder="Masukkan kata sandi"
           value={formData.password}
           onChange={handleChange}
-          className="w-1/2 p-3 rounded-xl text-black"
+          className="w-1/2 p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
         />
         <input
           type="password"
@@ -108,11 +108,11 @@ const SignUpForm = () => {
           placeholder="Masukkan kembali kata sandi"
           value={formData.confirmPassword}
           onChange={handleChange}
-          className="w-1/2 p-3 rounded-xl text-black"
+          className="w-1/2 p-3 border rounded-[16px] mt-1 border-[#B8B8B8] text-black"
         />
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center mb-4 text-[#646464]">
         <input
           type="checkbox"
           name="agree"
@@ -123,15 +123,18 @@ const SignUpForm = () => {
         <label>Saya setuju dengan persyaratan penggunaan</label>
       </div>
 
-      <button type="submit" className="w-full bg-blue-700 p-3 rounded-full">
+      <button
+        type="submit"
+        className="w-full bg-[#12476B] text-white font-bold py-3 rounded-full cursor-pointer"
+      >
         Daftar
       </button>
 
       <p className="text-center text-gray-400">Atau</p>
 
       <button
-        type="button"
-        className="w-full bg-white text-black p-3 rounded-full"
+        type="submit"
+        className="w-full border border-[#12476B] text-[#12476B] font-bold py-3 rounded-full cursor-pointer"
       >
         Daftar sebagai Dokter
       </button>

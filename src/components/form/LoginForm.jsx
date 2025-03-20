@@ -74,7 +74,7 @@ const LoginForm = () => {
 
       <button
         type="submit"
-        className="w-full bg-[#12476B] text-white py-3 rounded-full cursor-pointer"
+        className="w-full bg-[#12476B] text-white font-bold py-3 rounded-full cursor-pointer"
       >
         Masuk
       </button>
