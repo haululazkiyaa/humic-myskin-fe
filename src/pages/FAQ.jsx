@@ -45,9 +45,9 @@ const FAQ = () => {
       <p className="font-normal text-black text-center mt-2">
         Terkait Melanoma
       </p>
-      <div className="w-full flex flex-wrap justify-center gap-4 my-8">
+      <div className="w-full flex flex-wrap justify-center gap-4 px-2 my-8">
         {itemMelanoma.map((item, index) => (
-          <div key={index} className="rounded-lg shadow-lg w-1/3 bg-white p-5">
+          <div key={index} className="rounded-lg shadow-lg w-full md:w-1/3 bg-white p-5">
             <div className="flex items-center gap-x-2">
               <span className="border border-gray-200 p-1 rounded-lg">
                 <img src={chat} alt="" />
@@ -65,9 +65,9 @@ const FAQ = () => {
       <p className="font-normal text-black text-center mt-2">
         Terkait Melanoma
       </p>
-      <div className="w-full flex flex-wrap justify-center gap-4 my-8">
+      <div className="w-full flex flex-wrap justify-center px-2 gap-4 my-8">
         {itemMySkin.map((item, index) => (
-          <div key={index} className="rounded-lg shadow-lg w-1/3 bg-white p-5">
+          <div key={index} className="rounded-lg shadow-lg w-full md:w-1/3 bg-white p-5">
             <div className="flex items-center gap-x-2">
               <span className="border border-gray-200 p-1 rounded-lg">
                 <img src={chat} alt="" />
