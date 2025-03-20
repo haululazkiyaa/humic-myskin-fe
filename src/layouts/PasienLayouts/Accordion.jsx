@@ -30,7 +30,7 @@ const Accordion = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row items-center md:space-x-8 py-10 px-20 transition-all duration-300 ease-out">
+    <div className="flex flex-col md:flex-row items-center md:space-x-8 py-10 px-6 md:px-20 transition-all duration-300 ease-out">
       <div className="w-full md:w-1/2">
         <img
           src={items[activeIndex].image}
@@ -38,7 +38,7 @@ const Accordion = () => {
           className="rounded-lg w-full h-96"
         />
       </div>
-      <div className="w-full md:w-1/2 min-h-96">
+      <div className="w-full md:w-1/2 min-h-96 mt-6">
         {items.map((item, index) => (
           <div
             key={index}
@@ -56,7 +56,7 @@ const Accordion = () => {
             <div
               className={`px-6 transition-all duration-300 ease-in-out ${
                 activeIndex === index
-                  ? "max-h-40 opacity-100 py-4"
+                  ? "md:max-h-40 opacity-100 py-4"
                   : "max-h-0 opacity-0 py-0"
               }`}
             >

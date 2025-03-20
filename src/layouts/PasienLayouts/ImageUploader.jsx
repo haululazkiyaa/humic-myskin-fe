@@ -16,8 +16,8 @@ const ImageUploader = () => {
   };
 
   return (
-    <div className="flex justify-center py-10 px-20 w-full">
-      <div className="bg-white p-8 rounded-lg border border-gray-400 w-full">
+    <div className="flex justify-center py-10 px-6 md:px-20 w-full">
+      <div className="md:bg-white md:p-8 md:rounded-lg md:border md:border-gray-400 w-full">
         <h1 className="text-2xl font-bold text-center text-black">
           Deteksi Kanker Kulit
         </h1>
@@ -27,7 +27,7 @@ const ImageUploader = () => {
 
         <div className="w-full flex flex-col items-center">
           {!isCropping ? (
-            <div className="w-1/3 h-60 border-2 border-dashed border-gray-400 bg-blue-50 rounded-lg mt-6 flex justify-center items-center relative">
+            <div className="w-full md:w-1/3 h-60 border-2 border-dashed border-gray-400 bg-blue-50 rounded-lg mt-6 flex justify-center items-center relative">
               {croppedImage ? (
                 <img
                   src={croppedImage}
@@ -65,7 +65,7 @@ const ImageUploader = () => {
           {image && !isCropping && (
             <div className="w-full flex justify-center mt-3">
               {croppedImage ? (
-                <label className="w-1/3 font-bold border border-gray-800 rounded-full px-6 py-2 cursor-pointer text-center">
+                <label className="md:w-1/3 font-bold border border-gray-800 rounded-full px-6 py-2 cursor-pointer text-center">
                   <input
                     type="file"
                     className="hidden"
@@ -76,7 +76,7 @@ const ImageUploader = () => {
                 </label>
               ) : (
                 <button
-                  className="w-1/3 font-bold border border-gray-800 rounded-full px-6 py-2 cursor-pointer"
+                  className="md:w-1/3 font-bold border border-gray-800 rounded-full px-6 py-2 cursor-pointer"
                   onClick={() => setIsCropping(true)}
                 >
                   Crop Foto
@@ -85,9 +85,7 @@ const ImageUploader = () => {
             </div>
           )}
 
-          {croppedImage && (
-            <ResultDetect/>
-          )}
+          {croppedImage && <ResultDetect />}
         </div>
 
         {!croppedImage && (
