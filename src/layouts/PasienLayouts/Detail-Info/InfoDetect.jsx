@@ -6,8 +6,8 @@ import status from "../../../assets/icon/Ellipse 5.png";
 import time from "../../../assets/icon/Ellipse 4.png";
 const InfoDetect = () => {
   return (
-    <div className="py-32 w-full px-32">
-      <div className="w-full rounded-lg shadow-xl bg-white p-10">
+    <div className="py-20 lg:py-32 w-full px-4 lg:px-32">
+      <div className="w-full rounded-lg shadow-xl bg-white p-6 lg:p-10">
         <button onClick={() => window.location.href = "/deteksi"} className="flex justify-between gap-x-2 items-center px-4 py-2 text-white font-bold rounded-xl bg-sky-800 cursor-pointer">
           <FaArrowLeft className="text-lg text-white" />
           kembali
@@ -19,30 +19,30 @@ const InfoDetect = () => {
               Hasil deteksi sudah diverifikasi dokter
             </p>
           </div>
-          <img className="rounded-3xl w-1/2" src={testSkin} alt="" />
-          <p className="w-1/2 my-5 text-left font-bold text-md">
+          <img className="rounded-3xl w-full lg:w-1/2" src={testSkin} alt="" />
+          <p className="w-full lg:w-1/2 my-5 text-left font-bold text-md">
             ID Deteksi: 16
           </p>
-          <button className="w-1/2 px-4 py-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer">
+          <button className="w-full lg:w-1/2 px-4 py-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer">
             Unduh Gambar
           </button>
-          <div className="w-full flex justify-center gap-x-5 py-4">
-            <div className="w-64 shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+          <div className="w-full flex flex-wrap md:flex-nowrap justify-center gap-5 py-4">
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
               <img src={melanoma} alt="Melanoma" className="w-16 h-16" />
               <h4 className="text-black font-semibold">Melanoma</h4>
               <p>Tidak</p>
             </div>
-            <div className="w-64 shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
               <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />
               <h4 className="text-black font-semibold">Keakuratan</h4>
               <p className="text-green-500">11.69% Melanoma (Aman)</p>
             </div>
-            <div className="w-64 shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
               <img src={time} alt="Status" className="w-16 h-16" />
               <h4 className="text-black font-semibold">Pengajuan Verifikasi</h4>
               <p className="text-red-500">Pending</p>
             </div>
-            <div className="w-64 shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
               <img src={status} alt="Status" className="w-16 h-16" />
               <h4 className="text-black font-semibold">Status</h4>
               <p className="text-red-500">Unverified</p>

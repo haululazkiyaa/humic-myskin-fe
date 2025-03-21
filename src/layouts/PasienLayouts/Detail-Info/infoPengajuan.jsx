@@ -3,10 +3,10 @@ import testSkin from "../../../assets/img/test-myskin.jpg";
 import ResultDetect from "../../../components/ResultDetect";
 const InfoPengajuan = () => {
   return (
-    <div className="py-32 w-full px-32">
-      <div className="w-full rounded-lg shadow-xl bg-white p-10">
+    <div className="py-20 lg:py-32 w-full px-4 lg:px-32">
+      <div className="w-full rounded-lg shadow-xl bg-white p-4 lg:p-10">
         <button
-          onClick={() => (window.location.href = "/deteksi")}
+          onClick={() => (window.location.href = "/pengajuan")}
           className="flex justify-between gap-x-2 items-center px-4 py-2 text-white font-bold rounded-xl bg-sky-800 cursor-pointer"
         >
           <FaArrowLeft className="text-lg text-white" />
@@ -16,12 +16,12 @@ const InfoPengajuan = () => {
           <div className="my-5 leading-10">
             <h1 className="text-2xl font-semibold">Prediksi Penyakit</h1>
           </div>
-          <img className="rounded-3xl w-1/2" src={testSkin} alt="" />
-          <button className="w-1/2 px-4 py-2 my-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer">
+          <img className="rounded-3xl w-full lg:w-1/2" src={testSkin} alt="" />
+          <button className="w-full lg:w-1/2 px-4 py-2 my-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer">
             Unduh Gambar
           </button>
-          <div className="grid grid-cols-3 gap-4 w-full">
-            <div className="col-span-3 p-4 text-left rounded-lg shadow-md">
+          <div className="grid grid-cols-1 lg:grid-cols-3 mt-4 gap-4 w-full">
+            <div className="lg:col-span-3 p-4 text-left rounded-lg shadow-md">
               <h1 className="font-bold text-2xl text-black mb-2">
                 Diverifikasi Oleh
               </h1>
@@ -38,7 +38,7 @@ const InfoPengajuan = () => {
                 <p>Umur: 21</p>
               </span>
             </div>
-            <div className="col-span-2 p-4 text-left rounded-lg shadow-md">
+            <div className="lg:col-span-2 p-4 text-left rounded-lg shadow-md">
               <h1 className="font-bold text-2xl text-black mb-2">Keluhan</h1>
               <p>
                 Saya pertama kali menyadari adanya perubahan pada tahi lalat di

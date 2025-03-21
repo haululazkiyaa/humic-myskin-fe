@@ -4,7 +4,7 @@ import status from "../assets/icon/Ellipse 5.png";
 
 const ResultDetect = () => {
   return (
-    <div className="w-full flex justify-center gap-x-5 py-6">
+    <div className="w-full flex flex-wrap md:flex-nowrap justify-center gap-5 py-6">
       <div className="w-96 h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4">
         <img src={melanoma} alt="Melanoma" className="w-16 h-16" />
         <h4 className="text-black font-semibold">Melanoma</h4>
