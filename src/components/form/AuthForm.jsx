@@ -8,9 +8,9 @@ const AuthForm = ({ onClose, showLogin }) => {
   const [showForm, setShowForm] = useState(showLogin || "login");
 
   return (
-    <div className="bg-white rounded-lg shadow-lg w-[1200px] flex overflow-hidden p-5 max-h-[90%]">
+    <div className="relative bg-white rounded-lg shadow-lg w-[1200px] flex flex-col lg:flex-row overflow-hidden p-5 max-h-[90%] mx-4 lg:mx-0">
       {/* Left Image Section */}
-      <div className="w-1/2">
+      <div className="w-full lg:w-1/2">
         <img
           src={banner}
           alt="Doctor"
@@ -19,10 +19,10 @@ const AuthForm = ({ onClose, showLogin }) => {
       </div>
 
       {/* Right Form Section */}
-      <div className="w-1/2 p-8 relative overflow-auto">
+      <div className="w-full lg:w-1/2 p-8 lg:relative overflow-auto">
         <button
           onClick={onClose}
-          className="absolute top-0 right-0 bg-[#12476B] text-white px-3 py-1 rounded-full cursor-pointer"
+          className="absolute top-2 right-2 lg:top-0 lg:right-0 bg-[#12476B] text-white px-3 py-1 rounded-full cursor-pointer"
         >
           x
         </button>
