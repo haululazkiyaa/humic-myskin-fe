@@ -1,13 +1,19 @@
 import { FaFileAlt, FaHome } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import AuthForm from "../../components/form/AuthForm";
-import { Link } from "react-router-dom";
 import useModal from "../../hooks/useModal";
-import { useState } from "react";
 
 const Navbar = () => {
   const { Modal, onClose } = useModal();
-  const [active, setActive] = useState("dashboard");
+  const location = useLocation();
+  const [url, setUrl] = useState(null);
+
+  useEffect(() => {
+    const currentPath = location.pathname.split("/")[2] || "dashboard";
+    setUrl(currentPath);
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -22,13 +28,13 @@ const Navbar = () => {
       key: "dashboard",
     },
     {
-      to: "/daftar-pengajuan",
+      to: "/dokter/daftar-pengajuan",
       label: "Daftar Pengajuan",
       icon: <FaFileAlt size={20} />,
       key: "daftar-pengajuan",
     },
     {
-      to: "/riwayat-verifikasi",
+      to: "/dokter/riwayat-verifikasi",
       label: "Riwayat Verifikasi",
       icon: <FaFileAlt size={20} />,
       key: "riwayat-verifikasi",
@@ -45,11 +51,10 @@ const Navbar = () => {
               key={item.key}
               to={item.to}
               className={`flex items-center gap-2`}
-              onClick={() => setActive(item.key)}
             >
               <span
-                className={`px-3 py-3 rounded-lg shadow ${
-                  active === item.key
+                className={`px-3 py-3 rounded-lg shadow transition-all duration-300 ${
+                  url === item.key
                     ? "bg-[#12476B] text-white"
                     : "bg-white text-black"
                 }`}
@@ -58,9 +63,7 @@ const Navbar = () => {
               </span>
               <span
                 className={`${
-                  active === item.key
-                    ? "font-bold text-[#12476B]"
-                    : "text-black"
+                  url === item.key ? "font-bold text-[#12476B]" : "text-black"
                 }`}
               >
                 {item.label}

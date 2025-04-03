@@ -1,5 +1,6 @@
 import App from "../App";
 import AppLayout from "../layouts/AppLayout";
+import DaftarPengajuan from "../pages/dokter/DaftarPengajuan";
 import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
 import FAQ from "../pages/FAQ";
@@ -52,8 +53,12 @@ export const router = createBrowserRouter([
         element: <AppLayout type="doctor" />, // Dokter punya layout sendiri
         children: [
           {
-            path: "dashboard",
+            path: "",
             element: <DashboardDokter />,
+          },
+          {
+            path: "daftar-pengajuan",
+            element: <DaftarPengajuan />,
           },
         ],
       },
