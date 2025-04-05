@@ -1,3 +1,5 @@
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 import data from "../../json/dataDaftarPengajuan.json";
 import { useState } from "react";
 
@@ -17,6 +19,96 @@ const DaftarPengajuan = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const renderPaginationButtons = () => {
+    const paginationButtons = [];
+    const maxButtonsToShow = 5;
+
+    if (totalPages <= maxButtonsToShow) {
+      // Show all buttons if total pages are less than or equal to maxButtonsToShow
+      for (let i = 1; i <= totalPages; i++) {
+        paginationButtons.push(
+          <button
+            key={i}
+            onClick={() => handlePageChange(i)}
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              currentPage === i
+                ? "bg-[#12476B] text-white"
+                : "bg-gray-200 text-black"
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+    } else {
+      // Show limited buttons with ellipses
+      paginationButtons.push(
+        <button
+          key={1}
+          onClick={() => handlePageChange(1)}
+          className={`px-4 py-2 rounded-lg cursor-pointer ${
+            currentPage === 1
+              ? "bg-[#12476B] text-white"
+              : "bg-gray-200 text-black"
+          }`}
+        >
+          1
+        </button>
+      );
+
+      if (currentPage > 3) {
+        paginationButtons.push(
+          <span key="start-ellipsis" className="px-2">
+            ...
+          </span>
+        );
+      }
+
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        paginationButtons.push(
+          <button
+            key={i}
+            onClick={() => handlePageChange(i)}
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              currentPage === i
+                ? "bg-[#12476B] text-white"
+                : "bg-gray-200 text-black"
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+
+      if (currentPage < totalPages - 2) {
+        paginationButtons.push(
+          <span key="end-ellipsis" className="px-2">
+            ...
+          </span>
+        );
+      }
+
+      paginationButtons.push(
+        <button
+          key={totalPages}
+          onClick={() => handlePageChange(totalPages)}
+          className={`px-4 py-2 rounded-lg cursor-pointer ${
+            currentPage === totalPages
+              ? "bg-[#12476B] text-white"
+              : "bg-gray-200 text-black"
+          }`}
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return paginationButtons;
   };
 
   return (
@@ -44,19 +136,31 @@ const DaftarPengajuan = () => {
         ))}
       </div>
       <div className="flex justify-center mt-4 space-x-2">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 rounded-lg cursor-pointer ${
-              currentPage === index + 1
-                ? "bg-[#12476B] text-white"
-                : "bg-gray-200 text-black"
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 rounded-lg cursor-pointer flex items-center ${
+            currentPage === 1
+              ? "bg-gray-300 text-gray-500"
+              : "bg-gray-200 text-black"
+          }`}
+        >
+          <FaChevronLeft className="mr-2" />
+          Sebelumnya
+        </button>
+        {renderPaginationButtons()}
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 rounded-lg cursor-pointer flex items-center ${
+            currentPage === totalPages
+              ? "bg-gray-300 text-gray-500"
+              : "bg-gray-200 text-black"
+          }`}
+        >
+          Selanjutnya
+          <FaChevronRight className="ml-2" />
+        </button>
       </div>
     </div>
   );
