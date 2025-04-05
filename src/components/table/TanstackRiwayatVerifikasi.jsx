@@ -16,11 +16,13 @@ import {
 import { useMemo, useState } from "react";
 
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const TanstackRiwayatVerifikasi = ({ data }) => {
+  const navigate = useNavigate();
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
-  const [pageSize, setPageSize] = useState(10); // <-- default 10
+  const [pageSize, setPageSize] = useState(10);
 
   const columns = useMemo(
     () => [
@@ -54,9 +56,13 @@ const TanstackRiwayatVerifikasi = ({ data }) => {
       },
       {
         header: "Detail",
-        cell: () => (
+        cell: ({ row }) => (
           <button
-            onClick={() => (window.location.href = "/info-pengajuan")}
+            onClick={() =>
+              navigate(
+                `/dokter/riwayat-verifikasi/informasi-penyakit/${row.original.id}`
+              )
+            } // <-- corrected path
             className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
           >
             <FaEye size={18} />
@@ -65,7 +71,7 @@ const TanstackRiwayatVerifikasi = ({ data }) => {
         ),
       },
     ],
-    []
+    [navigate]
   );
 
   const table = useReactTable({

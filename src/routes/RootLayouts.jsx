@@ -7,6 +7,7 @@ import FAQ from "../pages/FAQ";
 import Homepage from "../pages/Homepage";
 import InfoDetect from "../layouts/PasienLayouts/Detail-Info/InfoDetect";
 import InfoPengajuan from "../layouts/PasienLayouts/Detail-Info/infoPengajuan";
+import InformasiPenyakit from "../pages/dokter/InformasiPenyakit";
 import PengajuanPasien from "../pages/PengajuanPasien";
 import RiwayatVerifikasi from "../pages/dokter/RiwayatVerifikasi";
 import { createBrowserRouter } from "react-router-dom";
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
           {
             path: "riwayat-verifikasi",
             element: <RiwayatVerifikasi />,
+          },
+          {
+            path: "riwayat-verifikasi/informasi-penyakit/:id",
+            element: <InformasiPenyakit />,
           },
         ],
       },
