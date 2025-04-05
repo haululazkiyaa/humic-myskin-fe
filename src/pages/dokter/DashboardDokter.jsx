@@ -12,11 +12,11 @@ const DashboardDokter = () => {
         <Card title="Menunggu Verifikasi" count={547} icon={<FaClock />} />
         <Card title="Terferivikasi" count={547} icon={<FaCheckCircle />} />
       </div>
-      <div className="grid grid-cols-12 gap-4 mt-6">
-        <div className="col-span-7">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-6">
+        <div className="lg:col-span-7">
           <VerificationTable />
         </div>
-        <div className="col-span-5">
+        <div className="lg:col-span-5">
           <PatientsTable />
         </div>
       </div>
@@ -46,73 +46,81 @@ Card.propTypes = {
 
 const VerificationTable = () => {
   return (
-    <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
-      <h2 className="font-bold mb-3 text-[30px]">Ajuan Verifikasi</h2>
-      <hr className="border border-[#E3E3E3]" />
-      <table className="w-full mt-5">
-        <thead>
-          <tr>
-            <th className="text-[16px] py-4">Tanggal</th>
-            <th className="text-[16px] py-4">Pasien</th>
-            <th className="text-[16px] py-4">Diagnosis AI</th>
-            <th className="text-[16px] py-4">Verifikasi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(3)].map((_, index) => (
-            <tr key={index}>
-              <td className="text-[16px] py-2 text-center">06/04/2024</td>
-              <td className="text-[16px] py-2 text-center">
-                Muhammad Nur Shodiq
-              </td>
-              <td className="text-[16px] py-2 text-center text-[#C11616]">
-                97.02% Melanoma
-              </td>
-              <td className="text-[16px] py-2 text-center">
-                <button className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2">
-                  <FaFileAlt /> Verifikasi
-                </button>
-              </td>
+    <div>
+      <h2 className="lg:hidden font-bold mb-3 text-[24px]">Ajuan Verifikasi</h2>
+      <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
+        <h2 className="hidden lg:block font-bold mb-3 text-[30px]">
+          Ajuan Verifikasi
+        </h2>
+        <hr className="hidden lg:block border border-[#E3E3E3]" />
+        <table className="w-full mt-5">
+          <thead>
+            <tr>
+              <th className="text-[16px] py-4">Tanggal</th>
+              <th className="text-[16px] py-4">Pasien</th>
+              <th className="text-[16px] py-4">Diagnosis AI</th>
+              <th className="text-[16px] py-4">Verifikasi</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {[...Array(3)].map((_, index) => (
+              <tr key={index}>
+                <td className="text-[16px] py-2 text-center">06/04/2024</td>
+                <td className="text-[16px] py-2 text-center">
+                  Muhammad Nur Shodiq
+                </td>
+                <td className="text-[16px] py-2 text-center text-[#C11616]">
+                  97.02% Melanoma
+                </td>
+                <td className="text-[16px] py-2 text-center">
+                  <button className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2">
+                    <FaFileAlt /> Verifikasi
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
 
 const PatientsTable = () => {
   return (
-    <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
-      <h2 className="font-bold mb-3 text-[30px]">Pasien</h2>
-      <hr className="border border-[#E3E3E3]" />
-      <table className="w-full mt-5">
-        <thead>
-          <tr>
-            <th className="text-[16px] py-4">Nama</th>
-            <th className="text-[16px] py-4">Nomor Telepon</th>
-            <th className="text-[16px] py-4">Jumlah Ajuan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            { name: "Muhammad Nur Shodiq", phone: "082246881193", count: 1 },
-            { name: "Naufal Zaki", phone: "081208120812", count: 2 },
-            { name: "Muhammad Rakha", phone: "081081081081", count: 1 },
-          ].map((patient, index) => (
-            <tr
-              key={index}
-              className={`text-[16px] py-2 text-center ${
-                index % 2 === 0 ? "bg-[#F6F4F4]" : ""
-              }`}
-            >
-              <td className="py-2">{patient.name}</td>
-              <td className="py-2">{patient.phone}</td>
-              <td className="py-2">{patient.count}</td>
+    <div>
+      <h2 className="lg:hidden font-bold mb-3 text-[24px]">Pasien</h2>
+      <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
+        <h2 className="hidden lg:block font-bold mb-3 text-[30px]">Pasien</h2>
+        <hr className="hidden lg:block border border-[#E3E3E3]" />
+        <table className="w-full mt-5">
+          <thead>
+            <tr>
+              <th className="text-[16px] py-4">Nama</th>
+              <th className="text-[16px] py-4">Nomor Telepon</th>
+              <th className="text-[16px] py-4">Jumlah Ajuan</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {[
+              { name: "Muhammad Nur Shodiq", phone: "082246881193", count: 1 },
+              { name: "Naufal Zaki", phone: "081208120812", count: 2 },
+              { name: "Muhammad Rakha", phone: "081081081081", count: 1 },
+            ].map((patient, index) => (
+              <tr
+                key={index}
+                className={`text-[16px] py-2 text-center ${
+                  index % 2 === 0 ? "bg-[#F6F4F4]" : ""
+                }`}
+              >
+                <td className="py-2">{patient.name}</td>
+                <td className="py-2">{patient.phone}</td>
+                <td className="py-2">{patient.count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
