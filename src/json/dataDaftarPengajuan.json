@@ -1,0 +1,424 @@
+{
+  "dataDaftarPengajuan": [
+    {
+      "nama": "Muhammad Nur Shodiq",
+      "tanggal": "7 Oktober 2024",
+      "diagnosis": "Melanoma",
+      "probabilitas": "93.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Aisyah Putri",
+      "tanggal": "15 September 2024",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "85.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Ahmad Fauzan",
+      "tanggal": "20 Agustus 2024",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "78.20%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Siti Aminah",
+      "tanggal": "5 Juli 2024",
+      "diagnosis": "Eksim",
+      "probabilitas": "88.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rizky Ramadhan",
+      "tanggal": "12 Juni 2024",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "90.10%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Dewi Lestari",
+      "tanggal": "25 Mei 2024",
+      "diagnosis": "Melanoma",
+      "probabilitas": "92.30%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Budi Santoso",
+      "tanggal": "10 April 2024",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "87.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Fitri Handayani",
+      "tanggal": "18 Maret 2024",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "79.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Andi Pratama",
+      "tanggal": "2 Februari 2024",
+      "diagnosis": "Eksim",
+      "probabilitas": "86.40%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Nurul Hidayah",
+      "tanggal": "28 Januari 2024",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "91.20%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Fajar Setiawan",
+      "tanggal": "15 Desember 2023",
+      "diagnosis": "Melanoma",
+      "probabilitas": "94.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Lina Marlina",
+      "tanggal": "30 November 2023",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "84.70%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Hendra Wijaya",
+      "tanggal": "10 Oktober 2023",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "77.80%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rina Sari",
+      "tanggal": "25 September 2023",
+      "diagnosis": "Eksim",
+      "probabilitas": "89.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Agus Salim",
+      "tanggal": "5 Agustus 2023",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "92.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Siti Rahma",
+      "tanggal": "20 Juli 2023",
+      "diagnosis": "Melanoma",
+      "probabilitas": "95.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Yusuf Maulana",
+      "tanggal": "10 Juni 2023",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "83.60%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Dina Safitri",
+      "tanggal": "15 Mei 2023",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "80.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rudi Hartono",
+      "tanggal": "30 April 2023",
+      "diagnosis": "Eksim",
+      "probabilitas": "87.90%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Maya Anggraini",
+      "tanggal": "10 Maret 2023",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "93.40%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Muhammad Nur Shodiq",
+      "tanggal": "7 Oktober 2024",
+      "diagnosis": "Melanoma",
+      "probabilitas": "93.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Aisyah Putri",
+      "tanggal": "15 September 2024",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "85.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Ahmad Fauzan",
+      "tanggal": "20 Agustus 2024",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "78.20%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Siti Aminah",
+      "tanggal": "5 Juli 2024",
+      "diagnosis": "Eksim",
+      "probabilitas": "88.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rizky Ramadhan",
+      "tanggal": "12 Juni 2024",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "90.10%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Dewi Lestari",
+      "tanggal": "25 Mei 2024",
+      "diagnosis": "Melanoma",
+      "probabilitas": "92.30%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Budi Santoso",
+      "tanggal": "10 April 2024",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "87.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Fitri Handayani",
+      "tanggal": "18 Maret 2024",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "79.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Andi Pratama",
+      "tanggal": "2 Februari 2024",
+      "diagnosis": "Eksim",
+      "probabilitas": "86.40%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Nurul Hidayah",
+      "tanggal": "28 Januari 2024",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "91.20%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Fajar Setiawan",
+      "tanggal": "15 Desember 2023",
+      "diagnosis": "Melanoma",
+      "probabilitas": "94.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Lina Marlina",
+      "tanggal": "30 November 2023",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "84.70%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Hendra Wijaya",
+      "tanggal": "10 Oktober 2023",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "77.80%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rina Sari",
+      "tanggal": "25 September 2023",
+      "diagnosis": "Eksim",
+      "probabilitas": "89.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Agus Salim",
+      "tanggal": "5 Agustus 2023",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "92.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Siti Rahma",
+      "tanggal": "20 Juli 2023",
+      "diagnosis": "Melanoma",
+      "probabilitas": "95.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Yusuf Maulana",
+      "tanggal": "10 Juni 2023",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "83.60%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Dina Safitri",
+      "tanggal": "15 Mei 2023",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "80.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rudi Hartono",
+      "tanggal": "30 April 2023",
+      "diagnosis": "Eksim",
+      "probabilitas": "87.90%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Maya Anggraini",
+      "tanggal": "10 Maret 2023",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "93.40%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Muhammad Nur Shodiq",
+      "tanggal": "7 Oktober 2024",
+      "diagnosis": "Melanoma",
+      "probabilitas": "93.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Aisyah Putri",
+      "tanggal": "15 September 2024",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "85.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Ahmad Fauzan",
+      "tanggal": "20 Agustus 2024",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "78.20%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Siti Aminah",
+      "tanggal": "5 Juli 2024",
+      "diagnosis": "Eksim",
+      "probabilitas": "88.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rizky Ramadhan",
+      "tanggal": "12 Juni 2024",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "90.10%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Dewi Lestari",
+      "tanggal": "25 Mei 2024",
+      "diagnosis": "Melanoma",
+      "probabilitas": "92.30%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Budi Santoso",
+      "tanggal": "10 April 2024",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "87.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Fitri Handayani",
+      "tanggal": "18 Maret 2024",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "79.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Andi Pratama",
+      "tanggal": "2 Februari 2024",
+      "diagnosis": "Eksim",
+      "probabilitas": "86.40%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Nurul Hidayah",
+      "tanggal": "28 Januari 2024",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "91.20%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Fajar Setiawan",
+      "tanggal": "15 Desember 2023",
+      "diagnosis": "Melanoma",
+      "probabilitas": "94.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Lina Marlina",
+      "tanggal": "30 November 2023",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "84.70%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Hendra Wijaya",
+      "tanggal": "10 Oktober 2023",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "77.80%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rina Sari",
+      "tanggal": "25 September 2023",
+      "diagnosis": "Eksim",
+      "probabilitas": "89.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Agus Salim",
+      "tanggal": "5 Agustus 2023",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "92.50%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Siti Rahma",
+      "tanggal": "20 Juli 2023",
+      "diagnosis": "Melanoma",
+      "probabilitas": "95.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Yusuf Maulana",
+      "tanggal": "10 Juni 2023",
+      "diagnosis": "Karsinoma",
+      "probabilitas": "83.60%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Dina Safitri",
+      "tanggal": "15 Mei 2023",
+      "diagnosis": "Psoriasis",
+      "probabilitas": "80.00%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Rudi Hartono",
+      "tanggal": "30 April 2023",
+      "diagnosis": "Eksim",
+      "probabilitas": "87.90%",
+      "gambar": "https://via.placeholder.com/150"
+    },
+    {
+      "nama": "Maya Anggraini",
+      "tanggal": "10 Maret 2023",
+      "diagnosis": "Vitiligo",
+      "probabilitas": "93.40%",
+      "gambar": "https://via.placeholder.com/150"
+    }
+  ]
+}

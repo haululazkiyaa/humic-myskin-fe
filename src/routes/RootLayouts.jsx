@@ -8,6 +8,7 @@ import Homepage from "../pages/Homepage";
 import InfoDetect from "../layouts/PasienLayouts/Detail-Info/InfoDetect";
 import InfoPengajuan from "../layouts/PasienLayouts/Detail-Info/infoPengajuan";
 import PengajuanPasien from "../pages/PengajuanPasien";
+import RiwayatVerifikasi from "../pages/dokter/RiwayatVerifikasi";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
           {
             path: "daftar-pengajuan",
             element: <DaftarPengajuan />,
+          },
+          {
+            path: "riwayat-verifikasi",
+            element: <RiwayatVerifikasi />,
           },
         ],
       },

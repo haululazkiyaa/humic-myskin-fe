@@ -1,0 +1,144 @@
+{
+  "dataRiwayatVerifikasi": [
+    {
+      "date": "22/06/2024",
+      "namaPasien": "Muhammad Nur Shodiq",
+      "persentase": "0.09%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Pasien tersebut tidak mendeteksi gejala lanjutan..."
+    },
+    {
+      "date": "23/06/2024",
+      "namaPasien": "Ahmad Fauzan",
+      "persentase": "0.15%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada indikasi melanoma, tetap jaga kesehatan kulit."
+    },
+    {
+      "date": "24/06/2024",
+      "namaPasien": "Siti Aisyah",
+      "persentase": "0.25%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Hasil baik, tidak ada tanda-tanda melanoma."
+    },
+    {
+      "date": "25/06/2024",
+      "namaPasien": "Rizky Maulana",
+      "persentase": "0.30%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada gejala yang mencurigakan."
+    },
+    {
+      "date": "26/06/2024",
+      "namaPasien": "Dewi Sartika",
+      "persentase": "0.50%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Pasien dalam kondisi baik."
+    },
+    {
+      "date": "27/06/2024",
+      "namaPasien": "Andi Saputra",
+      "persentase": "0.75%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada tanda-tanda melanoma."
+    },
+    {
+      "date": "28/06/2024",
+      "namaPasien": "Nurul Hidayah",
+      "persentase": "1.00%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Hasil pemeriksaan normal."
+    },
+    {
+      "date": "29/06/2024",
+      "namaPasien": "Fajar Pratama",
+      "persentase": "1.25%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada indikasi melanoma."
+    },
+    {
+      "date": "30/06/2024",
+      "namaPasien": "Lina Marlina",
+      "persentase": "1.50%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Pasien dalam kondisi baik."
+    },
+    {
+      "date": "01/07/2024",
+      "namaPasien": "Budi Santoso",
+      "persentase": "1.75%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada gejala yang mencurigakan."
+    },
+    {
+      "date": "02/07/2024",
+      "namaPasien": "Aulia Rahman",
+      "persentase": "2.00%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Hasil pemeriksaan baik."
+    },
+    {
+      "date": "03/07/2024",
+      "namaPasien": "Rina Sari",
+      "persentase": "2.25%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada tanda-tanda melanoma."
+    },
+    {
+      "date": "04/07/2024",
+      "namaPasien": "Eko Prasetyo",
+      "persentase": "2.50%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Pasien dalam kondisi baik."
+    },
+    {
+      "date": "05/07/2024",
+      "namaPasien": "Dian Permata",
+      "persentase": "2.75%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada gejala yang mencurigakan."
+    },
+    {
+      "date": "06/07/2024",
+      "namaPasien": "Hendra Wijaya",
+      "persentase": "3.00%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Hasil pemeriksaan normal."
+    },
+    {
+      "date": "07/07/2024",
+      "namaPasien": "Sari Dewi",
+      "persentase": "3.25%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada indikasi melanoma."
+    },
+    {
+      "date": "08/07/2024",
+      "namaPasien": "Agus Salim",
+      "persentase": "3.50%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Pasien dalam kondisi baik."
+    },
+    {
+      "date": "09/07/2024",
+      "namaPasien": "Fitri Handayani",
+      "persentase": "3.75%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada gejala yang mencurigakan."
+    },
+    {
+      "date": "10/07/2024",
+      "namaPasien": "Yusuf Maulana",
+      "persentase": "4.00%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Hasil pemeriksaan baik."
+    },
+    {
+      "date": "11/07/2024",
+      "namaPasien": "Lestari Wulandari",
+      "persentase": "4.25%",
+      "melanoma": "Bukan Melanoma",
+      "catatanDokter": "Tidak ada tanda-tanda melanoma."
+    }
+  ]
+}
