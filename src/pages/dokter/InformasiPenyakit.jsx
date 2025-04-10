@@ -25,7 +25,7 @@ const InformasiPenyakit = () => {
   //   }
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 px-6 lg:px-0">
       <button
         onClick={() => navigate("/dokter/riwayat-verifikasi")}
         className="flex justify-between gap-x-2 items-center px-4 py-2 text-white font-bold rounded-xl bg-sky-800 cursor-pointer"
