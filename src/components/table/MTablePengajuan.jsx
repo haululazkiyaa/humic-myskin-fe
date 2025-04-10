@@ -19,7 +19,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
         </div>
 
         <div className="flex justify-between gap-x-4">
-          <span className="font-bold">Persentase</span>
+          <span className="font-bold">Diagnosis AI</span>
           <span className={`${textColor} font-semibold text-right`}>
             {item.persentase}
           </span>

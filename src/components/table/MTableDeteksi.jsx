@@ -22,7 +22,7 @@ const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
 
         {/* Persentase */}
         <div className="flex gap-x-2 justify-between">
-          <span className="font-bold">Persentase</span>
+          <span className="font-bold">Diagnosis AI</span>
           <div className={`${textColor} text-right`}>
             <span className="font-semibold">{item.persentase}</span>
           </div>

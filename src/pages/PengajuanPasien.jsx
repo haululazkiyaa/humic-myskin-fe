@@ -34,7 +34,7 @@ const PengajuanPasien = () => {
                 <thead className="w-full border-b border-gray-200 text-left">
                   <tr className="text-black font-semibold">
                     <th className="py-4 px-6">Tanggal Verifikasi</th>
-                    <th className="py-4 px-6">Persentase</th>
+                    <th className="py-4 px-6">Diagnosis AI</th>
                     <th className="py-4 px-6">Gambar</th>
                     <th className="py-4 px-6">Keluhan</th>
                     <th className="py-4 px-6">Status</th>
