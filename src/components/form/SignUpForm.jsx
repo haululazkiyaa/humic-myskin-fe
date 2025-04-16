@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
+import { registerUser } from "../../api/api";
+
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -8,6 +10,7 @@ const SignUpForm = () => {
     email: "",
     phone: "",
     birthDate: "",
+    role: "",
     password: "",
     confirmPassword: "",
     agree: false,
@@ -23,7 +26,7 @@ const SignUpForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -42,7 +45,34 @@ const SignUpForm = () => {
       return;
     }
 
-    alert("Pendaftaran berhasil!");
+    const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+    const role = domain === "dokter.myskin.ac.id" ? "doctor" : "patient";
+
+    try {
+      await registerUser(
+        fullName,
+        formData.email,
+        formData.phone,
+        formData.birthDate,
+        role,
+        formData.password
+      );
+      alert("Pendaftaran berhasil!");
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        birthDate: "",
+        role: "",
+        password: "",
+        confirmPassword: "",
+        agree: false,
+      });
+    } catch (error) {
+      alert("Pendaftaran gagal. keterangan: " + error.message);
+    }
   };
 
   return (

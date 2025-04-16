@@ -10,11 +10,13 @@ import { getDaftarPengajuan } from "../api/api";
 const PengajuanPasien = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
    useEffect(() => {
      const fetchPengajuan = async () => {
        try {
          const result = await getDaftarPengajuan();
+         setLoading(false);
          setData(result);
        } catch (error) {
          console.error("Gagal mengambil data pengajuan:", error);
@@ -33,7 +35,7 @@ const PengajuanPasien = () => {
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
       <div className="pt-32 w-full px-6">
         <h1 className="text-3xl font-bold text-black">Riwayat Pengajuan</h1>
-        {data.map((item) => {
+        {loading ? <h1 className="w-full text-center mt-">Loading...</h1> : data.map((item) => {
           // Ambil persentase sebagai angka
           let textColor = "text-green-600";
           if (item.status === "rejected") {
