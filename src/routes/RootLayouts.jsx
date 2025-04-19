@@ -1,5 +1,6 @@
 import App from "../App";
 import AppLayout from "../layouts/AppLayout";
+import DaftarPasien from "../pages/dokter/DaftarPasien";
 import DaftarPengajuan from "../pages/dokter/DaftarPengajuan";
 import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
           {
             path: "",
             element: <DashboardDokter />,
+          },
+          {
+            path: "daftar-pasien",
+            element: <DaftarPasien />,
           },
           {
             path: "daftar-pengajuan",

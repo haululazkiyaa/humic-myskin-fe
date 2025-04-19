@@ -1,9 +1,9 @@
+import { FaBarsStaggered, FaPeopleGroup } from "react-icons/fa6";
 import { FaFileAlt, FaHome } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import AuthForm from "../../components/form/AuthForm";
-import { FaBarsStaggered } from "react-icons/fa6";
 import ListNavbar from "../../components/ListNavbar";
 import useModal from "../../hooks/useModal";
 
@@ -30,6 +30,13 @@ const Navbar = () => {
       label: "Dashboard",
       icon: <FaHome size={20} />,
       key: "dashboard",
+    },
+
+    {
+      to: "/dokter/daftar-pasien",
+      label: "Daftar Pasien",
+      icon: <FaPeopleGroup size={20} />,
+      key: "daftar-pasien",
     },
     {
       to: "/dokter/daftar-pengajuan",
