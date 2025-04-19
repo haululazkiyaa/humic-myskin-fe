@@ -19,10 +19,11 @@ const LoginForm = () => {
       // Save token and user profile to localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+
       alert("Login berhasil!");
 
       // Redirect based on role
-      if (user.role === "dokter") {
+      if (user.role === "doctor") {
         navigate("/dokter");
       } else if (user.role === "patient") {
         navigate("/deteksi");

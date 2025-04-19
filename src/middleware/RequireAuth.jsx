@@ -18,7 +18,7 @@ const RequireAuth = ({ children }) => {
     return <Navigate to="/deteksi" replace />;
   }
 
-  if (user.role === "dokter" && !location.pathname.startsWith("/dokter")) {
+  if (user.role === "doctor" && !location.pathname.startsWith("/dokter")) {
     return <Navigate to="/dokter" replace />;
   }
 
