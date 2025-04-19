@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { AuthService } from "../../services/auth/auth.service"; // Updated import
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/api";
+import { useState } from "react";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -13,12 +13,19 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      const result = await loginUser(email, password);
+      const result = await AuthService.login({ email, password });
+      const { token, data: user } = result.data;
+
+      // Save token and user profile to localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       alert("Login berhasil!");
 
-      // Redirect sesuai role
-      if (result.role === "dokter") {
+      // Redirect based on role
+      if (user.role === "dokter") {
         navigate("/dokter");
+      } else if (user.role === "patient") {
+        navigate("/deteksi");
       } else {
         navigate("/");
       }

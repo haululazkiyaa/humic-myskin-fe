@@ -10,7 +10,12 @@ const useProfile = () => {
     }
   }, []);
 
-  return { user, setUser };
+  const updateUser = (newUser) => {
+    setUser(newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
+  };
+
+  return { user, setUser: updateUser };
 };
 
 export default useProfile;
