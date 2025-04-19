@@ -42,6 +42,7 @@ export const loginUser = async (email, password) => {
     });
 
     console.log("Login berhasil: ", response.data);
+    localStorage.setItem('token', response.data.token);
     return response.data;
   } catch (error) {
     console.error("Login gagal:", error.response?.data || error.message);
