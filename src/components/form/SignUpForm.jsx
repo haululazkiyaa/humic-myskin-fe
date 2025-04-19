@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 import { registerUser } from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const SignUpForm = () => {
     confirmPassword: "",
     agree: false,
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -54,10 +57,12 @@ const SignUpForm = () => {
         formData.email,
         formData.phone,
         formData.birthDate,
+        formData.password,
         role,
-        formData.password
+        formData.confirmPassword
       );
       alert("Pendaftaran berhasil!");
+      
       // Reset form
       setFormData({
         firstName: "",
@@ -70,6 +75,8 @@ const SignUpForm = () => {
         confirmPassword: "",
         agree: false,
       });
+
+      navigate("/");
     } catch (error) {
       alert("Pendaftaran gagal. keterangan: " + error.message);
     }

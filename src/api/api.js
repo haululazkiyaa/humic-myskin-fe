@@ -22,15 +22,29 @@ export const getDetailPengajuan = async (id) => {
   }
 };
 
-export const registerUser = async (name, email, phone, dob, role, password) => {
+export const registerUser = async (name, email, phone, dob, password, role, password_confirmation) => {
   try {
-    const res = await axios.post(`${BASE_URL}/accounts`, {
-      name, email, phone, dob, role, password
+    const res = await axios.post(`${BASE_URL}/auth/register`, {
+      name, email, phone, dob, password, role, password_confirmation
     })
 
     console.log("Registrasi berhasil: ", res.data);
   } catch (error) {
     console.error("Registrasi gagal:", error.res?.data || error.message);
+    throw error;
+  }
+}
+
+export const loginUser = async (email, password) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/auth/login`, {
+      email, password
+    });
+
+    console.log("Login berhasil: ", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Login gagal:", error.response?.data || error.message);
     throw error;
   }
 }
