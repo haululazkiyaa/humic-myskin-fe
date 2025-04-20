@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/api";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,12 +16,16 @@ const LoginForm = () => {
 
     try {
       const result = await loginUser(email, password);
+      console.log(result);
       alert("Login berhasil!");
 
+      // Simpan user ke context
+      login({ ...result.data, token: result.token });
+
       // Redirect sesuai role
-      if (result.role === "dokter") {
+      if (result.data.role === "doctor") {
         navigate("/dokter");
-      } else {
+      } else if (result.data.role === "patient") {
         navigate("/");
       }
 

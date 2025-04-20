@@ -1,26 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import AuthForm from "../../components/form/AuthForm";
 import ListNavbar from "../../components/ListNavbar";
 import useModal from "../../hooks/useModal";
 import { FaBarsStaggered } from "react-icons/fa6";
+import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose } = useModal();
-  const [user, setUser] = useState(null);
+  const {user, logout} = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-    window.location.href = "/";
+    logout();
   };
 
   return (
@@ -36,7 +28,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="absolute top-17 left-0 w-full bg-white/70 backdrop-blur-sm flex flex-col items-center p-5 gap-y-5 shadow-lg">
             <ListNavbar to="/">Beranda</ListNavbar>
-            {user && user.role === "pasien" && (
+            {user && user.data.role === "pasien" && (
               <>
                 <ListNavbar to="deteksi">Riwayat Deteksi</ListNavbar>
                 <ListNavbar to="pengajuan">Riwayat Pengajuan</ListNavbar>
