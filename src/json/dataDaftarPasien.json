@@ -1,0 +1,29 @@
+{
+  "dataDaftarPasien": [
+    {
+      "nama": "John Doe",
+      "no_hp": "081234567890",
+      "jmlah_ajuan": 3
+    },
+    {
+      "nama": "Jane Smith",
+      "no_hp": "082345678901",
+      "jmlah_ajuan": 2
+    },
+    {
+      "nama": "Alice Johnson",
+      "no_hp": "083456789012",
+      "jmlah_ajuan": 1
+    },
+    {
+      "nama": "Bob Brown",
+      "no_hp": "084567890123",
+      "jmlah_ajuan": 4
+    },
+    {
+      "nama": "Charlie Davis",
+      "no_hp": "085678901234",
+      "jmlah_ajuan": 5
+    }
+  ]
+}

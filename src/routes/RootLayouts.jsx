@@ -1,5 +1,6 @@
 import App from "../App";
 import AppLayout from "../layouts/AppLayout";
+import DaftarPasien from "../pages/dokter/DaftarPasien";
 import DaftarPengajuan from "../pages/dokter/DaftarPengajuan";
 import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
@@ -9,15 +10,16 @@ import InfoDetect from "../layouts/PasienLayouts/Detail-Info/InfoDetect";
 import InfoPengajuan from "../layouts/PasienLayouts/Detail-Info/infoPengajuan";
 import InformasiPenyakit from "../pages/dokter/InformasiPenyakit";
 import PengajuanPasien from "../pages/PengajuanPasien";
+import RequireAuth from "../middleware/RequireAuth";
 import RiwayatVerifikasi from "../pages/dokter/RiwayatVerifikasi";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
-    element: <App />, // Layout utama untuk user & pasien
+    element: <App />,
     children: [
       {
-        element: <AppLayout type="default" />, // Layout utama untuk user & pasien
+        element: <AppLayout type="default" />,
         children: [
           {
             path: "/",
@@ -38,7 +40,11 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        element: <AppLayout type="default" />, // Pasien tetap pakai layout utama dengan tambahan rute
+        element: (
+          <RequireAuth>
+            <AppLayout type="default" />
+          </RequireAuth>
+        ),
         children: [
           {
             path: "deteksi",
@@ -52,11 +58,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "dokter",
-        element: <AppLayout type="doctor" />, // Dokter punya layout sendiri
+        element: (
+          <RequireAuth>
+            <AppLayout type="doctor" />
+          </RequireAuth>
+        ),
         children: [
           {
             path: "",
             element: <DashboardDokter />,
+          },
+          {
+            path: "daftar-pasien",
+            element: <DaftarPasien />,
           },
           {
             path: "daftar-pengajuan",
