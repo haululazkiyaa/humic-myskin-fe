@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
 
 const RequireAuth = ({ children }) => {
@@ -23,6 +24,10 @@ const RequireAuth = ({ children }) => {
   }
 
   return children;
+};
+
+RequireAuth.propTypes = {
+  children: PropTypes.node,
 };
 
 export default RequireAuth;

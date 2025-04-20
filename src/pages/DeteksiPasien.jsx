@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
 import Edit from "../components/pop-up/EditBox";
@@ -37,81 +37,82 @@ const DeteksiPasien = () => {
           }
 
           return (
-            <>
-              <table
-                key={index}
-                className="hidden lg:block w-full mt-8 mb-5 rounded-xl shadow-lg bg-white/60 backdrop-blur-md"
-              >
-                <thead className="border-b border-gray-200 text-left">
-                  <tr className="text-black font-semibold">
-                    <th className="py-4 px-6">Tanggal Pengajuan</th>
-                    <th className="py-4 px-6">Diagnosis AI</th>
-                    <th className="py-4 px-6">Gambar</th>
-                    <th className="py-4 px-6">Keluhan</th>
-                    <th className="py-4 px-6">Pengajuan</th>
-                    <th className="py-4 px-6">Status</th>
-                    <th className="py-4 px-6">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody className="text-center text-gray-800">
-                  <tr className="*:align-top">
-                    <td className="py-6 px-6">{item.date}</td>
-                    <td className={`py-6 px-6 font-semibold ${textColor}`}>
-                      {item.persentase}
-                    </td>
-                    <td className="py-6 px-6">
-                      <div className="w-40 h-32 rounded-lg overflow-hidden mx-auto">
-                        <img
-                          className="w-full h-full object-cover"
-                          src={testImage}
-                          alt="Deteksi"
-                        />
-                      </div>
-                    </td>
-                    <td className="py-6 px-6 text-left">
-                      <p className="w-40 h-32 overflow-hidden text-ellipsis">
-                        {item.keluhan}
-                      </p>
-                    </td>
-                    <td
-                      className={`py-6 px-6 font-semibold ${
-                        item.pengajuan === "Sudah"
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {item.pengajuan}
-                    </td>
-                    <td
-                      className={`py-6 px-6 font-semibold ${
-                        item.status === "Unverified"
-                          ? "text-red-600"
-                          : "text-green-600"
-                      }`}
-                    >
-                      {item.status}
-                    </td>
-                    <td className="py-6 px-6 flex justify-center gap-x-3">
-                      <button
-                        onClick={() => (window.location.href = "/info-detect")}
-                        className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+            <React.Fragment key={index}>
+              <div className="w-full lg:px-0 px-4 overflow-x-auto">
+                <table className="hidden lg:table w-full mt-8 mb-5 rounded-xl shadow-lg bg-white/60 backdrop-blur-md">
+                  <thead className="border-b border-gray-200 text-left">
+                    <tr className="text-black font-semibold">
+                      <th className="py-4 px-6">Tanggal Pengajuan</th>
+                      <th className="py-4 px-6">Diagnosis AI</th>
+                      <th className="py-4 px-6">Gambar</th>
+                      <th className="py-4 px-6">Keluhan</th>
+                      <th className="py-4 px-6">Pengajuan</th>
+                      <th className="py-4 px-6">Status</th>
+                      <th className="py-4 px-6">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-left text-gray-800">
+                    <tr className="*:align-top">
+                      <td className="py-6 px-6">{item.date}</td>
+                      <td className={`py-6 px-6 font-semibold ${textColor}`}>
+                        {item.persentase}
+                      </td>
+                      <td className="py-6 px-6">
+                        <div className="w-40 h-32 rounded-lg overflow-hidden mx-auto">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={testImage}
+                            alt="Deteksi"
+                          />
+                        </div>
+                      </td>
+                      <td className="py-6 px-6 text-left">
+                        <p className="w-40 h-32 overflow-hidden text-ellipsis">
+                          {item.keluhan}
+                        </p>
+                      </td>
+                      <td
+                        className={`py-6 px-6 font-semibold ${
+                          item.pengajuan === "Sudah"
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
-                        <img src={infoBtn} alt="Info" />
-                      </button>
-                      <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                        <img
-                          src={deleteBtn}
-                          alt="Hapus"
-                          onClick={handleDelete}
-                        />
-                      </button>
-                      <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                        <img src={editBtn} alt="Edit" onClick={handleEdit} />
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        {item.pengajuan}
+                      </td>
+                      <td
+                        className={`py-6 px-6 font-semibold ${
+                          item.status === "Unverified"
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
+                      >
+                        {item.status}
+                      </td>
+                      <td className="py-6 px-6 flex justify-start gap-x-3">
+                        <button
+                          onClick={() =>
+                            (window.location.href = "/info-detect")
+                          }
+                          className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                        >
+                          <img src={infoBtn} alt="Info" />
+                        </button>
+                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                          <img
+                            src={deleteBtn}
+                            alt="Hapus"
+                            onClick={handleDelete}
+                          />
+                        </button>
+                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                          <img src={editBtn} alt="Edit" onClick={handleEdit} />
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
               {/* mobile table */}
               <MTableDeteksi
@@ -119,7 +120,7 @@ const DeteksiPasien = () => {
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
-            </>
+            </React.Fragment>
           );
         })}
       </div>

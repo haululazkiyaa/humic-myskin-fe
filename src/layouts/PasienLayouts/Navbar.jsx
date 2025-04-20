@@ -28,7 +28,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="absolute top-17 left-0 w-full bg-white/70 backdrop-blur-sm flex flex-col items-center p-5 gap-y-5 shadow-lg">
             <ListNavbar to="/">Beranda</ListNavbar>
-            {user && user.data.role === "pasien" && (
+            {user && user.role === "patient" && (
               <>
                 <ListNavbar to="deteksi">Riwayat Deteksi</ListNavbar>
                 <ListNavbar to="pengajuan">Riwayat Pengajuan</ListNavbar>
@@ -64,7 +64,7 @@ const Navbar = () => {
         {/* navbar laptop */}
         <div className="flex gap-x-4 hidden md:flex">
           <ListNavbar to="/">Beranda</ListNavbar>
-          {user && user.role === "pasien" && (
+          {user && user.role === "patient" && (
             <>
               <ListNavbar to="deteksi">Riwayat Deteksi</ListNavbar>
               <ListNavbar to="pengajuan">Riwayat Pengajuan</ListNavbar>
