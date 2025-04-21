@@ -14,5 +14,12 @@ export const Endpoint = {
     update: `${API_BASE_URL}/v1/submissions`,
     delete: `${API_BASE_URL}/v1/submissions`,
   },
+  accounts: {
+    list: `${API_BASE_URL}/accounts`,
+    detail: `${API_BASE_URL}/accounts`, 
+    create: `${API_BASE_URL}/accounts`,
+    update: `${API_BASE_URL}/accounts`,
+    delete: `${API_BASE_URL}/accounts`,
+  },
   // Add other namespaces and endpoints here as needed
 };

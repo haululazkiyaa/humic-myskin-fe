@@ -2,14 +2,16 @@ import { AuthService } from "../../services/auth/auth.service"; // Updated impor
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { AccountsService } from "../../services/accounts/accounts.services";
+import PropTypes from "prop-types";
 
-const LoginForm = () => {
+const LoginForm = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,19 +23,23 @@ const LoginForm = () => {
 
       // Save token and user profile to localStorage
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
 
-      login(user);
+      // Ambil data akun lengkap berdasarkan ID user
+      const accountRes = await AccountsService.getAccountById(user.id);
+      const fullAccount = accountRes.data;
+
+      localStorage.setItem("user", JSON.stringify(fullAccount));
+      login(fullAccount); 
 
       alert("Login berhasil!");
 
+      if(onClose) onClose();
+
       // Redirect based on role
-      if (user.role === "doctor") {
+      if (fullAccount.role === "doctor") {
         navigate("/dokter");
-        window.location.reload();
-      } else if (user.role === "patient") {
+      } else if (fullAccount.role === "patient") {
         navigate("/");
-        window.location.reload();
       }
 
       // Clear form
@@ -81,6 +87,10 @@ const LoginForm = () => {
       </button>
     </form>
   );
+};
+
+LoginForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

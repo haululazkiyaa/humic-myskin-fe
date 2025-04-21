@@ -37,7 +37,7 @@ const AuthForm = ({ onClose, showLogin }) => {
             : "Buat akun Anda"}
         </p>
 
-        {showForm === "login" ? <LoginForm /> : <SignUpForm />}
+        {showForm === "login" ? <LoginForm onClose={onClose} /> : <SignUpForm />}
 
         <p className="text-[12px] text-[#646464] text-center mt-4">
           Email harus mengandung salah satu dari domain berikut:
