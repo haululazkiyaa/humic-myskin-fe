@@ -3,9 +3,13 @@ import { useState } from "react";
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [type, setType] = useState("login");
 
   const onClose = () => setIsOpen(false);
-  const onOpen = () => setIsOpen(true);
+  const onOpen = (formType = "login") => {
+    setType(formType);
+    setIsOpen(true);
+  };
 
   const Modal = ({ children }) => {
     if (!isOpen) return null;
@@ -20,7 +24,7 @@ const useModal = () => {
     children: PropTypes.node.isRequired,
   };
 
-  return { Modal, onOpen, onClose };
+  return { Modal, onOpen, onClose, type };
 };
 
 export default useModal;

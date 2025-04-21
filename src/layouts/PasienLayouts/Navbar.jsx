@@ -7,7 +7,7 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { Modal, onOpen, onClose } = useModal();
+  const { Modal, onOpen, onClose, type } = useModal();
   const {user, logout} = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -75,11 +75,11 @@ const Navbar = () => {
 
         {!user ? (
           <div className="hidden md:flex gap-x-4">
-            <button className=" font-extralight text-sky-900 text-md cursor-pointer">
+            <button onClick={() => onOpen("register")} className=" font-extralight text-sky-900 text-md cursor-pointer">
               Daftar
             </button>
             <button
-              onClick={onOpen}
+              onClick={() =>onOpen("login")}
               className="bg-sky-800 px-4 py-2 rounded-lg font-extralight text-white text-md cursor-pointer"
             >
               Masuk
@@ -95,7 +95,7 @@ const Navbar = () => {
         )}
       </div>
       <Modal>
-        <AuthForm onClose={onClose} />
+        <AuthForm onClose={onClose} showLogin={type} />
       </Modal>
     </div>
   );
