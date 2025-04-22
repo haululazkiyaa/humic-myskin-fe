@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-import { registerUser } from "../../api/api";
+// import { registerUser } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { AuthService } from "../../services/auth/auth.service";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -52,15 +53,15 @@ const SignUpForm = () => {
     const role = domain === "dokter.myskin.ac.id" ? "doctor" : "patient";
 
     try {
-      await registerUser(
-        fullName,
-        formData.email,
-        formData.phone,
-        formData.birthDate,
-        formData.password,
-        role,
-        formData.confirmPassword
-      );
+      await AuthService.register({
+        name: fullName,
+        email: formData.email,
+        phone: formData.phone,
+        dob: formData.birthDate,
+        password: formData.password,
+        role: role,
+        password_confirmation: formData.confirmPassword
+    });
       alert("Pendaftaran berhasil!");
       
       // Reset form

@@ -10,7 +10,6 @@ const LoginForm = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const { login } = useAuth();
 
   const handleLogin = async (e) => {
