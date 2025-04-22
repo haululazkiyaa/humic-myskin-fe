@@ -38,7 +38,7 @@ const FAQ = () => {
   ];
   
   return (
-    <div className="w-full min-h-screen pt-32">
+    <div className="w-full pt-32">
       <h1 className="text-3xl font-bold text-black text-center">
         Frequntly Asked Questions
       </h1>
