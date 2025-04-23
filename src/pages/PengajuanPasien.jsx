@@ -36,7 +36,7 @@ const PengajuanPasien = () => {
   return (
     <>
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
-      <div className="pt-32 w-full px-6 lg:px-10">
+      <div className="pt-32 w-full px-6 lg:px-3">
         <h1 className="text-3xl font-bold text-black">Riwayat Pengajuan</h1>
 
         {/* Filter Controls */}
@@ -171,14 +171,14 @@ const PengajuanPasien = () => {
             <button
               onClick={goToPrevPage}
               disabled={currentPage === 1}
-              className="px-4 py-2 rounded-md border disabled:opacity-50"
+              className="px-4 py-2 rounded-md border cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             >
               Sebelumnya
             </button>
             <button
               onClick={goToNextPage}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded-md border disabled:opacity-50"
+              className="px-4 py-2 rounded-md border cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             >
               Selanjutnya
             </button>
