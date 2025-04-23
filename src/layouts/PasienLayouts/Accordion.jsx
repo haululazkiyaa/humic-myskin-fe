@@ -4,15 +4,22 @@ import image2 from "../../assets/img/accordion2.jpg";
 import image3 from "../../assets/img/accordion3.jpg";
 import arrowUp from "../../assets/icon/arrowUp.png";
 import arrowDown from "../../assets/icon/arrowDown.png";
+import useModal from "../../hooks/useModal";
+import AccordionPopUp from "../../components/pop-up/AccordionPopUp";
 
 const Accordion = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { Modal, onOpen, onClose, type } = useModal();
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    description: "",
+  });
 
   const items = [
     {
       title: "Deteksi Awal",
       content:
-        "MySkin membantu mendeteksi gejala awal melanoma untuk penanganan yang lebih cepat MySkin membantu mendeteksi gejala awal melanoma untuk penanganan yang lebih cepat.",
+        "MySkin membantu mendeteksi gejala awal melanoma untuk penanganan yang lebih cepat. MySkin membantu mendeteksi gejala awal melanoma untuk penanganan yang lebih cepat.",
       image: image1,
     },
     {
@@ -28,6 +35,14 @@ const Accordion = () => {
       image: image3,
     },
   ];
+
+  const handleOpenModal = (item) => {
+    setModalContent({
+      title: item.title,
+      description: item.content,
+    });
+    onOpen("accordion");
+  };
 
   return (
     <div className="flex flex-col md:flex-row items-center md:space-x-8 py-10 px-6 md:px-20 transition-all duration-300 ease-out">
@@ -61,13 +76,27 @@ const Accordion = () => {
               }`}
             >
               <p>{item.content}</p>
-              <button className="flex justify-end w-full text-sky-900 font-semibold mt-4 cursor-pointer">
+              <button
+                onClick={() => handleOpenModal(item)}
+                className="flex justify-end w-full text-sky-900 font-semibold mt-4 cursor-pointer"
+              >
                 Lebih banyak →
               </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Modal Pop-up */}
+      {type === "accordion" && (
+        <Modal>
+          <AccordionPopUp
+            title={modalContent.title}
+            description={modalContent.description}
+            onClose={onClose}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
