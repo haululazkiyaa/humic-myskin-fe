@@ -37,11 +37,14 @@ const Navbar = () => {
             <ListNavbar to="/faq">FAQ</ListNavbar>
             {!user ? (
               <div className="w-full flex flex-col gap-y-5">
-                <button className="font-semibold text-sky-900 text-md cursor-pointer">
+                <button
+                  onClick={() => onOpen("register")}
+                  className="font-semibold text-sky-900 text-md cursor-pointer"
+                >
                   Daftar
                 </button>
                 <button
-                  onClick={onOpen}
+                  onClick={() => onOpen("login")}
                   className="bg-sky-800 px-4 py-2 rounded-lg font-extralight text-white text-md cursor-pointer"
                 >
                   Masuk
@@ -75,11 +78,14 @@ const Navbar = () => {
 
         {!user ? (
           <div className="hidden md:flex gap-x-4">
-            <button onClick={() => onOpen("register")} className=" font-extralight text-sky-900 text-md cursor-pointer">
+            <button
+              onClick={() => onOpen("register")}
+              className=" font-extralight text-sky-900 text-md cursor-pointer"
+            >
               Daftar
             </button>
             <button
-              onClick={() =>onOpen("login")}
+              onClick={() => onOpen("login")}
               className="bg-sky-800 px-4 py-2 rounded-lg font-extralight text-white text-md cursor-pointer"
             >
               Masuk
