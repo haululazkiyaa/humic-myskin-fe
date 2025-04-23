@@ -17,6 +17,7 @@ const SignUpForm = () => {
     confirmPassword: "",
     agree: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -80,6 +81,8 @@ const SignUpForm = () => {
       navigate("/");
     } catch (error) {
       alert("Pendaftaran gagal. keterangan: " + error.message);
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -163,18 +166,20 @@ const SignUpForm = () => {
 
       <button
         type="submit"
+        disabled={isLoading}
         className="w-full bg-[#12476B] text-white font-bold py-3 rounded-full cursor-pointer"
       >
-        Daftar
+        {isLoading ? "Memproses..." : "Daftar"}
       </button>
 
       <p className="text-center text-gray-400">Atau</p>
 
       <button
         type="submit"
+        disabled={isLoading}
         className="w-full border border-[#12476B] text-[#12476B] font-bold py-3 rounded-full cursor-pointer"
       >
-        Daftar sebagai Dokter
+        {isLoading ? "Memproses..." : "Daftar sebagai Dokter"}
       </button>
     </form>
   );

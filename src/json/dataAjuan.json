@@ -32,6 +32,83 @@
       "verifiedBy": "dr. Muhammad Nur Shodiq",
       "melanoma": "Melanoma",
       "catatanDokter": "Catatan DokterCatatan DokterCatatan DokterCatatan DokterCatatan Dokter"
+    },
+    {
+      "date": "20/03/2025",
+      "persentase": "72% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Tahi lalat terasa gatal dan warnanya berubah menjadi gelap.",
+      "status": "Verified",
+      "tglVerif": "22/03/2025",
+      "verifiedBy": "dr. Indah Sari",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Segera lakukan biopsi untuk kepastian lebih lanjut."
+    },
+    {
+      "date": "25/03/2025",
+      "persentase": "15% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Terdapat bercak hitam baru di lengan saya, tidak terasa sakit.",
+      "status": "Verified",
+      "tglVerif": "26/03/2025",
+      "verifiedBy": "dr. Damar Prakoso",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Pantau secara berkala, belum menunjukkan tanda bahaya."
+    },
+    {
+      "date": "30/03/2025",
+      "persentase": "87% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Area di sekitar tahi lalat membengkak dan kemerahan.",
+      "status": "Unverified",
+      "tglVerif": "01/04/2025",
+      "verifiedBy": "dr. Siti Zahra",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Diperlukan penanganan medis lebih lanjut."
+    },
+    {
+      "date": "02/04/2025",
+      "persentase": "5% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Tahi lalat tidak berubah ukuran, tidak gatal atau nyeri.",
+      "status": "Verified",
+      "tglVerif": "03/04/2025",
+      "verifiedBy": "dr. Farhan Alvi",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Tidak perlu tindakan saat ini, tetap dipantau."
+    },
+    {
+      "date": "06/04/2025",
+      "persentase": "35% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Perubahan bentuk pada tahi lalat namun tidak disertai gejala lain.",
+      "status": "Pending",
+      "tglVerif": "-",
+      "verifiedBy": "-",
+      "melanoma": "Melanoma",
+      "catatanDokter": "-"
+    },
+    {
+      "date": "09/04/2025",
+      "persentase": "65% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Tahi lalat terasa perih dan mengeluarkan cairan.",
+      "status": "Verified",
+      "tglVerif": "10/04/2025",
+      "verifiedBy": "dr. Rina Ayu",
+      "melanoma": "Melanoma",
+      "catatanDokter": "Tindakan eksisi disarankan."
+    },
+    {
+      "date": "11/04/2025",
+      "persentase": "42% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Tahi lalat terasa kasar di permukaan.",
+      "status": "Pending",
+      "tglVerif": "-",
+      "verifiedBy": "-",
+      "melanoma": "Melanoma",
+      "catatanDokter": "-"
     }
   ]
 }

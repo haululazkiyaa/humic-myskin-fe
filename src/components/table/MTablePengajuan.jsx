@@ -16,12 +16,12 @@ const MTablePengajuan = ({ item, handleDelete }) => {
       <div className="space-y-4">
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Tanggal Pengajuan</span>
-          <span className="text-right">{item.submittedAt}</span>
+          <span className="text-right">{item.date}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Diagnosis AI</span>
-          <span className="font-semibold text-right">{item.diagnosis}</span>
+          <span className="font-semibold text-right">{item.persentase}</span>
         </div>
 
         <div className="flex justify-between gap-x-4 items-center">
@@ -36,7 +36,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Keluhan</span>
           <p className="text-right text-sm max-w-[60%] truncate">
-            {item.complaint}
+            {item.keluhan}
           </p>
         </div>
 
@@ -47,23 +47,23 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Tanggal Diverifikasi</span>
-          <span>{item.verifiedAt || "-"}</span>
+          <span>{item.tglVerif || "-"}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Verified By</span>
-          <span>{item.doctorId || "-"}</span>
+          <span>{item.verifiedBy || "-"}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Melanoma</span>
-          <span>{item.diagnosis || "-"}</span>
+          <span>{item.melanoma || "-"}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Catatan Dokter</span>
           <p className="text-right text-sm max-w-[60%] truncate">
-            {item.doctorNote || "-"}
+            {item.catatanDokter || "-"}
           </p>
         </div>
 

@@ -8,11 +8,11 @@ export const Endpoint = {
     logout: `${API_BASE_URL}/v1/auth/logout`,
   },
   submissions: {
-    list: `${API_BASE_URL}/v1/submissions`,
-    detail: `${API_BASE_URL}/v1/submissions`,
-    create: `${API_BASE_URL}/v1/submissions`,
-    update: `${API_BASE_URL}/v1/submissions`,
-    delete: `${API_BASE_URL}/v1/submissions`,
+    list: `${API_BASE_URL}/submissions`,
+    detail: `${API_BASE_URL}/submissions`,
+    create: `${API_BASE_URL}/submissions`,
+    update: `${API_BASE_URL}/submissions`,
+    delete: `${API_BASE_URL}/submissions`,
   },
   accounts: {
     list: `${API_BASE_URL}/accounts`,

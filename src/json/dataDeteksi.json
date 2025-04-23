@@ -23,6 +23,62 @@
       "keluhan": "Saya pertama kali menyadari adanya perubahan pada tahi lalat di punggung saya sekitar enam bulan yang lalu...",
       "pengajuan": "Belum",
       "status": "Unverified"
+    },
+    {
+      "date": "18/03/2025",
+      "persentase": "63% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Tahi lalat saya mulai berdarah dan terasa gatal akhir-akhir ini...",
+      "pengajuan": "Sudah",
+      "status": "Verified"
+    },
+    {
+      "date": "20/03/2025",
+      "persentase": "7% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Terdapat bercak hitam di lengan saya, namun tidak terasa sakit...",
+      "pengajuan": "Belum",
+      "status": "Unverified"
+    },
+    {
+      "date": "22/03/2025",
+      "persentase": "88.5% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Saya menemukan perubahan ukuran dan warna pada tahi lalat saya...",
+      "pengajuan": "Sudah",
+      "status": "Unverified"
+    },
+    {
+      "date": "25/03/2025",
+      "persentase": "35% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Kulit saya terasa kering dan bersisik di bagian tertentu...",
+      "pengajuan": "Sudah",
+      "status": "Verified"
+    },
+    {
+      "date": "28/03/2025",
+      "persentase": "45% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Tahi lalat saya terasa sedikit menonjol dan berubah warna...",
+      "pengajuan": "Belum",
+      "status": "Unverified"
+    },
+    {
+      "date": "30/03/2025",
+      "persentase": "92% Melanoma (Tidak Aman)",
+      "gambar": "testImage",
+      "keluhan": "Ada benjolan yang cepat membesar dalam waktu seminggu terakhir...",
+      "pengajuan": "Sudah",
+      "status": "Unverified"
+    },
+    {
+      "date": "01/04/2025",
+      "persentase": "25% Melanoma (Aman)",
+      "gambar": "testImage",
+      "keluhan": "Bercak merah di dada yang sudah ada selama beberapa bulan...",
+      "pengajuan": "Belum",
+      "status": "Verified"
     }
   ]
 }
