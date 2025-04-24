@@ -34,8 +34,6 @@ const LoginForm = ({ onClose }) => {
 
       if(onClose) onClose();
 
-      console.log("Full Account:", fullAccount);
-
       // Redirect based on role
       if (fullAccount.data.role === "doctor") {
         navigate("/dokter");

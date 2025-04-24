@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
-import data from "../json/dataAjuan.json";
+// import data from "../json/dataAjuan.json";
 
 import deleteBtn from "../assets/icon/delete-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
 import testImage from "../assets/img/test-myskin.jpg";
 import MTablePengajuan from "../components/table/MTablePengajuan";
+import { SubmissionsService } from "../services/submissions/submissions.service";
 
 const PengajuanPasien = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataPerPage, setDataPerPage] = useState(5);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredData = data.dataAjuan.filter((item) =>
+  const filteredData = data.filter((item) =>
     item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -33,6 +36,25 @@ const PengajuanPasien = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.data?.id;
+
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      try {
+        const response = await SubmissionsService.getSubmissions({ userId });
+        const submissions = response.data.data;
+        setData(submissions);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSubmissions();
+  }, [userId]);
   return (
     <>
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
@@ -88,64 +110,76 @@ const PengajuanPasien = () => {
               </tr>
             </thead>
             <tbody className="text-left text-gray-800">
-              {currentData.map((item, index) => {
-                const percentValue = parseFloat(item.persentase);
-                const textColor =
-                  percentValue >= 50 ? "text-red-600" : "text-green-600";
+              {loading ? (
+                <tr>
+                  <td colSpan={10} className="text-center py-6">
+                    Memuat data...
+                  </td>
+                </tr>
+              ) : currentData.length === 0 ?   <tr>
+                  <td colSpan={10} className="text-center font-bold py-6">
+                    Anda belum memiliki riwayat pengajuan
+                  </td>
+                </tr> : (
+                currentData.map((item, index) => {
+                  const percentValue = parseFloat(item.persentase);
+                  const textColor =
+                    percentValue >= 50 ? "text-red-600" : "text-green-600";
 
-                return (
-                  <tr key={index} className="*:align-top">
-                    <td className="py-6 px-6">{item.date}</td>
-                    <td className={`py-6 px-6 font-semibold ${textColor}`}>
-                      {item.persentase}
-                    </td>
-                    <td className="py-6 px-6">
-                      <div className="w-20 h-16 rounded-lg overflow-hidden mx-auto">
-                        <img
-                          className="w-full h-full object-cover"
-                          src={testImage}
-                          alt="Deteksi"
-                        />
-                      </div>
-                    </td>
-                    <td className="py-6 px-6">
-                      <p className="w-40 h-32 overflow-hidden text-ellipsis">
-                        {item.keluhan}
-                      </p>
-                    </td>
-                    <td
-                      className={`py-6 px-6 font-semibold ${
-                        item.status === "Unverified"
-                          ? "text-red-600"
-                          : "text-green-600"
-                      }`}
-                    >
-                      {item.status}
-                    </td>
-                    <td className="py-6 px-6">{item.tglVerif}</td>
-                    <td className="py-6 px-6">{item.verifiedBy}</td>
-                    <td className="py-6 px-6">{item.melanoma}</td>
-                    <td className="py-6 px-6">{item.catatanDokter}</td>
-                    <td className="py-6 px-6 flex justify-start gap-x-3">
-                      <button
-                        onClick={() =>
-                          (window.location.href = "/info-pengajuan")
-                        }
-                        className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                  return (
+                    <tr key={index} className="*:align-top">
+                      <td className="py-6 px-6">{item.date}</td>
+                      <td className={`py-6 px-6 font-semibold ${textColor}`}>
+                        {item.persentase}
+                      </td>
+                      <td className="py-6 px-6">
+                        <div className="w-20 h-16 rounded-lg overflow-hidden mx-auto">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={testImage}
+                            alt="Deteksi"
+                          />
+                        </div>
+                      </td>
+                      <td className="py-6 px-6">
+                        <p className="w-40 h-32 overflow-hidden text-ellipsis">
+                          {item.keluhan}
+                        </p>
+                      </td>
+                      <td
+                        className={`py-6 px-6 font-semibold ${
+                          item.status === "Unverified"
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
                       >
-                        <img src={infoBtn} alt="Info" />
-                      </button>
-                      <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                        <img
-                          src={deleteBtn}
-                          alt="Hapus"
-                          onClick={handleDelete}
-                        />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                        {item.status}
+                      </td>
+                      <td className="py-6 px-6">{item.tglVerif}</td>
+                      <td className="py-6 px-6">{item.verifiedBy}</td>
+                      <td className="py-6 px-6">{item.melanoma}</td>
+                      <td className="py-6 px-6">{item.catatanDokter}</td>
+                      <td className="py-6 px-6 flex justify-start gap-x-3">
+                        <button
+                          onClick={() =>
+                            (window.location.href = "/info-pengajuan")
+                          }
+                          className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                        >
+                          <img src={infoBtn} alt="Info" />
+                        </button>
+                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                          <img
+                            src={deleteBtn}
+                            alt="Hapus"
+                            onClick={handleDelete}
+                          />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
