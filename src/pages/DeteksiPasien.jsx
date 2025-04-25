@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
 import Edit from "../components/pop-up/EditBox";
 import MTableDeteksi from "../components/table/MTableDeteksi";
-import data from "../json/dataDeteksi";
+// import data from "../json/dataDeteksi";
 
 import deleteBtn from "../assets/icon/delete-button.png";
 import editBtn from "../assets/icon/edit-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
 import testImage from "../assets/img/test-myskin.jpg";
+import { SubmissionsService } from "../services/submissions/submissions.service";
 
 const DeteksiPasien = () => {
   const [showEdit, setShowEdit] = useState(false);
@@ -16,8 +17,28 @@ const DeteksiPasien = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataPerPage, setDataPerPage] = useState(5);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredData = data.dataDetect.filter((item) =>
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.data?.id
+
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      try {
+        const res = await SubmissionsService.getSubmissions({userId})
+        setData(res.data.data)
+      } catch (error) {
+        console.log("error", error)
+      }finally {
+        setLoading(false)
+      }
+    }  
+
+    fetchSubmissions()
+  }, [userId])
+
+  const filteredData = data.filter((item) =>
     item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -93,70 +114,86 @@ const DeteksiPasien = () => {
               </tr>
             </thead>
             <tbody className="text-left text-gray-800">
-              {currentData.map((item, index) => {
-                const percentValue = parseFloat(item.persentase);
-                const textColor =
-                  percentValue >= 50 ? "text-red-600" : "text-green-600";
+              {loading ? (
+                <tr>
+                  <td colSpan={7} className="text-center py-6">
+                      Memuat data...
+                  </td>
+                </tr>
+              ) : currentData.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="text-center font-bold py-6">
+                      Anda belom memiliki riwayat deteksi
+                  </td>
+                </tr>
+              ) : (
+                currentData.map((item, index) => {
+                  const percentValue = parseFloat(item.persentase);
+                  const textColor =
+                    percentValue >= 50 ? "text-red-600" : "text-green-600";
 
-                return (
-                  <tr key={index} className="*:align-top">
-                    <td className="py-6 px-6">{item.date}</td>
-                    <td className={`py-6 px-6 font-semibold ${textColor}`}>
-                      {item.persentase}
-                    </td>
-                    <td className="py-6 px-6">
-                      <div className="w-40 h-32 rounded-lg overflow-hidden mx-auto">
-                        <img
-                          className="w-full h-full object-cover"
-                          src={testImage}
-                          alt="Deteksi"
-                        />
-                      </div>
-                    </td>
-                    <td className="py-6 px-6 text-left">
-                      <p className="w-40 h-32 overflow-hidden text-ellipsis">
-                        {item.keluhan}
-                      </p>
-                    </td>
-                    <td
-                      className={`py-6 px-6 font-semibold ${
-                        item.pengajuan === "Sudah"
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {item.pengajuan}
-                    </td>
-                    <td
-                      className={`py-6 px-6 font-semibold ${
-                        item.status === "Unverified"
-                          ? "text-red-600"
-                          : "text-green-600"
-                      }`}
-                    >
-                      {item.status}
-                    </td>
-                    <td className="py-6 px-6 flex justify-start gap-x-3">
-                      <button
-                        onClick={() => (window.location.href = "/info-detect")}
-                        className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                  return (
+                    <tr key={index} className="*:align-top">
+                      <td className="py-6 px-6">{item.date}</td>
+                      <td className={`py-6 px-6 font-semibold ${textColor}`}>
+                        {item.persentase}
+                      </td>
+                      <td className="py-6 px-6">
+                        <div className="w-40 h-32 rounded-lg overflow-hidden mx-auto">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={testImage}
+                            alt="Deteksi"
+                          />
+                        </div>
+                      </td>
+                      <td className="py-6 px-6 text-left">
+                        <p className="w-40 h-32 overflow-hidden text-ellipsis">
+                          {item.keluhan}
+                        </p>
+                      </td>
+                      <td
+                        className={`py-6 px-6 font-semibold ${
+                          item.pengajuan === "Sudah"
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
-                        <img src={infoBtn} alt="Info" />
-                      </button>
-                      <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                        <img
-                          src={deleteBtn}
-                          alt="Hapus"
-                          onClick={handleDelete}
-                        />
-                      </button>
-                      <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                        <img src={editBtn} alt="Edit" onClick={handleEdit} />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                        {item.pengajuan}
+                      </td>
+                      <td
+                        className={`py-6 px-6 font-semibold ${
+                          item.status === "Unverified"
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
+                      >
+                        {item.status}
+                      </td>
+                      <td className="py-6 px-6 flex justify-start gap-x-3">
+                        <button
+                          onClick={() =>
+                            (window.location.href = "/info-detect")
+                          }
+                          className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                        >
+                          <img src={infoBtn} alt="Info" />
+                        </button>
+                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                          <img
+                            src={deleteBtn}
+                            alt="Hapus"
+                            onClick={handleDelete}
+                          />
+                        </button>
+                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                          <img src={editBtn} alt="Edit" onClick={handleEdit} />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
@@ -181,14 +218,14 @@ const DeteksiPasien = () => {
             <button
               onClick={goToPrevPage}
               disabled={currentPage === 1}
-              className="px-4 py-2 rounded-md border disabled:opacity-50"
+              className="px-4 py-2 rounded-md border disabled:cursor-not-allowed disabled:opacity-50"
             >
               Sebelumnya
             </button>
             <button
               onClick={goToNextPage}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded-md border disabled:opacity-50"
+              className="px-4 py-2 rounded-md border disabled:cursor-not-allowed disabled:opacity-50"
             >
               Selanjutnya
             </button>

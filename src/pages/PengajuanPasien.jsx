@@ -17,25 +17,6 @@ const PengajuanPasien = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const filteredData = data.filter((item) =>
-    item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const totalData = filteredData.length;
-  const totalPages = Math.ceil(totalData / dataPerPage);
-
-  const indexOfLastData = currentPage * dataPerPage;
-  const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = filteredData.slice(indexOfFirstData, indexOfLastData);
-
-  const handleDelete = () => setShowDelete(true);
-  const goToNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
-  };
-  const goToPrevPage = () => {
-    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
-  };
-
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.data?.id;
 
@@ -55,6 +36,26 @@ const PengajuanPasien = () => {
 
     fetchSubmissions();
   }, [userId]);
+
+  const filteredData = data.filter((item) =>
+    item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalData = filteredData.length;
+  const totalPages = Math.ceil(totalData / dataPerPage);
+
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentData = filteredData.slice(indexOfFirstData, indexOfLastData);
+
+  const handleDelete = () => setShowDelete(true);
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+  const goToPrevPage = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
+
   return (
     <>
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
@@ -116,11 +117,13 @@ const PengajuanPasien = () => {
                     Memuat data...
                   </td>
                 </tr>
-              ) : currentData.length === 0 ?   <tr>
+              ) : currentData.length === 0 ? (
+                <tr>
                   <td colSpan={10} className="text-center font-bold py-6">
                     Anda belum memiliki riwayat pengajuan
                   </td>
-                </tr> : (
+                </tr>
+              ) : (
                 currentData.map((item, index) => {
                   const percentValue = parseFloat(item.persentase);
                   const textColor =
@@ -128,7 +131,7 @@ const PengajuanPasien = () => {
 
                   return (
                     <tr key={index} className="*:align-top">
-                      <td className="py-6 px-6">{item.date}</td>
+                      <td className="py-6 px-6">{item.submittedAt}</td>
                       <td className={`py-6 px-6 font-semibold ${textColor}`}>
                         {item.persentase}
                       </td>
@@ -143,7 +146,7 @@ const PengajuanPasien = () => {
                       </td>
                       <td className="py-6 px-6">
                         <p className="w-40 h-32 overflow-hidden text-ellipsis">
-                          {item.keluhan}
+                          {item.complaint}
                         </p>
                       </td>
                       <td
@@ -155,10 +158,10 @@ const PengajuanPasien = () => {
                       >
                         {item.status}
                       </td>
-                      <td className="py-6 px-6">{item.tglVerif}</td>
+                      <td className="py-6 px-6">{item.verifiedAt}</td>
                       <td className="py-6 px-6">{item.verifiedBy}</td>
-                      <td className="py-6 px-6">{item.melanoma}</td>
-                      <td className="py-6 px-6">{item.catatanDokter}</td>
+                      <td className="py-6 px-6">{item.diagnosis}</td>
+                      <td className="py-6 px-6">{item.doctorNote}</td>
                       <td className="py-6 px-6 flex justify-start gap-x-3">
                         <button
                           onClick={() =>
