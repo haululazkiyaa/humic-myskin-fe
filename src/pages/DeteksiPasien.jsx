@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
 import Edit from "../components/pop-up/EditBox";
@@ -10,37 +10,37 @@ import editBtn from "../assets/icon/edit-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
 import testImage from "../assets/img/test-myskin.jpg";
 import { SubmissionsService } from "../services/submissions/submissions.service";
+import { useQuery } from "@tanstack/react-query";
 
 const DeteksiPasien = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.data?.id;
+
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(5);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: submissionsData,
+    isLoading,
+    // isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["submissions", userId],
+    queryFn: () => SubmissionsService.getSubmissions({ userId }),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 30 * 60 * 1000,
+  });
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.data?.id
+  const data = submissionsData?.data?.data || [];
+  console.log("Data deteksi pasien:", data);
 
-  useEffect(() => {
-    const fetchSubmissions = async () => {
-      try {
-        const res = await SubmissionsService.getSubmissions({userId})
-        setData(res.data.data)
-      } catch (error) {
-        console.log("error", error)
-      }finally {
-        setLoading(false)
-      }
-    }  
-
-    fetchSubmissions()
-  }, [userId])
-
-  const filteredData = data.filter((item) =>
-    item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData =
+    data?.filter((item) =>
+      item.keluhan?.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   const totalData = filteredData.length;
   const totalPages = Math.ceil(totalData / dataPerPage);
@@ -98,10 +98,18 @@ const DeteksiPasien = () => {
             />
           </div>
         </div>
+        <button
+          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
+          onClick={() => {
+            refetch();
+          }}
+        >
+          Refresh Data 🔄
+        </button>
 
         {/* Desktop Table */}
         <div className="w-full lg:px-0 px-4 overflow-x-auto">
-          <table className="hidden lg:table w-full mt-8 mb-5 rounded-xl shadow-lg bg-white/60 backdrop-blur-md">
+          <table className="hidden lg:table w-full mt-6 mb-5 rounded-xl shadow-lg bg-white/60 backdrop-blur-md">
             <thead className="border-b border-gray-200 text-left">
               <tr className="text-black font-semibold">
                 <th className="py-4 px-6">Tanggal Pengajuan</th>
@@ -114,16 +122,16 @@ const DeteksiPasien = () => {
               </tr>
             </thead>
             <tbody className="text-left text-gray-800">
-              {loading ? (
+              {isLoading ? (
                 <tr>
                   <td colSpan={7} className="text-center py-6">
-                      Memuat data...
+                    Memuat data...
                   </td>
                 </tr>
               ) : currentData.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="text-center font-bold py-6">
-                      Anda belom memiliki riwayat deteksi
+                    Anda belom memiliki riwayat deteksi
                   </td>
                 </tr>
               ) : (

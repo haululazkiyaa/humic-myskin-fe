@@ -26,7 +26,7 @@ const PengajuanPasien = () => {
         const response = await SubmissionsService.getSubmissions({ userId });
         const submissions = response.data.data;
         setData(submissions);
-        console.log(response);
+        console.log("Data pengajuan pasien:", response);
       } catch (error) {
         console.error(error);
       } finally {
