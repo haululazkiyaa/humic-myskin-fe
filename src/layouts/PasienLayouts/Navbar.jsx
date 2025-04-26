@@ -1,14 +1,13 @@
-import { useState } from "react";
-
 import AuthForm from "../../components/form/AuthForm";
-import ListNavbar from "../../components/ListNavbar";
-import useModal from "../../hooks/useModal";
 import { FaBarsStaggered } from "react-icons/fa6";
+import ListNavbar from "../../components/ListNavbar";
 import { useAuth } from "../../context/AuthContext";
+import useModal from "../../hooks/useModal";
+import { useState } from "react";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose, type } = useModal();
-  const {user, logout} = useAuth();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -28,7 +27,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden absolute top-17 left-0 w-full bg-white/70 backdrop-blur-sm flex flex-col items-center p-5 gap-y-5 shadow-lg">
             <ListNavbar to="/">Beranda</ListNavbar>
-            {user && user.data.role === "patient" && (
+            {user && user?.data?.role === "patient" && (
               <>
                 <ListNavbar to="deteksi">Riwayat Deteksi</ListNavbar>
                 <ListNavbar to="pengajuan">Riwayat Pengajuan</ListNavbar>
@@ -67,7 +66,7 @@ const Navbar = () => {
         {/* navbar laptop */}
         <div className="flex gap-x-4 hidden md:flex">
           <ListNavbar to="/">Beranda</ListNavbar>
-          {user && user.data.role === "patient" && (
+          {user && user?.data?.role === "patient" && (
             <>
               <ListNavbar to="deteksi">Riwayat Deteksi</ListNavbar>
               <ListNavbar to="pengajuan">Riwayat Pengajuan</ListNavbar>

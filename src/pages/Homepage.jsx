@@ -1,9 +1,9 @@
+import Accordion from "../layouts/PasienLayouts/Accordion";
+import ImageUploader from "../layouts/PasienLayouts/ImageUploader";
 import bgHomepage from "../assets/img/foto-dokter.jpg";
 import scan from "../assets/icon/Scan.png";
-import Accordion from "../layouts/PasienLayouts/Accordion";
-
-import ImageUploader from "../layouts/PasienLayouts/ImageUploader";
 import { useAuth } from "../context/AuthContext";
+
 const Homepage = () => {
   const { user } = useAuth();
 
@@ -21,7 +21,7 @@ const Homepage = () => {
         <div className="absolute left-8 md:left-32 top-28 md:top-48 max-w-md">
           <h1 className="text-4xl md:text-5xl font-light text-sky-900">
             Selamat Datang, <br />
-            <span className="font-bold">{user?.data.name || "Pasien"}</span>
+            <span className="font-bold">{user?.data?.name || "Pasien"}</span>
           </h1>
           <button
             onClick={() => (window.location.href = "#deteksi")}
