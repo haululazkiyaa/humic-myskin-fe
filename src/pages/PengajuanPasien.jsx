@@ -9,6 +9,9 @@ import testImage from "../assets/img/test-myskin.jpg";
 import MTablePengajuan from "../components/table/MTablePengajuan";
 import { SubmissionsService } from "../services/submissions/submissions.service";
 
+const CACHE_KEY = "submissionsDataCache";
+const CACHE_DURATION = 60 * 60 * 1000;
+
 const PengajuanPasien = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,12 +26,34 @@ const PengajuanPasien = () => {
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await SubmissionsService.getSubmissions({ userId });
-        const submissions = response.data.data;
-        setData(submissions);
-        console.log("Data pengajuan pasien:", response);
+        const cached = localStorage.getItem(CACHE_KEY);
+
+        if (cached) {
+          const parsedCache = JSON.parse(cached);
+          const { data: cachedData, timestamp } = parsedCache;
+
+          const isExpired = Date.now() - timestamp > CACHE_DURATION;
+
+          if (!isExpired) {
+            setData(cachedData);
+            setLoading(false);
+            console.log("Menggunakan cache submissions ✅");
+            return;
+          } else {
+            console.log("Cache expired, ambil data baru 🔄");
+          }
+        }
+
+        // Jika tidak ada cache atau sudah expired
+        const res = await SubmissionsService.getSubmissions({ userId });
+        setData(res.data.data);
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ data: res.data.data, timestamp: Date.now() })
+        );
+        console.log("Data deteksi pasien:", res);
       } catch (error) {
-        console.error(error);
+        console.log("error", error);
       } finally {
         setLoading(false);
       }
@@ -92,6 +117,27 @@ const PengajuanPasien = () => {
             />
           </div>
         </div>
+        <button
+          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
+          onClick={async () => {
+            setLoading(true);
+            try {
+              const res = await SubmissionsService.getSubmissions({ userId });
+              setData(res.data.data);
+              localStorage.setItem(
+                CACHE_KEY,
+                JSON.stringify({ data: res.data.data, timestamp: Date.now() })
+              );
+              console.log("Data berhasil di refresh 🔥");
+            } catch (error) {
+              console.log("error", error);
+            } finally {
+              setLoading(false);
+            }
+          }}
+        >
+          Refresh Data 🔄
+        </button>
 
         {/* Table View */}
         <div className="w-full overflow-x-auto hidden lg:block">
