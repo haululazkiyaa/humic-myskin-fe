@@ -11,6 +11,13 @@ const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
     textColor = "text-red-600";
   }
 
+  const statusColor =
+    item.status === "rejected"
+      ? "text-red-600"
+      : item.status === "pending"
+      ? "text-yellow-600"
+      : "text-green-600";
+
   return (
     <div className="block lg:hidden w-full mx-auto bg-white rounded-3xl shadow-lg p-6 mb-5">
       <div className="space-y-4">
@@ -61,13 +68,7 @@ const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
         {/* Status */}
         <div className="flex justify-between">
           <span className="font-bold">Status</span>
-          <span
-            className={`font-semibold ${
-              item.status === "Unverified" ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {item.status}
-          </span>
+          <span className={`font-semibold ${statusColor}`}>{item.status}</span>
         </div>
 
         {/* Tombol Aksi */}

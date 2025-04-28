@@ -4,12 +4,15 @@ import infoBtn from "../../assets/icon/info-btn.png";
 import testImage from "../../assets/img/test-myskin.jpg";
 
 const MTablePengajuan = ({ item, handleDelete }) => {
-  let textColor = "text-green-600";
-  if (item.status === "rejected") {
-    textColor = "text-red-600";
-  } else if (item.status === "pending") {
-    textColor = "text-yellow-600";
-  }
+  const percentValue = parseFloat(item.persentase);
+  const textColor = percentValue >= 50 ? "text-red-600" : "text-green-600";
+
+  const statusColor =
+    item.status === "rejected"
+      ? "text-red-600"
+      : item.status === "pending"
+      ? "text-yellow-600"
+      : "text-green-600";
 
   const diagnosisText =
     item.diagnosis === null
@@ -28,7 +31,9 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Diagnosis AI</span>
-          <span className="font-semibold text-right">{item.persentase}</span>
+          <span className={`font-semibold text-right ${textColor}`}>
+            {item.persentase}
+          </span>
         </div>
 
         <div className="flex justify-between gap-x-4 items-center">
@@ -49,7 +54,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Status</span>
-          <span className={`font-semibold ${textColor}`}>{item.status}</span>
+          <span className={`font-semibold ${statusColor}`}>{item.status}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">

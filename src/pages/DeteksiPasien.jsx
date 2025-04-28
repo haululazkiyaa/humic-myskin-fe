@@ -140,6 +140,13 @@ const DeteksiPasien = () => {
                   const textColor =
                     percentValue >= 50 ? "text-red-600" : "text-green-600";
 
+                  const statusColor =
+                    item.status === "rejected"
+                      ? "text-red-600"
+                      : item.status === "pending"
+                      ? "text-yellow-600"
+                      : "text-green-600";
+
                   return (
                     <tr key={index} className="*:align-top">
                       <td className="py-6 px-6">{item.submittedAt}</td>
@@ -169,13 +176,7 @@ const DeteksiPasien = () => {
                       >
                         {item.pengajuan}
                       </td>
-                      <td
-                        className={`py-6 px-6 font-semibold ${
-                          item.status === "Unverified"
-                            ? "text-red-600"
-                            : "text-green-600"
-                        }`}
-                      >
+                      <td className={`py-6 px-6 font-semibold ${statusColor}`}>
                         {item.status}
                       </td>
                       <td className="py-6 px-6 flex justify-start gap-x-3">
