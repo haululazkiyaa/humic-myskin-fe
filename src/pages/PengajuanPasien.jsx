@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
 // import data from "../json/dataAjuan.json";
@@ -8,63 +8,74 @@ import infoBtn from "../assets/icon/info-btn.png";
 import testImage from "../assets/img/test-myskin.jpg";
 import MTablePengajuan from "../components/table/MTablePengajuan";
 import { SubmissionsService } from "../services/submissions/submissions.service";
-
-const CACHE_KEY = "submissionsDataCache";
-const CACHE_DURATION = 60 * 60 * 1000;
+import { useQuery } from "@tanstack/react-query";
+import { AccountsService } from "../services/accounts/accounts.services";
 
 const PengajuanPasien = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.data?.id;
+
   const [showDelete, setShowDelete] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataPerPage, setDataPerPage] = useState(5);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.data?.id;
+  const {
+    data: submissionsData,
+    isLoading: isLoadingSubmissions,
+    // isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["submissions", userId],
+    queryFn: () => SubmissionsService.getSubmissions({ userId }),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 30 * 60 * 1000,
+  });
+
+  const submissions = useMemo(() => {
+    return submissionsData?.data?.data || [];
+  }, [submissionsData]);
+
+  // Ambil semua doctorId unik dari submissions
+  const doctorIds = useMemo(() => {
+    return [
+      ...new Set(submissions.map((item) => item.doctorId).filter(Boolean)),
+    ];
+  }, [submissions]);
+
+  const [doctorData, setDoctorData] = useState({});
 
   useEffect(() => {
-    const fetchSubmissions = async () => {
+    const fetchDoctors = async () => {
       try {
-        const cached = localStorage.getItem(CACHE_KEY);
-
-        if (cached) {
-          const parsedCache = JSON.parse(cached);
-          const { data: cachedData, timestamp } = parsedCache;
-
-          const isExpired = Date.now() - timestamp > CACHE_DURATION;
-
-          if (!isExpired) {
-            setData(cachedData);
-            setLoading(false);
-            console.log("Menggunakan cache submissions ✅");
-            return;
-          } else {
-            console.log("Cache expired, ambil data baru 🔄");
-          }
-        }
-
-        // Jika tidak ada cache atau sudah expired
-        const res = await SubmissionsService.getSubmissions({ userId });
-        setData(res.data.data);
-        localStorage.setItem(
-          CACHE_KEY,
-          JSON.stringify({ data: res.data.data, timestamp: Date.now() })
+        const doctorPromises = doctorIds.map(
+          (id) => AccountsService.getAccountById(id) // Pastikan ada method ini
         );
-        console.log("Data deteksi pasien:", res);
+        const doctors = await Promise.all(doctorPromises);
+
+        // Simpan dokter berdasarkan ID-nya
+        const doctorMap = {};
+        doctors.forEach((doctor) => {
+          doctorMap[doctor.data.id] = doctor.data;
+        });
+
+        setDoctorData("dokter data", doctorMap);
       } catch (error) {
-        console.log("error", error);
-      } finally {
-        setLoading(false);
+        console.error("Gagal fetch doctor data:", error);
       }
     };
 
-    fetchSubmissions();
-  }, [userId]);
+    if (doctorIds.length > 0) {
+      fetchDoctors();
+    }
+  }, [doctorIds]);
+  console.log(doctorData);
 
-  const filteredData = data.filter((item) =>
-    item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData =
+    submissions?.filter((item) =>
+      item.keluhan?.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   const totalData = filteredData.length;
   const totalPages = Math.ceil(totalData / dataPerPage);
@@ -120,20 +131,7 @@ const PengajuanPasien = () => {
         <button
           className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
           onClick={async () => {
-            setLoading(true);
-            try {
-              const res = await SubmissionsService.getSubmissions({ userId });
-              setData(res.data.data);
-              localStorage.setItem(
-                CACHE_KEY,
-                JSON.stringify({ data: res.data.data, timestamp: Date.now() })
-              );
-              console.log("Data berhasil di refresh 🔥");
-            } catch (error) {
-              console.log("error", error);
-            } finally {
-              setLoading(false);
-            }
+            refetch();
           }}
         >
           Refresh Data 🔄
@@ -157,7 +155,7 @@ const PengajuanPasien = () => {
               </tr>
             </thead>
             <tbody className="text-left text-gray-800">
-              {loading ? (
+              {isLoadingSubmissions ? (
                 <tr>
                   <td colSpan={10} className="text-center py-6">
                     Memuat data...
@@ -171,9 +169,18 @@ const PengajuanPasien = () => {
                 </tr>
               ) : (
                 currentData.map((item, index) => {
+                  const doctor = doctorData[item.doctorId];
+
                   const percentValue = parseFloat(item.persentase);
                   const textColor =
                     percentValue >= 50 ? "text-red-600" : "text-green-600";
+
+                  const diagnosisText =
+                    item.diagnosis === null
+                      ? "Menunggu"
+                      : item.diagnosis !== "Melanoma"
+                      ? "Bukan Melanoma"
+                      : "Melanoma";
 
                   return (
                     <tr key={index} className="*:align-top">
@@ -205,8 +212,10 @@ const PengajuanPasien = () => {
                         {item.status}
                       </td>
                       <td className="py-6 px-6">{item.verifiedAt}</td>
-                      <td className="py-6 px-6">{item.verifiedBy}</td>
-                      <td className="py-6 px-6">{item.diagnosis}</td>
+                      <td className="py-6 px-6">
+                        {doctor ? doctor.name : "Doctor data not available"}
+                      </td>
+                      <td className="py-6 px-6">{diagnosisText}</td>
                       <td className="py-6 px-6">{item.doctorNote}</td>
                       <td className="py-6 px-6 flex justify-start gap-x-3">
                         <button
@@ -235,13 +244,28 @@ const PengajuanPasien = () => {
 
         {/* Mobile View Only */}
         <div className="lg:hidden mt-4 space-y-4">
-          {currentData.map((item, index) => (
-            <MTablePengajuan
-              key={index}
-              item={item}
-              handleDelete={handleDelete}
-            />
-          ))}
+          {currentData.map((item, index) => {
+            const doctor = doctorData[item.doctorId];
+
+            const mappedItem = {
+              date: item.submittedAt,
+              persentase: item.persentase,
+              keluhan: item.complaint,
+              status: item.status,
+              tglVerif: item.verifiedAt,
+              verifiedBy: doctor ? doctor.name : "Doctor data not available",
+              diagnosis: item.diagnosis,
+              doctorNote: item.doctorNote,
+            };
+
+            return (
+              <MTablePengajuan
+                key={index}
+                item={mappedItem}
+                handleDelete={handleDelete}
+              />
+            );
+          })}
         </div>
 
         {/* Pagination */}

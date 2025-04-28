@@ -11,6 +11,13 @@ const MTablePengajuan = ({ item, handleDelete }) => {
     textColor = "text-yellow-600";
   }
 
+  const diagnosisText =
+    item.diagnosis === null
+      ? "Menunggu"
+      : item.diagnosis !== "Melanoma"
+      ? "Bukan Melanoma"
+      : "Melanoma";
+
   return (
     <div className="block lg:hidden w-full mx-auto bg-white rounded-3xl shadow-lg p-6 mb-5">
       <div className="space-y-4">
@@ -57,13 +64,13 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Melanoma</span>
-          <span>{item.melanoma || "-"}</span>
+          <span>{diagnosisText || "-"}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Catatan Dokter</span>
           <p className="text-right text-sm max-w-[60%] truncate">
-            {item.catatanDokter || "-"}
+            {item.doctorNote || "-"}
           </p>
         </div>
 
@@ -88,7 +95,6 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
 MTablePengajuan.propTypes = {
   item: PropTypes.object.isRequired,
-  handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
 
