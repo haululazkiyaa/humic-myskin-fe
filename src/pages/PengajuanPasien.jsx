@@ -50,7 +50,7 @@ const PengajuanPasien = () => {
     const fetchDoctors = async () => {
       try {
         const doctorPromises = doctorIds.map(
-          (id) => AccountsService.getAccountById(id) // Pastikan ada method ini
+          (id) => AccountsService.getAccountById(id)
         );
         const doctors = await Promise.all(doctorPromises);
 
