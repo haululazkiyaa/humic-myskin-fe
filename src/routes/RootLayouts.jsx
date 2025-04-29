@@ -30,11 +30,11 @@ export const router = createBrowserRouter([
             element: <FAQ />,
           },
           {
-            path: "info-detect",
+            path: "/info-detect/:id",
             element: <InfoDetect />,
           },
           {
-            path: "/info-pengajuan",
+            path: "/info-pengajuan/:id",
             element: <InfoPengajuan />,
           },
         ],

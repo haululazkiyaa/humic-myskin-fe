@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import deleteBtn from "../../assets/icon/delete-button.png"
-const Delete = ({ onClose}) => {
+const Delete = ({ onClose, onDelete }) => {
   return (
       <div className="fixed inset-0 flex items-center justify-center bg-black/30 z-50">
         <div className="bg-white w-96 p-6 rounded-xl shadow-lg relative">
@@ -25,13 +25,13 @@ const Delete = ({ onClose}) => {
           </div>
   
           {/* Tombol Aksi */}
-          <div className="w-full flex gap-x-1 mt-4">
+          <div onClick={onClose} className="w-full flex gap-x-1 mt-4">
             <button
               className="w-1/2 px-4 py-2 border border-gray-400 rounded-lg text-gray-600 hover:bg-gray-100"
             >
               Kembali
             </button>
-            <button  className="w-1/2 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer">
+            <button onClick={onDelete} className="w-1/2 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer">
               <span className="flex justify-center items-center gap-2">
                 <img src={deleteBtn} alt="" />
                 Hapus
@@ -45,6 +45,7 @@ const Delete = ({ onClose}) => {
 
 Delete.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
 };
 
 export default Delete

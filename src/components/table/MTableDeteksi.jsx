@@ -3,8 +3,10 @@ import deleteBtn from "../../assets/icon/delete-button.png";
 import editBtn from "../../assets/icon/edit-button.png";
 import infoBtn from "../../assets/icon/info-btn.png";
 import testImage from "../../assets/img/test-myskin.jpg";
+import { useNavigate } from "react-router-dom";
 
 const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
+  const navigate = useNavigate();
   const percentValue = parseFloat(item.persentase);
   let textColor = "text-green-600";
   if (percentValue >= 50) {
@@ -74,7 +76,7 @@ const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
         {/* Tombol Aksi */}
         <div className="flex justify-center gap-4 mt-4">
           <button
-            onClick={() => (window.location.href = "/info-detect")}
+            onClick={() => navigate(`/info-detect/${item.id}`)}
             className="rounded-full flex items-center justify-center shadow-md cursor-pointer"
           >
             <img src={infoBtn} alt="Info" />

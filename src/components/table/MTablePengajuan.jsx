@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import deleteBtn from "../../assets/icon/delete-button.png";
 import infoBtn from "../../assets/icon/info-btn.png";
 import testImage from "../../assets/img/test-myskin.jpg";
+import { useNavigate } from "react-router-dom";
 
 const MTablePengajuan = ({ item, handleDelete }) => {
+  const navigate = useNavigate();
   const percentValue = parseFloat(item.persentase);
   const textColor = percentValue >= 50 ? "text-red-600" : "text-green-600";
 
@@ -81,7 +83,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-center gap-4 mt-4">
           <button
-            onClick={() => (window.location.href = "/info-pengajuan")}
+            onClick={() => navigate(`/info-pengajuan/${item.id}`)}
             className="rounded-full flex items-center justify-center shadow-md cursor-pointer"
           >
             <img src={infoBtn} alt="Info" />

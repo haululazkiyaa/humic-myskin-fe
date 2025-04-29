@@ -1,16 +1,34 @@
 import { FaPenToSquare } from "react-icons/fa6";
 import PropTypes from "prop-types";
-import data from "../../json/dataDeteksi.json";
 import { useState } from "react";
+import { SubmissionsService } from "../../services/submissions/submissions.service";
 
-const EditBox = ({ onClose }) => {
-  const [editedKeluhan, setEditedKeluhan] = useState(
-    data.dataDetect[0].keluhan
-  );
+const EditBox = ({ data, onClose, onUpdated }) => {
+  const [editedKeluhan, setEditedKeluhan] = useState(data.complaint || "");
   const [editable, setEditable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleEdit = () => {
-    setEditable(true);
+  const handleEdit = async () => {
+    if (!editable) {
+      setEditable(true);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await SubmissionsService.updateSubmission({
+        id: data.id,
+        complaint: editedKeluhan,
+      });
+
+      if (onUpdated) onUpdated({ complaint: editedKeluhan });
+      onClose(); 
+    } catch (error) {
+      console.error("Gagal memperbarui keluhan:", error);
+      alert("Terjadi kesalahan saat memperbarui data.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,17 +52,15 @@ const EditBox = ({ onClose }) => {
           </button>
         </div>
 
-        {/* Textarea untuk Keluhan */}
+        {/* Textarea */}
         <textarea
           onChange={(e) => setEditedKeluhan(e.target.value)}
           value={editedKeluhan}
           disabled={!editable}
           className="w-full mt-3 p-3 border rounded-lg text-gray-700 h-40 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
-        >
-          {editedKeluhan}
-        </textarea>
+        />
 
-        {/* Tombol Aksi */}
+        {/* Buttons */}
         <div className="w-full flex gap-x-1 mt-4">
           <button
             onClick={onClose}
@@ -54,11 +70,12 @@ const EditBox = ({ onClose }) => {
           </button>
           <button
             onClick={handleEdit}
+            disabled={loading}
             className="w-1/2 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-600 cursor-pointer"
           >
             <span className="flex justify-center items-center gap-2">
               <FaPenToSquare className="text-white text-lg" />
-              Perbarui
+              {editable ? (loading ? "Menyimpan..." : "Simpan") : "Perbarui"}
             </span>
           </button>
         </div>
@@ -68,7 +85,9 @@ const EditBox = ({ onClose }) => {
 };
 
 EditBox.propTypes = {
+  data: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
+  onUpdated: PropTypes.func,
 };
 
 export default EditBox;

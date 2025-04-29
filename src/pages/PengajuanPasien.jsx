@@ -1,4 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { SubmissionsService } from "../services/submissions/submissions.service";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { AccountsService } from "../services/accounts/accounts.services";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Delete from "../components/pop-up/Delete";
 // import data from "../json/dataAjuan.json";
@@ -7,9 +12,7 @@ import deleteBtn from "../assets/icon/delete-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
 import testImage from "../assets/img/test-myskin.jpg";
 import MTablePengajuan from "../components/table/MTablePengajuan";
-import { SubmissionsService } from "../services/submissions/submissions.service";
-import { useQuery } from "@tanstack/react-query";
-import { AccountsService } from "../services/accounts/accounts.services";
+import LoadingDot from "../components/loader/LoadingDot";
 
 const PengajuanPasien = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -19,6 +22,8 @@ const PengajuanPasien = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataPerPage, setDataPerPage] = useState(5);
+  const [deleteId, setDeleteId] = useState(null);
+  const navigate = useNavigate();
 
   const {
     data: submissionsData,
@@ -49,8 +54,8 @@ const PengajuanPasien = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const doctorPromises = doctorIds.map(
-          (id) => AccountsService.getAccountById(id)
+        const doctorPromises = doctorIds.map((id) =>
+          AccountsService.getAccountById(id)
         );
         const doctors = await Promise.all(doctorPromises);
 
@@ -74,7 +79,7 @@ const PengajuanPasien = () => {
 
   const filteredData =
     submissions?.filter((item) =>
-      item.keluhan?.toLowerCase().includes(searchTerm.toLowerCase())
+      item.complaint?.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
   const totalData = filteredData.length;
@@ -84,7 +89,23 @@ const PengajuanPasien = () => {
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentData = filteredData.slice(indexOfFirstData, indexOfLastData);
 
-  const handleDelete = () => setShowDelete(true);
+  const handleDelete = (id) => {
+    setDeleteId(id);
+    setShowDelete(true);
+  };
+
+  const deleteMutation = useMutation({
+      mutationFn: (id) => SubmissionsService.deleteSubmission(id),
+      onSuccess: () => {
+        toast.success("Data berhasil dihapus");
+        refetch();
+        setShowDelete(false);
+        setDeleteId(null);
+      },
+      onError: () => {
+        toast.error("Gagal menghapus data");
+      },
+    });
   const goToNextPage = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };
@@ -94,7 +115,12 @@ const PengajuanPasien = () => {
 
   return (
     <>
-      {showDelete && <Delete onClose={() => setShowDelete(false)} />}
+      {showDelete && (
+        <Delete
+          onClose={() => setShowDelete(false)}
+          onDelete={() => deleteMutation.mutate(deleteId)}
+        />
+      )}
       <div className="pt-32 w-full px-6 lg:px-3">
         <h1 className="text-3xl font-bold text-black">Riwayat Pengajuan</h1>
 
@@ -158,8 +184,8 @@ const PengajuanPasien = () => {
             <tbody className="text-left text-gray-800">
               {isLoadingSubmissions ? (
                 <tr>
-                  <td colSpan={10} className="text-center py-6">
-                    Memuat data...
+                  <td colSpan={10} className="py-6">
+                    <LoadingDot />
                   </td>
                 </tr>
               ) : currentData.length === 0 ? (
@@ -169,7 +195,7 @@ const PengajuanPasien = () => {
                   </td>
                 </tr>
               ) : (
-                currentData.map((item, index) => {
+                currentData.map((item) => {
                   const doctor = doctorData[item.doctorId];
 
                   const percentValue = parseFloat(item.persentase);
@@ -191,7 +217,7 @@ const PengajuanPasien = () => {
                       : "Melanoma";
 
                   return (
-                    <tr key={index} className="*:align-top">
+                    <tr key={item.id} className="*:align-top">
                       <td className="py-6 px-6">{item.submittedAt}</td>
                       <td className={`py-6 px-6 font-semibold ${textColor}`}>
                         {item.persentase}
@@ -221,9 +247,7 @@ const PengajuanPasien = () => {
                       <td className="py-6 px-6">{item.doctorNote}</td>
                       <td className="py-6 px-6 flex justify-start gap-x-3">
                         <button
-                          onClick={() =>
-                            (window.location.href = "/info-pengajuan")
-                          }
+                          onClick={() => navigate(`/info-pengajuan/${item.id}`)}
                           className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
                         >
                           <img src={infoBtn} alt="Info" />
@@ -232,7 +256,7 @@ const PengajuanPasien = () => {
                           <img
                             src={deleteBtn}
                             alt="Hapus"
-                            onClick={handleDelete}
+                            onClick={() => handleDelete(item.id)}
                           />
                         </button>
                       </td>
@@ -246,7 +270,7 @@ const PengajuanPasien = () => {
 
         {/* Mobile View Only */}
         <div className="lg:hidden mt-4 space-y-4">
-          {currentData.map((item, index) => {
+          {currentData.map((item) => {
             const doctor = doctorData[item.doctorId];
 
             const mappedItem = {
@@ -262,9 +286,9 @@ const PengajuanPasien = () => {
 
             return (
               <MTablePengajuan
-                key={index}
+                key={item.id}
                 item={mappedItem}
-                handleDelete={handleDelete}
+                handleDelete={() => handleDelete(item.id)}
               />
             );
           })}
