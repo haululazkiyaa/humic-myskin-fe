@@ -28,28 +28,28 @@ const TanstackRiwayatVerifikasi = ({ data }) => {
     () => [
       {
         header: "Tanggal Pengajuan",
-        accessorKey: "date",
+        accessorKey: "submittedAt",
       },
       {
         header: "Pasien",
-        accessorKey: "namaPasien",
+        accessorKey: "patientName",
       },
       {
         header: "Diagnosis AI",
-        accessorKey: "persentase",
+        accessorKey: "diagnosis",
         cell: ({ getValue }) => (
           <span className="text-green-600 font-semibold block">
-            {getValue()} Melanoma
+            {getValue()}
           </span>
         ),
       },
       {
         header: "Verifikasi Dokter",
-        accessorKey: "melanoma",
+        accessorKey: "doctorNote",
       },
       {
         header: "Catatan",
-        accessorKey: "catatanDokter",
+        accessorKey: "doctorNote",
         cell: ({ getValue }) => (
           <p className="truncate max-w-[250px]">{getValue()}</p>
         ),

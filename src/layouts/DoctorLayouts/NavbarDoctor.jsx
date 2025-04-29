@@ -71,12 +71,15 @@ const Navbar = () => {
                 {item.label}
               </ListNavbar>
             ))}
-            <button
-              onClick={handleLogout}
-              className="font-extralight text-md cursor-pointer text-red-500"
-            >
-              Keluar
-            </button>
+            <div className="d-flex space-x-4">
+              <a href="/dokter">Dashboard</a>
+              <button
+                onClick={handleLogout}
+                className="font-extralight text-md cursor-pointer text-red-500"
+              >
+                Keluar
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -110,12 +113,15 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <button
-          onClick={handleLogout}
-          className="font-extralight text-md text-red-600 cursor-pointer"
-        >
-          Keluar
-        </button>
+        <div className="d-flex space-x-4">
+          <a href="/dokter">Dashboard</a>
+          <button
+            onClick={handleLogout}
+            className="font-extralight text-md cursor-pointer text-red-500"
+          >
+            Keluar
+          </button>
+        </div>
       </div>
       <Modal>
         <AuthForm onClose={onClose} />

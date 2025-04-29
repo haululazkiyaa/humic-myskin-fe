@@ -50,12 +50,15 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <button
-                onClick={handleLogout}
-                className="font-extralight text-md cursor-pointer text-red-500"
-              >
-                Keluar
-              </button>
+              <div className="d-flex space-x-4">
+                <a href="/deteksi">Dashboard</a>
+                <button
+                  onClick={handleLogout}
+                  className="font-extralight text-md cursor-pointer text-red-500"
+                >
+                  Keluar
+                </button>
+              </div>
             )}
           </div>
         )}
@@ -91,12 +94,15 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <button
-            onClick={handleLogout}
-            className="font-extralight text-md cursor-pointer text-red-500"
-          >
-            Keluar
-          </button>
+          <div className="d-flex space-x-4">
+            <a href="/deteksi">Dashboard</a>
+            <button
+              onClick={handleLogout}
+              className="font-extralight text-md cursor-pointer text-red-500"
+            >
+              Keluar
+            </button>
+          </div>
         )}
       </div>
       <Modal>
