@@ -1,14 +1,15 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { FaChevronLeft, FaChevronRight, FaSearch } from "react-icons/fa";
+import { useEffect, useMemo, useState } from "react";
 
 import { SubmissionsService } from "../../services/submissions/submissions.service";
 import { useNavigate } from "react-router-dom";
 
 const DaftarPengajuan = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [submissions, setSubmissions] = useState([]);
+  const [allSubmissions, setAllSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 8;
   const navigate = useNavigate();
 
@@ -16,11 +17,8 @@ const DaftarPengajuan = () => {
     const fetchSubmissions = async () => {
       try {
         setLoading(true);
-        const response = await SubmissionsService.getSubmissions({
-          page: currentPage,
-          limit: itemsPerPage,
-        });
-        setSubmissions(response.data);
+        const response = await SubmissionsService.getSubmissions({});
+        setAllSubmissions(response.data.data || []);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching submissions:", error);
@@ -30,18 +28,51 @@ const DaftarPengajuan = () => {
     };
 
     fetchSubmissions();
-  }, [currentPage]);
+  }, []);
 
-  // Check if API returns paginated data or we need to paginate manually
-  const currentItems = submissions.data || [];
+  // Filter submissions based on search query
+  const filteredSubmissions = useMemo(() => {
+    if (!searchQuery.trim()) return allSubmissions;
 
-  // If API returns total pages use that, otherwise calculate
-  const totalPages =
-    submissions.totalPages ||
-    (submissions.data ? Math.ceil(submissions.data.length / itemsPerPage) : 0);
+    return allSubmissions.filter((item) => {
+      const searchTerm = searchQuery.toLowerCase();
+      // Search across multiple fields - adjust according to your data structure
+      return (
+        (item.patientName &&
+          item.patientName.toLowerCase().includes(searchTerm)) ||
+        (item.diagnosis && item.diagnosis.toLowerCase().includes(searchTerm)) ||
+        (item.submittedAt &&
+          item.submittedAt.toLowerCase().includes(searchTerm))
+      );
+    });
+  }, [allSubmissions, searchQuery]);
+
+  // Apply pagination to filtered data
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredSubmissions.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  // Calculate total pages based on filtered data
+  const totalPages = Math.ceil(filteredSubmissions.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Reset to first page when searching
+    setCurrentPage(1);
+    // Client-side search is handled by the useMemo dependency
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    // Reset to first page whenever search input changes
+    setCurrentPage(1);
   };
 
   const renderPaginationButtons = () => {
@@ -139,6 +170,26 @@ const DaftarPengajuan = () => {
       <h1 className="text-3xl font-bold text-black text-center">
         Daftar Pengajuan Umum
       </h1>
+
+      {/* Search Input */}
+      <div className="max-w-xl mx-auto mt-6 mb-8">
+        <form onSubmit={handleSearch} className="relative">
+          <input
+            type="text"
+            placeholder="Cari di sini..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="w-full py-3 px-4 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#12476B] focus:border-transparent"
+          />
+          <button
+            type="submit"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#12476B]"
+          >
+            <FaSearch />
+          </button>
+        </form>
+      </div>
+
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <p className="text-lg">Loading...</p>
