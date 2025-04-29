@@ -132,6 +132,7 @@ const PengajuanPasien = () => {
           className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
           onClick={async () => {
             refetch();
+            console.log("data di refresh");
           }}
         >
           Refresh Data 🔄

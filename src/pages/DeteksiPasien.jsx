@@ -65,7 +65,7 @@ const DeteksiPasien = () => {
       {showEdit && <Edit onClose={() => setShowEdit(false)} />}
       {showDelete && <Delete onClose={() => setShowDelete(false)} />}
 
-      <div className="pt-32 w-full px-6 lg:px-10">
+      <div className="pt-32 w-full px-6 lg:px-3">
         <h1 className="text-3xl font-bold text-black">Riwayat Deteksi</h1>
 
         {/* Filter Controls */}
@@ -102,6 +102,7 @@ const DeteksiPasien = () => {
           className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
           onClick={() => {
             refetch();
+            console.log("data deteksi di refresh")
           }}
         >
           Refresh Data 🔄
