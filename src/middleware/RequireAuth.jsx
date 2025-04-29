@@ -1,9 +1,10 @@
-import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
+
+import PropTypes from "prop-types";
 
 const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { data: user } = JSON.parse(localStorage.getItem("user"));
   const location = useLocation();
 
   if (!token || !user) {
