@@ -25,7 +25,7 @@ const Navbar = () => {
           MySkin
         </h1>
         {isOpen && (
-          <div className="md:hidden absolute top-17 left-0 w-full bg-white/70 backdrop-blur-sm flex flex-col items-center p-5 gap-y-5 shadow-lg">
+          <div className="md:hidden absolute top-17 left-0 w-full bg-white/90 flex flex-col items-center p-5 gap-y-5 shadow-lg">
             <ListNavbar to="/">Beranda</ListNavbar>
             {user && user?.data?.role === "patient" && (
               <>
@@ -34,7 +34,7 @@ const Navbar = () => {
               </>
             )}
             <ListNavbar to="/faq">FAQ</ListNavbar>
-            {!user ? (
+            {!user && (
               <div className="w-full flex flex-col gap-y-5">
                 <button
                   onClick={() => onOpen("register")}
@@ -47,16 +47,6 @@ const Navbar = () => {
                   className="bg-sky-800 px-4 py-2 rounded-lg font-extralight text-white text-md cursor-pointer"
                 >
                   Masuk
-                </button>
-              </div>
-            ) : (
-              <div className="d-flex space-x-4">
-                <a href="/deteksi">Dashboard</a>
-                <button
-                  onClick={handleLogout}
-                  className="font-extralight text-md cursor-pointer text-red-500"
-                >
-                  Keluar
                 </button>
               </div>
             )}
@@ -94,8 +84,7 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <div className="d-flex space-x-4">
-            <a href="/deteksi">Dashboard</a>
+          <div className="flex space-x-4">
             <button
               onClick={handleLogout}
               className="font-extralight text-md cursor-pointer text-red-500"

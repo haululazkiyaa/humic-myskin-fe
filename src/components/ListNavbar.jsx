@@ -5,7 +5,7 @@ const ListNavbar = ({ to, children }) => {
   return (
     <Link
       to={to}
-      className="font-normal text-md text-black hover:text-gray-700 focus:font-bold cursor-pointer"
+      className="font-semibold md:font-normal text-md text-black hover:text-gray-700 focus:font-bold cursor-pointer"
     >
       {children}
     </Link>
