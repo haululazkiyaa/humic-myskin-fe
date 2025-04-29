@@ -12,11 +12,8 @@ const RiwayatVerifikasi = () => {
     const fetchVerifications = async () => {
       try {
         setLoading(true);
-        // Assuming the API provides a way to fetch verified submissions
-        // You might need to adjust parameters based on your API
         const response = await SubmissionsService.getSubmissions({
-          status: "verified", // Adjust based on your API requirements
-          limit: 100,
+          status: { eq: "pending" },
         });
 
         setVerifications(response.data.data || []);

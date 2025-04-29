@@ -45,7 +45,7 @@ const TanstackRiwayatVerifikasi = ({ data }) => {
       },
       {
         header: "Verifikasi Dokter",
-        accessorKey: "doctorNote",
+        accessorKey: "diagnosis",
       },
       {
         header: "Catatan",

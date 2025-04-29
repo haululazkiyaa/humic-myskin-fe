@@ -17,7 +17,9 @@ const DaftarPengajuan = () => {
     const fetchSubmissions = async () => {
       try {
         setLoading(true);
-        const response = await SubmissionsService.getSubmissions({});
+        const response = await SubmissionsService.getSubmissions({
+          status: { eq: "pending" },
+        });
         setAllSubmissions(response.data.data || []);
         setLoading(false);
       } catch (error) {
