@@ -4,12 +4,22 @@ import infoBtn from "../../assets/icon/info-btn.png";
 import testImage from "../../assets/img/test-myskin.jpg";
 
 const MTablePengajuan = ({ item, handleDelete }) => {
-  let textColor = "text-green-600";
-  if (item.status === "rejected") {
-    textColor = "text-red-600";
-  } else if (item.status === "pending") {
-    textColor = "text-yellow-600";
-  }
+  const percentValue = parseFloat(item.persentase);
+  const textColor = percentValue >= 50 ? "text-red-600" : "text-green-600";
+
+  const statusColor =
+    item.status === "rejected"
+      ? "text-red-600"
+      : item.status === "pending"
+      ? "text-yellow-600"
+      : "text-green-600";
+
+  const diagnosisText =
+    item.diagnosis === null
+      ? "Menunggu"
+      : item.diagnosis !== "Melanoma"
+      ? "Bukan Melanoma"
+      : "Melanoma";
 
   return (
     <div className="block lg:hidden w-full mx-auto bg-white rounded-3xl shadow-lg p-6 mb-5">
@@ -21,7 +31,9 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Diagnosis AI</span>
-          <span className="font-semibold text-right">{item.persentase}</span>
+          <span className={`font-semibold text-right ${textColor}`}>
+            {item.persentase}
+          </span>
         </div>
 
         <div className="flex justify-between gap-x-4 items-center">
@@ -42,7 +54,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Status</span>
-          <span className={`font-semibold ${textColor}`}>{item.status}</span>
+          <span className={`font-semibold ${statusColor}`}>{item.status}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
@@ -57,13 +69,13 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Melanoma</span>
-          <span>{item.melanoma || "-"}</span>
+          <span>{diagnosisText || "-"}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Catatan Dokter</span>
           <p className="text-right text-sm max-w-[60%] truncate">
-            {item.catatanDokter || "-"}
+            {item.doctorNote || "-"}
           </p>
         </div>
 
@@ -88,7 +100,6 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
 MTablePengajuan.propTypes = {
   item: PropTypes.object.isRequired,
-  handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
 

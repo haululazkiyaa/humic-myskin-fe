@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
 // import data from "../json/dataAjuan.json";
@@ -8,38 +8,74 @@ import infoBtn from "../assets/icon/info-btn.png";
 import testImage from "../assets/img/test-myskin.jpg";
 import MTablePengajuan from "../components/table/MTablePengajuan";
 import { SubmissionsService } from "../services/submissions/submissions.service";
+import { useQuery } from "@tanstack/react-query";
+import { AccountsService } from "../services/accounts/accounts.services";
 
 const PengajuanPasien = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.data?.id;
+
   const [showDelete, setShowDelete] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataPerPage, setDataPerPage] = useState(5);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.data?.id;
+  const {
+    data: submissionsData,
+    isLoading: isLoadingSubmissions,
+    // isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["submissions", userId],
+    queryFn: () => SubmissionsService.getSubmissions({ userId }),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 30 * 60 * 1000,
+  });
+
+  const submissions = useMemo(() => {
+    return submissionsData?.data?.data || [];
+  }, [submissionsData]);
+
+  // Ambil semua doctorId unik dari submissions
+  const doctorIds = useMemo(() => {
+    return [
+      ...new Set(submissions.map((item) => item.doctorId).filter(Boolean)),
+    ];
+  }, [submissions]);
+
+  const [doctorData, setDoctorData] = useState({});
 
   useEffect(() => {
-    const fetchSubmissions = async () => {
+    const fetchDoctors = async () => {
       try {
-        const response = await SubmissionsService.getSubmissions({ userId });
-        const submissions = response.data.data;
-        setData(submissions);
-        console.log("Data pengajuan pasien:", response);
+        const doctorPromises = doctorIds.map(
+          (id) => AccountsService.getAccountById(id)
+        );
+        const doctors = await Promise.all(doctorPromises);
+
+        // Simpan dokter berdasarkan ID-nya
+        const doctorMap = {};
+        doctors.forEach((doctor) => {
+          doctorMap[doctor.data.id] = doctor.data;
+        });
+
+        setDoctorData("dokter data", doctorMap);
       } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
+        console.error("Gagal fetch doctor data:", error);
       }
     };
 
-    fetchSubmissions();
-  }, [userId]);
+    if (doctorIds.length > 0) {
+      fetchDoctors();
+    }
+  }, [doctorIds]);
+  console.log(doctorData);
 
-  const filteredData = data.filter((item) =>
-    item.keluhan.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData =
+    submissions?.filter((item) =>
+      item.keluhan?.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   const totalData = filteredData.length;
   const totalPages = Math.ceil(totalData / dataPerPage);
@@ -92,6 +128,14 @@ const PengajuanPasien = () => {
             />
           </div>
         </div>
+        <button
+          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
+          onClick={async () => {
+            refetch();
+          }}
+        >
+          Refresh Data 🔄
+        </button>
 
         {/* Table View */}
         <div className="w-full overflow-x-auto hidden lg:block">
@@ -111,7 +155,7 @@ const PengajuanPasien = () => {
               </tr>
             </thead>
             <tbody className="text-left text-gray-800">
-              {loading ? (
+              {isLoadingSubmissions ? (
                 <tr>
                   <td colSpan={10} className="text-center py-6">
                     Memuat data...
@@ -125,9 +169,25 @@ const PengajuanPasien = () => {
                 </tr>
               ) : (
                 currentData.map((item, index) => {
+                  const doctor = doctorData[item.doctorId];
+
                   const percentValue = parseFloat(item.persentase);
                   const textColor =
                     percentValue >= 50 ? "text-red-600" : "text-green-600";
+
+                  const statusColor =
+                    item.status === "rejected"
+                      ? "text-red-600"
+                      : item.status === "pending"
+                      ? "text-yellow-600"
+                      : "text-green-600";
+
+                  const diagnosisText =
+                    item.diagnosis === null
+                      ? "Menunggu"
+                      : item.diagnosis !== "Melanoma"
+                      ? "Bukan Melanoma"
+                      : "Melanoma";
 
                   return (
                     <tr key={index} className="*:align-top">
@@ -149,18 +209,14 @@ const PengajuanPasien = () => {
                           {item.complaint}
                         </p>
                       </td>
-                      <td
-                        className={`py-6 px-6 font-semibold ${
-                          item.status === "Unverified"
-                            ? "text-red-600"
-                            : "text-green-600"
-                        }`}
-                      >
+                      <td className={`py-6 px-6 font-semibold ${statusColor}`}>
                         {item.status}
                       </td>
                       <td className="py-6 px-6">{item.verifiedAt}</td>
-                      <td className="py-6 px-6">{item.verifiedBy}</td>
-                      <td className="py-6 px-6">{item.diagnosis}</td>
+                      <td className="py-6 px-6">
+                        {doctor ? doctor.name : "Doctor data not available"}
+                      </td>
+                      <td className="py-6 px-6">{diagnosisText}</td>
                       <td className="py-6 px-6">{item.doctorNote}</td>
                       <td className="py-6 px-6 flex justify-start gap-x-3">
                         <button
@@ -189,13 +245,28 @@ const PengajuanPasien = () => {
 
         {/* Mobile View Only */}
         <div className="lg:hidden mt-4 space-y-4">
-          {currentData.map((item, index) => (
-            <MTablePengajuan
-              key={index}
-              item={item}
-              handleDelete={handleDelete}
-            />
-          ))}
+          {currentData.map((item, index) => {
+            const doctor = doctorData[item.doctorId];
+
+            const mappedItem = {
+              date: item.submittedAt,
+              persentase: item.persentase,
+              keluhan: item.complaint,
+              status: item.status,
+              tglVerif: item.verifiedAt,
+              verifiedBy: doctor ? doctor.name : "Doctor data not available",
+              diagnosis: item.diagnosis,
+              doctorNote: item.doctorNote,
+            };
+
+            return (
+              <MTablePengajuan
+                key={index}
+                item={mappedItem}
+                handleDelete={handleDelete}
+              />
+            );
+          })}
         </div>
 
         {/* Pagination */}
