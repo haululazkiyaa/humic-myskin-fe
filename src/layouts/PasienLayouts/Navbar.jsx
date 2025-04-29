@@ -34,7 +34,7 @@ const Navbar = () => {
               </>
             )}
             <ListNavbar to="/faq">FAQ</ListNavbar>
-            {!user && (
+            {!user ? (
               <div className="w-full flex flex-col gap-y-5">
                 <button
                   onClick={() => onOpen("register")}
@@ -47,6 +47,15 @@ const Navbar = () => {
                   className="bg-sky-800 px-4 py-2 rounded-lg font-extralight text-white text-md cursor-pointer"
                 >
                   Masuk
+                </button>
+              </div>
+            ) : (
+              <div className="flex space-x-4">
+                <button
+                  onClick={handleLogout}
+                  className="font-extralight text-md cursor-pointer text-red-500"
+                >
+                  Keluar
                 </button>
               </div>
             )}
