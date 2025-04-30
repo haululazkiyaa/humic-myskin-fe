@@ -12,8 +12,8 @@ const SignUpForm = () => {
     email: "",
     phone: "",
     birthDate: "",
-    role: "",
     password: "",
+    role: "",
     confirmPassword: "",
     agree: false,
   });
@@ -53,16 +53,22 @@ const SignUpForm = () => {
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
     const role = domain === "dokter.myskin.ac.id" ? "doctor" : "patient";
 
+    const payload = {
+      name: fullName,
+      email: formData.email,
+      phone: formData.phone,
+      dob: formData.birthDate,
+      password: formData.password,
+      role: role,
+      password_confirmation: formData.confirmPassword,
+    };
+
     try {
-      await AuthService.register({
-        name: fullName,
-        email: formData.email,
-        phone: formData.phone,
-        dob: formData.birthDate,
-        password: formData.password,
-        role: role,
-        password_confirmation: formData.confirmPassword
-    });
+     if(role === "doctor") {
+      await AuthService.registerDoctor(payload);
+     } else {
+      await AuthService.registerPatient(payload);
+     }
       alert("Pendaftaran berhasil!");
       
       // Reset form
