@@ -16,8 +16,8 @@ const ImageUploader = () => {
   };
 
   return (
-    <div className="flex justify-center py-10 px-6 md:px-20 w-full">
-      <div className="md:bg-white md:p-8 md:rounded-lg md:border md:border-gray-400 w-full">
+    <div className="flex justify-center py-10 px-10 md:px-20 w-full">
+      <div className="md:bg-white md:py-8 md:px-20 md:rounded-lg md:border md:border-gray-400 w-full">
         <h1 className="text-2xl font-bold text-center text-black">
           Deteksi Kanker Kulit
         </h1>
@@ -76,7 +76,7 @@ const ImageUploader = () => {
                 </label>
               ) : (
                 <button
-                  className="md:w-1/3 font-bold border border-gray-800 rounded-full px-6 py-2 cursor-pointer"
+                  className="md:w-1/3 font-bold text-white bg-sky-900 rounded-full px-6 py-2 cursor-pointer"
                   onClick={() => setIsCropping(true)}
                 >
                   Crop Foto
@@ -86,6 +86,38 @@ const ImageUploader = () => {
           )}
 
           {croppedImage && <ResultDetect />}
+          {croppedImage && (
+            <div className="w-full">
+              <h1 className="text-2xl font-bold text-center text-black">
+                Pengajuan Verifikasi
+              </h1>
+              <p className="text-gray-500 text-center mt-2">
+                Ajukan keluhan dan pilih dokter Anda disini
+              </p>
+
+              <div className="text-left w-full">
+                <p>Keluhan:</p>
+                <textarea
+                  name="keluhan"
+                  id=""
+                  className="w-full border border-gray-400 rounded-lg p-2 my-2"
+                  placeholder="Masukkan keluhan Anda disini"
+                ></textarea>
+                <label className="inline-flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2"
+                  />
+                  <span className="text-sm font-medium text-gray-800">
+                    Saya ingin memilih dokter
+                  </span>
+                </label>
+                <div>
+                  
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {!croppedImage && (

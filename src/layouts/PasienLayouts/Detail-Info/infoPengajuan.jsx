@@ -6,8 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { SubmissionsService } from "../../../services/submissions/submissions.service";
-import { AccountsService } from "../../../services/accounts/accounts.services";
+import { SubmissionsPatientService } from "../../../services/submissions/submissionsPatient.services";
 
 const InfoPengajuan = () => {
   const { id } = useParams();
@@ -20,19 +19,11 @@ const InfoPengajuan = () => {
     isError,
   } = useQuery({
     queryKey: ["submission", id],
-    queryFn: () => SubmissionsService.getSubmissionById(id),
+    queryFn: () => SubmissionsPatientService.getSubmissionsById(id),
     enabled: !!id,
   });
 
-  const doctorId = submission?.data?.doctorId;
-
-  const { data: doctorData, isLoading: isDoctorLoading } = useQuery({
-    queryKey: ["doctor", doctorId],
-    queryFn: () => AccountsService.getAccountById(doctorId),
-    enabled: !!doctorId,
-  });
-
-  if (isSubmissionLoading || isDoctorLoading) {
+  if (isSubmissionLoading) {
     return (
       <div className="mt-10">
         <LoadingCircle />
@@ -49,7 +40,6 @@ const InfoPengajuan = () => {
   }
 
   const data = submission.data;
-  const doctorName = doctorData?.data?.name || "Dokter tidak diketahui";
 
   const calculateAge= (dob) => {
     return dayjs().diff(dayjs(dob), 'year');
@@ -88,7 +78,7 @@ const InfoPengajuan = () => {
               <h1 className="font-bold text-2xl text-black mb-2">
                 Diverifikasi Oleh
               </h1>
-              <p>{doctorName}</p>
+              <p>Dr. Elfa Erfiana</p>
             </div>
             <div className="p-4 text-left rounded-lg shadow-md">
               <h1 className="font-bold text-2xl text-black mb-2">

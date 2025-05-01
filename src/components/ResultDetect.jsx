@@ -1,6 +1,5 @@
 import keakuratan from "../assets/icon/Ellipse 1.png";
 import melanoma from "../assets/icon/Ellipse 3.png";
-import status from "../assets/icon/Ellipse 5.png";
 
 const ResultDetect = () => {
   return (
@@ -14,11 +13,6 @@ const ResultDetect = () => {
         <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />
         <h4 className="text-black font-semibold">Keakuratan</h4>
         <p className="text-green-500">11.69% Melanoma (Aman)</p>
-      </div>
-      <div className="w-full h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4 border border-gray-100">
-        <img src={status} alt="Status" className="w-16 h-16" />
-        <h4 className="text-black font-semibold">Status</h4>
-        <p className="text-red-500">Unverified</p>
       </div>
     </div>
   );

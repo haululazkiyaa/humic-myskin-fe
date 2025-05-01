@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { SubmissionsService } from "../services/submissions/submissions.service";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { AccountsService } from "../services/accounts/accounts.services";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -10,9 +8,9 @@ import Delete from "../components/pop-up/Delete";
 
 import deleteBtn from "../assets/icon/delete-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
-import testImage from "../assets/img/test-myskin.jpg";
 import MTablePengajuan from "../components/table/MTablePengajuan";
 import LoadingDot from "../components/loader/LoadingDot";
+import { SubmissionsPatientService } from "../services/submissions/submissionsPatient.services";
 
 const PengajuanPasien = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -32,7 +30,7 @@ const PengajuanPasien = () => {
     refetch,
   } = useQuery({
     queryKey: ["submissions", userId],
-    queryFn: () => SubmissionsService.getSubmissions({ userId }),
+    queryFn: () => SubmissionsPatientService.getSubmissions({ userId }),
     enabled: !!userId,
     staleTime: 5 * 60 * 1000,
     cacheTime: 30 * 60 * 1000,
@@ -41,41 +39,6 @@ const PengajuanPasien = () => {
   const submissions = useMemo(() => {
     return submissionsData?.data?.data || [];
   }, [submissionsData]);
-
-  // Ambil semua doctorId unik dari submissions
-  const doctorIds = useMemo(() => {
-    return [
-      ...new Set(submissions.map((item) => item.doctorId).filter(Boolean)),
-    ];
-  }, [submissions]);
-
-  const [doctorData, setDoctorData] = useState({});
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const doctorPromises = doctorIds.map((id) =>
-          AccountsService.getAccountById(id)
-        );
-        const doctors = await Promise.all(doctorPromises);
-
-        // Simpan dokter berdasarkan ID-nya
-        const doctorMap = {};
-        doctors.forEach((doctor) => {
-          doctorMap[doctor.data.id] = doctor.data;
-        });
-
-        setDoctorData("dokter data", doctorMap);
-      } catch (error) {
-        console.error("Gagal fetch doctor data:", error);
-      }
-    };
-
-    if (doctorIds.length > 0) {
-      fetchDoctors();
-    }
-  }, [doctorIds]);
-  console.log(doctorData);
 
   const filteredData =
     submissions?.filter((item) =>
@@ -95,7 +58,7 @@ const PengajuanPasien = () => {
   };
 
   const deleteMutation = useMutation({
-      mutationFn: (id) => SubmissionsService.deleteSubmission(id),
+      mutationFn: (id) => SubmissionsPatientService.deleteSubmission(id),
       onSuccess: () => {
         toast.success("Data berhasil dihapus");
         refetch();
@@ -195,10 +158,8 @@ const PengajuanPasien = () => {
                   </td>
                 </tr>
               ) : (
-                currentData.map((item) => {
-                  const doctor = doctorData[item.doctorId];
-
-                  const percentValue = parseFloat(item.persentase);
+                currentData.map((item, index) => {
+                  const percentValue = parseFloat(item.diagnosisAi);
                   const textColor =
                     percentValue >= 50 ? "text-red-600" : "text-green-600";
 
@@ -209,56 +170,47 @@ const PengajuanPasien = () => {
                       ? "text-yellow-600"
                       : "text-green-600";
 
-                  const diagnosisText =
-                    item.diagnosis === null
-                      ? "Menunggu"
-                      : item.diagnosis !== "Melanoma"
-                      ? "Bukan Melanoma"
-                      : "Melanoma";
-
                   return (
-                    <tr key={item.id} className="*:align-top">
-                      <td className="py-6 px-6">{item.submittedAt}</td>
-                      <td className={`py-6 px-6 font-semibold ${textColor}`}>
-                        {item.persentase}
+                    <tr key={index} className="*:align-middle *:py-3 *:px-6">
+                      <td>{item.submittedAt}</td>
+                      <td className={`font-semibold ${textColor}`}>
+                        {item.diagnosisAi}
                       </td>
-                      <td className="py-6 px-6">
-                        <div className="w-20 h-16 rounded-lg overflow-hidden mx-auto">
+                      <td>
+                        <div className="w-20 h-16 rounded-lg flex items-center justify-start overflow-hidden">
                           <img
-                            className="w-full h-full object-cover"
-                            src={testImage}
+                            className="max-w-full max-h-full object-cover"
+                            src={item.imageUrl}
                             alt="Deteksi"
                           />
                         </div>
                       </td>
-                      <td className="py-6 px-6">
-                        <p className="w-40 h-32 overflow-hidden text-ellipsis">
-                          {item.complaint}
-                        </p>
-                      </td>
-                      <td className={`py-6 px-6 font-semibold ${statusColor}`}>
+                      <td className="px-6 text-ellipsis">{item.complaint}</td>
+                      <td className={`px-6 font-semibold ${statusColor}`}>
                         {item.status}
                       </td>
-                      <td className="py-6 px-6">{item.verifiedAt}</td>
-                      <td className="py-6 px-6">
-                        {doctor ? doctor.name : "Doctor data not available"}
-                      </td>
-                      <td className="py-6 px-6">{diagnosisText}</td>
-                      <td className="py-6 px-6">{item.doctorNote}</td>
-                      <td className="py-6 px-6 flex justify-start gap-x-3">
-                        <button
-                          onClick={() => navigate(`/info-pengajuan/${item.id}`)}
-                          className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
-                        >
-                          <img src={infoBtn} alt="Info" />
-                        </button>
-                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                          <img
-                            src={deleteBtn}
-                            alt="Hapus"
-                            onClick={() => handleDelete(item.id)}
-                          />
-                        </button>
+                      <td>{item.verifiedAt}</td>
+                      <td>{item.verifiedBy}</td>
+                      <td>{item.diagnosis}</td>
+                      <td>{item.doctorNote}</td>
+                      <td>
+                        <div className="flex gap-x-3">
+                          <button
+                            onClick={() =>
+                              navigate(`/info-pengajuan/${item.id}`)
+                            }
+                            className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                          >
+                            <img src={infoBtn} alt="Info" />
+                          </button>
+                          <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                            <img
+                              src={deleteBtn}
+                              alt="Hapus"
+                              onClick={() => handleDelete(item.id)}
+                            />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -270,8 +222,7 @@ const PengajuanPasien = () => {
 
         {/* Mobile View Only */}
         <div className="lg:hidden mt-4 space-y-4">
-          {currentData.map((item) => {
-            const doctor = doctorData[item.doctorId];
+          {currentData.map((item, index) => {
 
             const mappedItem = {
               date: item.submittedAt,
@@ -279,14 +230,14 @@ const PengajuanPasien = () => {
               keluhan: item.complaint,
               status: item.status,
               tglVerif: item.verifiedAt,
-              verifiedBy: doctor ? doctor.name : "Doctor data not available",
+              verifiedBy: item.verifiedBy,
               diagnosis: item.diagnosis,
               doctorNote: item.doctorNote,
             };
 
             return (
               <MTablePengajuan
-                key={item.id}
+                key={index}
                 item={mappedItem}
                 handleDelete={() => handleDelete(item.id)}
               />

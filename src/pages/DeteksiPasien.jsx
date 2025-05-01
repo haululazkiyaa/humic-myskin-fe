@@ -8,12 +8,12 @@ import MTableDeteksi from "../components/table/MTableDeteksi";
 import deleteBtn from "../assets/icon/delete-button.png";
 import editBtn from "../assets/icon/edit-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
-import testImage from "../assets/img/test-myskin.jpg";
-import { SubmissionsService } from "../services/submissions/submissions.service";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import LoadingDot from "../components/loader/LoadingDot";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { SubmissionsPatientService } from "../services/submissions/submissionsPatient.services";
 
 const DeteksiPasien = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -35,7 +35,7 @@ const DeteksiPasien = () => {
     refetch,
   } = useQuery({
     queryKey: ["submissions", userId],
-    queryFn: () => SubmissionsService.getSubmissions({ userId }),
+    queryFn: () => SubmissionsPatientService.getDetections({ userId }),
     enabled: !!userId,
     staleTime: 5 * 60 * 1000,
     cacheTime: 30 * 60 * 1000,
@@ -66,7 +66,8 @@ const DeteksiPasien = () => {
   };
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => SubmissionsService.updateSubmission(id, data),
+    mutationFn: ({ id, data }) =>
+      SubmissionsPatientService.updateDetection(id, data),
     onSuccess: () => {
       toast.success("Data berhasil diperbarui");
       refetch();
@@ -78,7 +79,7 @@ const DeteksiPasien = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => SubmissionsService.deleteSubmission(id),
+    mutationFn: (id) => SubmissionsPatientService.deleteDetection(id),
     onSuccess: () => {
       toast.success("Data berhasil dihapus");
       refetch();
@@ -89,7 +90,6 @@ const DeteksiPasien = () => {
       toast.error("Gagal menghapus data");
     },
   });
-
 
   const goToNextPage = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
@@ -188,8 +188,8 @@ const DeteksiPasien = () => {
                   </td>
                 </tr>
               ) : (
-                currentData.map((item) => {
-                  const percentValue = parseFloat(item.persentase);
+                currentData.map((item, index) => {
+                  const percentValue = parseFloat(item.diagnosisAi);
                   const textColor =
                     percentValue >= 50 ? "text-red-600" : "text-green-600";
 
@@ -201,57 +201,57 @@ const DeteksiPasien = () => {
                       : "text-green-600";
 
                   return (
-                    <tr key={item.id} className="*:align-top">
-                      <td className="py-6 px-6">{item.submittedAt}</td>
-                      <td className={`py-6 px-6 font-semibold ${textColor}`}>
-                        {item.persentase}
+                    <tr key={index} className="*:align-middle *:text-start *:px-6">
+                      <td>{item.submittedAt}</td>
+                      <td className={`font-semibold ${textColor}`}>
+                        {item.diagnosisAi}
                       </td>
-                      <td className="py-6 px-6">
-                        <div className="w-40 h-32 rounded-lg overflow-hidden mx-auto">
+                      <td>
+                        <div className="w-40 h-32 rounded-lg flex items-center justify-start overflow-hidden">
                           <img
-                            className="w-full h-full object-cover"
-                            src={testImage}
+                            className="max-w-full max-h-full object-contain"
+                            src={item.imageUrl}
                             alt="Deteksi"
                           />
                         </div>
                       </td>
-                      <td className="py-6 px-6 text-left">
-                        <p className="w-40 h-32 overflow-hidden text-ellipsis">
-                          {item.complaint}
-                        </p>
-                      </td>
+                      <td className="text-ellipsis">{item.complaint}</td>
                       <td
-                        className={`py-6 px-6 font-semibold ${
-                          item.pengajuan === "Sudah"
+                        className={`font-semibold ${
+                          item.isSubmitted === "Sudah"
                             ? "text-green-600"
                             : "text-red-600"
                         }`}
                       >
-                        {item.pengajuan}
+                        {item.isSubmitted}
                       </td>
-                      <td className={`py-6 px-6 font-semibold ${statusColor}`}>
+                      <td
+                        className={`font-semibold capitalize ${statusColor}`}
+                      >
                         {item.status}
                       </td>
-                      <td className="py-6 px-6 flex justify-start gap-x-3">
-                        <button
-                          onClick={() => navigate(`/info-detect/${item.id}`)}
-                          className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
-                        >
-                          <img src={infoBtn} alt="Info" />
-                        </button>
-                        <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
-                          <img
-                            src={deleteBtn}
-                            alt="Hapus"
-                            onClick={ () => handleDelete(item.id)}
-                          />
-                        </button>
-                        <button
-                          onClick={() => handleEdit(item)}
-                          className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
-                        >
-                          <img src={editBtn} alt="Edit" />
-                        </button>
+                      <td>
+                        <div className="flex gap-x-3">
+                          <button
+                            onClick={() => navigate(`/info-detect/${item.id}`)}
+                            className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                          >
+                            <img src={infoBtn} alt="Info" />
+                          </button>
+                          <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                            <img
+                              src={deleteBtn}
+                              alt="Hapus"
+                              onClick={() => handleDelete(item.id)}
+                            />
+                          </button>
+                          <button
+                            onClick={() => handleEdit(item)}
+                            className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                          >
+                            <img src={editBtn} alt="Edit" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -263,7 +263,7 @@ const DeteksiPasien = () => {
 
         {/* Mobile View */}
         <div className="lg:hidden mt-4 space-y-4">
-          {currentData.map((item) => {
+          {currentData.map((item, index) => {
             const mappedItem = {
               date: item.submittedAt,
               persentase: item.persentase,
@@ -274,7 +274,7 @@ const DeteksiPasien = () => {
 
             return (
               <MTableDeteksi
-                key={item.id}
+                key={index}
                 item={mappedItem}
                 handleEdit={() => handleEdit(item)}
                 handleDelete={() => handleDelete(item.id)}
