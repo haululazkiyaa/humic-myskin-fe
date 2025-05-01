@@ -1,18 +1,18 @@
-import LoginForm from "./LoginForm";
 import PropTypes from "prop-types";
-import SignUpForm from "./SignUpForm";
-import banner from "../../assets/img/doctor.jpeg";
+import bannerDoctor from "../../../assets/img/doctorImage.jpg";
 import { useState } from "react";
+import PageForm1 from "./PageForm1";
+import PageForm2 from "./PageForm2";
 
-const AuthForm = ({ onClose, showLogin, onOpenDoctorForm }) => {
-  const [showForm, setShowForm] = useState(showLogin || "login");
+const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
+  const [page, setPage] = useState(1);
 
   return (
     <div className="relative bg-white rounded-lg shadow-lg w-[1200px] flex flex-col lg:flex-row overflow-hidden p-5 max-h-[90%] mx-4 lg:mx-0">
       {/* Left Image Section */}
       <div className="w-full lg:w-1/2">
         <img
-          src={banner}
+          src={bannerDoctor}
           alt="Doctor"
           className="w-full h-full object-cover rounded-lg"
         />
@@ -28,62 +28,54 @@ const AuthForm = ({ onClose, showLogin, onOpenDoctorForm }) => {
         </button>
 
         <h2 className="text-[26px] font-bold text-center">
-          {" "}
-          {showForm === "login" ? "Masuk" : "Daftar"}
+          {page === 1 ? "Daftar Dokter" : "Profil Dokter Spesialis"}
         </h2>
         <p className="text-[#646464] text-center mb-6">
-          {showForm === "login"
-            ? "Masuk untuk tetap terhubung"
-            : "Buat akun Anda"}
+          {page === 1
+            ? "Buat akun Dokter Anda"
+            : "Detail Profesional dan Dokumen Pendukung"}
         </p>
 
-        {showForm === "login" ? (
-          <LoginForm onClose={onClose} />
-        ) : (
-          <SignUpForm onOpenDoctorForm={onOpenDoctorForm} />
-        )}
+        <div>
+          {page === 1 && (
+            <PageForm1
+              onNext={() => setPage(2)}
+              onDotClick={() => setPage(2)}
+            />
+          )}
+          {page === 2 && (
+            <PageForm2
+              onBack={() => setPage(1)}
+              onDotClick={() => setPage(1)}
+            />
+          )}
+        </div>
 
         <p className="text-[12px] text-[#646464] text-center mt-4">
           Email harus mengandung salah satu dari domain berikut:
           <span className="text-[#2699E8]"> @pasien.myskin.ac.id </span>
-          untuk {showForm === "login" ? "masuk" : "mendaftar"} sebagai pasien,
-          atau
+          untuk mendaftar sebagai pasien, atau
           <span className="text-[#2699E8]"> @dokter.myskin.ac.id </span>
-          untuk {showForm === "login" ? "masuk" : "mendaftar"} sebagai dokter.
+          untuk mendaftar sebagai dokter.
         </p>
-
-        {showForm === "login" ? (
-          <p className="text-[12px] text-center text-[#646464] mt-2">
-            Belum memiliki akun?{" "}
-            <button
-              href="#"
-              className="text-[#2699E8] inline cursor-pointer"
-              onClick={() => setShowForm("register")}
-            >
-              Klik disini untuk daftar
-            </button>
-          </p>
-        ) : (
-          <p className="text-[12px] text-center text-[#646464] mt-2">
+        <p className="text-[12px] text-center text-[#646464] mt-2">
             Sudah memiliki akun?{" "}
             <button
               href="#"
               className="text-[#2699E8] inline cursor-pointer"
-              onClick={() => setShowForm("login")}
+              onClick={onBackToLogin}
             >
               Masuk
             </button>
           </p>
-        )}
       </div>
     </div>
   );
 };
 
-AuthForm.propTypes = {
+AuthFormDoctor.propTypes = {
   onClose: PropTypes.func.isRequired,
-  showLogin: PropTypes.string,
-  onOpenDoctorForm: PropTypes.func,
+  onBackToLogin: PropTypes.func.isRequired,
 };
 
-export default AuthForm;
+export default AuthFormDoctor;

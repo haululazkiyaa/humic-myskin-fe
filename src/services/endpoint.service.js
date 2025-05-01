@@ -2,7 +2,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const Endpoint = {
   auth: {
-    registerDoctor: `${API_BASE_URL}/auth/register`,
+    registerDoctor: `${API_BASE_URL}/auth/register/doctor`,
     registerPatient: `${API_BASE_URL}/auth/register/patient`,
     login: `${API_BASE_URL}/auth/login`,
     refreshToken: `${API_BASE_URL}/auth/refresh-token`,

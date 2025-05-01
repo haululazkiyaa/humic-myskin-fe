@@ -1,9 +1,9 @@
-import AuthForm from "../../components/form/AuthForm";
 import { FaBarsStaggered } from "react-icons/fa6";
 import ListNavbar from "../../components/ListNavbar";
 import { useAuth } from "../../context/AuthContext";
 import useModal from "../../hooks/useModal";
 import { useState } from "react";
+import AuthModalController from "../../components/form/AuthModalController";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose, type } = useModal();
@@ -104,7 +104,7 @@ const Navbar = () => {
         )}
       </div>
       <Modal>
-        <AuthForm onClose={onClose} showLogin={type} />
+        <AuthModalController onClose={onClose} type={type} />
       </Modal>
     </div>
   );

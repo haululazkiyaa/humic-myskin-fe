@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth/auth.service";
 
-const SignUpForm = () => {
+const SignUpForm = ({ onOpenDoctorForm }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -64,13 +64,13 @@ const SignUpForm = () => {
     };
 
     try {
-     if(role === "doctor") {
-      await AuthService.registerDoctor(payload);
-     } else {
-      await AuthService.registerPatient(payload);
-     }
+      if (role === "doctor") {
+        await AuthService.registerDoctor(payload);
+      } else {
+        await AuthService.registerPatient(payload);
+      }
       alert("Pendaftaran berhasil!");
-      
+
       // Reset form
       setFormData({
         firstName: "",
@@ -88,7 +88,7 @@ const SignUpForm = () => {
     } catch (error) {
       alert("Pendaftaran gagal. keterangan: " + error.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -181,11 +181,11 @@ const SignUpForm = () => {
       <p className="text-center text-gray-400">Atau</p>
 
       <button
-        type="submit"
-        disabled={isLoading}
+        type="button"
+        onClick={onOpenDoctorForm}
         className="w-full border border-[#12476B] text-[#12476B] font-bold py-3 rounded-full cursor-pointer"
       >
-        {isLoading ? "Memproses..." : "Daftar sebagai Dokter"}
+        Daftar sebagai Dokter
       </button>
     </form>
   );
@@ -193,6 +193,7 @@ const SignUpForm = () => {
 
 SignUpForm.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onOpenDoctorForm: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;
