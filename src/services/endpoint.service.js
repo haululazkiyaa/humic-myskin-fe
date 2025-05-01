@@ -22,5 +22,12 @@ export const Endpoint = {
     update: `${API_BASE_URL}/accounts`,
     delete: `${API_BASE_URL}/accounts`,
   },
+  stats: {
+    list: `${API_BASE_URL}/doctor/dashboard/stats`,
+  },
+  summary: {
+    pending: `${API_BASE_URL}/doctor/dashboard/pending`,
+    patient: `${API_BASE_URL}/doctor/patients`,
+  },
   // Add other namespaces and endpoints here as needed
 };
