@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 
-const PageForm2 = ({onSubmit, onDotClick}) => {
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const form = e.target;
-      if (form.checkValidity()) {
-        onSubmit(); 
-      } else {
-        form.reportValidity(); 
-      }
-    };
+const PageForm2 = ({ onSubmit, onDotClick }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    if (form.checkValidity()) {
+      onSubmit();
+    } else {
+      form.reportValidity();
+    }
+  };
   return (
     <div className="max-w-md mx-auto px-2 py-4">
       <form className="space-y-4" onSubmit={handleSubmit}>
@@ -48,30 +48,28 @@ const PageForm2 = ({onSubmit, onDotClick}) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block font-semibold mb-1">
-              Ijazah Kedokteran
-            </label>
+        <div className="w-full flex items-center space-x-2">
+          <div className="w-1/2">
+            <label className="font-semibold mb-1">Ijazah Kedokteran</label>
             <div className="flex items-center rounded-full border border-gray-300 overflow-hidden">
-              <input type="file" className="flex-1 px-4 py-2 text-sm" />
+              <input type="file" className="w-2/3 flex-1 px-4 py-2 text-sm" />
               <button
                 type="button"
-                className="bg-[#1E3A5F] text-white px-4 py-2 text-sm font-semibold"
+                className="w-1/3 bg-[#1E3A5F] text-white px-2 py-2 text-sm font-semibold"
               >
                 Upload
               </button>
             </div>
           </div>
-          <div>
-            <label className="block font-semibold mb-1">
+          <div className="w-1/2">
+            <label className="font-semibold mb-1">
               Sertifikat Keahlian (opsional)
             </label>
             <div className="flex items-center rounded-full border border-gray-300 overflow-hidden">
-              <input type="file" className="flex-1 px-4 py-2 text-sm" />
+              <input type="file" className="w-2/3 flex-1 px-4 py-2 text-sm" />
               <button
                 type="button"
-                className="bg-[#1E3A5F] text-white px-4 py-2 text-sm font-semibold"
+                className="w-1/3 bg-[#1E3A5F] text-white px-2 py-2 text-sm font-semibold"
               >
                 Upload
               </button>
@@ -138,8 +136,8 @@ const PageForm2 = ({onSubmit, onDotClick}) => {
 };
 
 PageForm2.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    onDotClick: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onDotClick: PropTypes.func.isRequired,
 };
 
 export default PageForm2;
