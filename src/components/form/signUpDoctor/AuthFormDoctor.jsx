@@ -3,9 +3,28 @@ import bannerDoctor from "../../../assets/img/doctorImage.jpg";
 import { useState } from "react";
 import PageForm1 from "./PageForm1";
 import PageForm2 from "./PageForm2";
+import { AuthService } from "../../../services/auth/auth.service";
 
 const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
   const [page, setPage] = useState(1);
+  const [formData, setFormData] = useState({});
+
+  const handleNext = (dataFromPage1) => {
+    setFormData((prev) => ({ ...prev, ...dataFromPage1 }));
+    setPage(2);
+  };
+
+  const handleSubmit = async (dataFromPage2) => {
+    const finalData = { ...formData, ...dataFromPage2 };
+    try {
+      await AuthService.registerDoctor(finalData);
+      alert("Pendaftaran berhasil!");
+      onClose();
+    } catch (error) {
+      console.error("Gagal mendaftar:", error);
+      alert("Terjadi kesalahan saat mendaftar. Silakan coba lagi.");
+    }
+  };
 
   return (
     <div className="relative bg-white rounded-lg shadow-lg w-[1200px] flex flex-col lg:flex-row overflow-hidden p-5 max-h-[90%] mx-4 lg:mx-0">
@@ -39,13 +58,14 @@ const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
         <div>
           {page === 1 && (
             <PageForm1
-              onNext={() => setPage(2)}
+              onNext={handleNext}
               onDotClick={() => setPage(2)}
             />
           )}
           {page === 2 && (
             <PageForm2
               onBack={() => setPage(1)}
+              onSubmit={handleSubmit}
               onDotClick={() => setPage(1)}
             />
           )}
@@ -59,15 +79,15 @@ const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
           untuk mendaftar sebagai dokter.
         </p>
         <p className="text-[12px] text-center text-[#646464] mt-2">
-            Sudah memiliki akun?{" "}
-            <button
-              href="#"
-              className="text-[#2699E8] inline cursor-pointer"
-              onClick={onBackToLogin}
-            >
-              Masuk
-            </button>
-          </p>
+          Sudah memiliki akun?{" "}
+          <button
+            href="#"
+            className="text-[#2699E8] inline cursor-pointer"
+            onClick={onBackToLogin}
+          >
+            Masuk
+          </button>
+        </p>
       </div>
     </div>
   );

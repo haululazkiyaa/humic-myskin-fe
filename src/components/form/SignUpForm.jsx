@@ -51,7 +51,6 @@ const SignUpForm = ({ onOpenDoctorForm }) => {
     }
 
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
-    const role = domain === "dokter.myskin.ac.id" ? "doctor" : "patient";
 
     const payload = {
       name: fullName,
@@ -59,16 +58,13 @@ const SignUpForm = ({ onOpenDoctorForm }) => {
       phone: formData.phone,
       dob: formData.birthDate,
       password: formData.password,
-      role: role,
+      role: "patient",
       password_confirmation: formData.confirmPassword,
     };
 
     try {
-      if (role === "doctor") {
-        await AuthService.registerDoctor(payload);
-      } else {
-        await AuthService.registerPatient(payload);
-      }
+      setIsLoading(true);
+      await AuthService.registerPatient(payload);
       alert("Pendaftaran berhasil!");
 
       // Reset form
