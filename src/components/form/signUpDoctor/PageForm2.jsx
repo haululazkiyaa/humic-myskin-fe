@@ -79,6 +79,9 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
               className="flex-1 px-4 py-2 text-sm"
               required
             />
+            <button className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg">
+              Upload
+            </button>
           </div>
         </div>
 
@@ -93,6 +96,9 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
                 className="w-2/3 flex-1 px-4 py-2 text-sm"
                 required
               />
+              <button className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg">
+                Upload
+              </button>
             </div>
           </div>
           <div className="w-1/2">
@@ -106,6 +112,9 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
                 onChange={handleChange}
                 className="w-2/3 flex-1 px-4 py-2 text-sm"
               />
+              <button className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg">
+                Upload
+              </button>
             </div>
           </div>
         </div>
