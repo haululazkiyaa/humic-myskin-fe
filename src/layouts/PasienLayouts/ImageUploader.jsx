@@ -1,11 +1,13 @@
 import { useState } from "react";
 import ImageCropper from "../../components/cropper/ImageCropper";
-import ResultDetect from "../../components/ResultDetect";
+import ResultDetect from "../../components/wellcome/ResultDetect";
+import DoctorList from "../../components/wellcome/DoctorList";
 
 const ImageUploader = () => {
   const [image, setImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
+  const [submission, setSubmission] = useState(true);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -86,7 +88,19 @@ const ImageUploader = () => {
           )}
 
           {croppedImage && <ResultDetect />}
+
           {croppedImage && (
+            <button
+              onClick={() => setSubmission((prev) => !prev)}
+              className={`md:w-1/3 font-bold text-white rounded-full px-6 py-2 my-4 cursor-pointer ${
+                submission ? "bg-sky-900" : "bg-red-700"
+              }`}
+            >
+              {submission ? "Ajukan Verifikasi/Keluhan" : "Batalkan Pengajuan"}
+            </button>
+          )}
+
+          {!submission && croppedImage && (
             <div className="w-full">
               <h1 className="text-2xl font-bold text-center text-black">
                 Pengajuan Verifikasi
@@ -100,21 +114,11 @@ const ImageUploader = () => {
                 <textarea
                   name="keluhan"
                   id=""
-                  className="w-full border border-gray-400 rounded-lg p-2 my-2"
+                  className="w-full h-32 border border-gray-400 rounded-lg p-2 mt-2"
                   placeholder="Masukkan keluhan Anda disini"
                 ></textarea>
-                <label className="inline-flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2"
-                  />
-                  <span className="text-sm font-medium text-gray-800">
-                    Saya ingin memilih dokter
-                  </span>
-                </label>
-                <div>
-                  
-                </div>
+                <DoctorList/>
+                <div></div>
               </div>
             </div>
           )}

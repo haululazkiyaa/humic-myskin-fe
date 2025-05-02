@@ -1,5 +1,5 @@
-import keakuratan from "../assets/icon/Ellipse 1.png";
-import melanoma from "../assets/icon/Ellipse 3.png";
+import keakuratan from "../../assets/icon/Ellipse 1.png";
+import melanoma from "../../assets/icon/Ellipse 3.png";
 
 const ResultDetect = () => {
   return (
