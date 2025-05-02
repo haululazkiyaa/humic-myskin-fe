@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 
 import { FaArrowLeft } from "react-icons/fa";
-import ResultDetect from "../../components/ResultDetect";
+import ResultDetect from "../../components/wellcome/ResultDetect";
 import testSkin from "../../assets/img/test-myskin.jpg";
 
 const InformasiPenyakit = () => {

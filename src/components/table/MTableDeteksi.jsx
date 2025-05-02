@@ -5,7 +5,7 @@ import infoBtn from "../../assets/icon/info-btn.png";
 import testImage from "../../assets/img/test-myskin.jpg";
 import { useNavigate } from "react-router-dom";
 
-const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
+const MTableDeteksi = ({ item, handleEdit, handleDelete, handleSubmission }) => {
   const navigate = useNavigate();
   const percentValue = parseFloat(item.persentase);
   let textColor = "text-green-600";
@@ -41,7 +41,7 @@ const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
         <div className="flex justify-between items-center">
           <span className="font-bold">Gambar</span>
           <img
-            src={testImage}
+            src={item.imageUrl || testImage}
             alt="Deteksi"
             className="w-24 h-24 rounded-lg shadow-md"
           />
@@ -84,10 +84,22 @@ const MTableDeteksi = ({ item, handleEdit, handleDelete }) => {
           <button className="rounded-full flex items-center justify-center shadow-md cursor-pointer">
             <img src={deleteBtn} alt="Hapus" onClick={handleDelete} />
           </button>
-          <button className="rounded-full flex items-center justify-center shadow-md cursor-pointer">
-            <img src={editBtn} alt="Edit" onClick={handleEdit} />
-          </button>
+          {item.pengajuan === "Sudah" && (
+            <button className="rounded-full flex items-center justify-center shadow-md cursor-pointer">
+              <img src={editBtn} alt="Edit" onClick={handleEdit} />
+            </button>
+          )}
         </div>
+        {item.pengajuan === "Tidak" && (
+          <div className="w-full flex justify-center">
+            <button
+              onClick={handleSubmission}
+              className="w-3/4 text-sm font-semibold border border-black py-2 mt-2 rounded-lg cursor-pointer"
+            >
+              Ajukan Verifikasi
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -97,6 +109,7 @@ MTableDeteksi.propTypes = {
   item: PropTypes.object.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
+  handleSubmission: PropTypes.func.isRequired,
 };
 
 export default MTableDeteksi;

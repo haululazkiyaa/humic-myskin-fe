@@ -118,7 +118,6 @@ const ImageUploader = () => {
                   placeholder="Masukkan keluhan Anda disini"
                 ></textarea>
                 <DoctorList/>
-                <div></div>
               </div>
             </div>
           )}

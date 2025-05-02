@@ -1,5 +1,5 @@
 import { FaBarsStaggered } from "react-icons/fa6";
-import ListNavbar from "../../components/ListNavbar";
+import ListNavbar from "../../components/wellcome/ListNavbar";
 import { useAuth } from "../../context/AuthContext";
 import useModal from "../../hooks/useModal";
 import { useState } from "react";

@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import AuthForm from "../../components/form/AuthForm";
-import ListNavbar from "../../components/ListNavbar";
+import ListNavbar from "../../components/wellcome/ListNavbar";
 import useModal from "../../hooks/useModal";
 
 const Navbar = () => {

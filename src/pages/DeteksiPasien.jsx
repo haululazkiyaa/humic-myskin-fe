@@ -171,7 +171,7 @@ const DeteksiPasien = () => {
                 <th className="py-4 px-6">Keluhan</th>
                 <th className="py-4 px-6">Pengajuan</th>
                 <th className="py-4 px-6">Status</th>
-                <th className="py-4 px-6">Aksi</th>
+                <th className="py-4 px-6 text-center">Aksi</th>
               </tr>
             </thead>
             <tbody className="text-left text-gray-800">
@@ -201,7 +201,10 @@ const DeteksiPasien = () => {
                       : "text-green-600";
 
                   return (
-                    <tr key={index} className="*:align-middle *:text-start *:px-6">
+                    <tr
+                      key={index}
+                      className="*:align-middle *:text-start *:px-6"
+                    >
                       <td>{item.submittedAt}</td>
                       <td className={`font-semibold ${textColor}`}>
                         {item.diagnosisAi}
@@ -225,12 +228,10 @@ const DeteksiPasien = () => {
                       >
                         {item.isSubmitted}
                       </td>
-                      <td
-                        className={`font-semibold capitalize ${statusColor}`}
-                      >
+                      <td className={`font-semibold capitalize ${statusColor}`}>
                         {item.status}
                       </td>
-                      <td>
+                      <td className="flex flex-col items-center justify-center pt-4">
                         <div className="flex gap-x-3">
                           <button
                             onClick={() => navigate(`/info-detect/${item.id}`)}
@@ -245,13 +246,20 @@ const DeteksiPasien = () => {
                               onClick={() => handleDelete(item.id)}
                             />
                           </button>
-                          <button
-                            onClick={() => handleEdit(item)}
-                            className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
-                          >
-                            <img src={editBtn} alt="Edit" />
-                          </button>
+                          {item.isSubmitted === "Sudah" && (
+                            <button
+                              onClick={() => handleEdit(item)}
+                              className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                            >
+                              <img src={editBtn} alt="Edit" />
+                            </button>
+                          )}
                         </div>
+                        {item.isSubmitted === "Tidak" && (
+                          <button onClick={() => navigate(`/pengajuan-ulang/${item.id}`)} className="w-3/4 text-sm font-semibold border border-black py-2 mt-2 rounded-lg cursor-pointer">
+                            Ajukan Verifikasi
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
@@ -266,9 +274,10 @@ const DeteksiPasien = () => {
           {currentData.map((item, index) => {
             const mappedItem = {
               date: item.submittedAt,
-              persentase: item.persentase,
+              persentase: item.diagnosisAi,
+              imageUrl: item.imageUrl,
               keluhan: item.complaint,
-              pengajuan: item.pengajuan,
+              pengajuan: item.isSubmitted,
               status: item.status,
             };
 
@@ -278,6 +287,7 @@ const DeteksiPasien = () => {
                 item={mappedItem}
                 handleEdit={() => handleEdit(item)}
                 handleDelete={() => handleDelete(item.id)}
+                handleSubmission={() => navigate(`/pengajuan-ulang/${item.id}`)}
               />
             );
           })}

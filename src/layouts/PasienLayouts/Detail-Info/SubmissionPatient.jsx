@@ -6,14 +6,13 @@ import time from "../../../assets/icon/Ellipse 4.png";
 import LoadingCircle from "../../../components/loader/LoadingCircle";
 
 import { useNavigate, useParams } from "react-router-dom";
-// import { useAuth } from "../../../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { SubmissionsPatientService } from "../../../services/submissions/submissionsPatient.services";
+import DoctorList from "../../../components/wellcome/DoctorList";
 
-const InfoDetect = () => {
+const SubmissionPatient = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const { user } = useAuth();
 
   const {
     data: submission,
@@ -120,11 +119,29 @@ const InfoDetect = () => {
             *Hasil deteksi belum dipastikan benar karena web hanya memberikan
             indikasi awal, silahkan ajukan hasil verifikasi ke dokter.
           </p>
-          
+          <div className="w-full">
+            <h1 className="text-2xl font-bold text-center text-black">
+              Pengajuan Verifikasi
+            </h1>
+            <p className="text-gray-500 text-center mt-2">
+              Ajukan keluhan dan pilih dokter Anda disini
+            </p>
+
+            <div className="text-left w-full">
+              <p>Keluhan:</p>
+              <textarea
+                name="keluhan"
+                id=""
+                className="w-full h-32 border border-gray-400 rounded-lg p-2 mt-2"
+                placeholder="Masukkan keluhan Anda disini"
+              ></textarea>
+              <DoctorList />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default InfoDetect;
+export default SubmissionPatient;

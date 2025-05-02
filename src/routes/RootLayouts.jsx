@@ -13,13 +13,17 @@ import PengajuanPasien from "../pages/PengajuanPasien";
 import RequireAuth from "../middleware/RequireAuth";
 import RiwayatVerifikasi from "../pages/dokter/RiwayatVerifikasi";
 import { createBrowserRouter } from "react-router-dom";
+import ErrorPage from "../pages/ErrorPage";
+import SubmissionPatient from "../layouts/PasienLayouts/Detail-Info/SubmissionPatient";
 
 export const router = createBrowserRouter([
   {
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         element: <AppLayout type="default" />,
+        errorElement: <ErrorPage />,
         children: [
           {
             path: "/",
@@ -29,14 +33,6 @@ export const router = createBrowserRouter([
             path: "faq",
             element: <FAQ />,
           },
-          {
-            path: "/info-detect/:id",
-            element: <InfoDetect />,
-          },
-          {
-            path: "/info-pengajuan/:id",
-            element: <InfoPengajuan />,
-          },
         ],
       },
       {
@@ -45,6 +41,7 @@ export const router = createBrowserRouter([
             <AppLayout type="default" />
           </RequireAuth>
         ),
+        errorElement: <ErrorPage />,
         children: [
           {
             path: "deteksi",
@@ -53,6 +50,18 @@ export const router = createBrowserRouter([
           {
             path: "pengajuan",
             element: <PengajuanPasien />,
+          },
+          {
+            path: "/info-detect/:id",
+            element: <InfoDetect />,
+          },
+          {
+            path: "/info-pengajuan/:id",
+            element: <InfoPengajuan />,
+          },
+          {
+            path: "/pengajuan-ulang/:id",
+            element: <SubmissionPatient/>,
           },
         ],
       },

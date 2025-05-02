@@ -1,4 +1,4 @@
-import ResultDetect from "../../../components/ResultDetect";
+import ResultDetect from "../../../components/wellcome/ResultDetect";
 import LoadingCircle from "../../../components/loader/LoadingCircle";
 import dayjs from "dayjs";
 
