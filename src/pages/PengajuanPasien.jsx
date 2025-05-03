@@ -21,6 +21,7 @@ const PengajuanPasien = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dataPerPage, setDataPerPage] = useState(5);
   const [deleteId, setDeleteId] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -118,13 +119,17 @@ const PengajuanPasien = () => {
           </div>
         </div>
         <button
-          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
+          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded cursor-pointer"
           onClick={async () => {
-            refetch();
-            console.log("data di refresh");
+            try {
+              setIsRefreshing(true);
+              await refetch();
+            } finally {
+              setIsRefreshing(false);
+            }
           }}
         >
-          Refresh Data 🔄
+          {isRefreshing ? "Sedang memuat..." : "Refresh Data 🔄"}
         </button>
 
         {/* Table View */}
@@ -186,7 +191,9 @@ const PengajuanPasien = () => {
                         </div>
                       </td>
                       <td className="px-6 text-ellipsis">{item.complaint}</td>
-                      <td className={`px-6 font-semibold ${statusColor}`}>
+                      <td
+                        className={`px-6 font-semibold capitalize ${statusColor}`}
+                      >
                         {item.status}
                       </td>
                       <td>{item.verifiedAt}</td>
@@ -223,10 +230,9 @@ const PengajuanPasien = () => {
         {/* Mobile View Only */}
         <div className="lg:hidden mt-4 space-y-4">
           {currentData.map((item, index) => {
-
             const mappedItem = {
               date: item.submittedAt,
-              persentase: item.persentase,
+              persentase: item.diagnosisAi,
               keluhan: item.complaint,
               status: item.status,
               tglVerif: item.verifiedAt,

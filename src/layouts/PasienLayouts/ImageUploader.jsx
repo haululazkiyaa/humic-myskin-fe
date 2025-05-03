@@ -117,7 +117,7 @@ const ImageUploader = () => {
                   className="w-full h-32 border border-gray-400 rounded-lg p-2 mt-2"
                   placeholder="Masukkan keluhan Anda disini"
                 ></textarea>
-                <DoctorList/>
+                <DoctorList />
               </div>
             </div>
           )}

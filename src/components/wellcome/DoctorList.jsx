@@ -1,39 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaSearch, FaChevronRight, FaChevronLeft } from "react-icons/fa";
-
-const doctors = [
-  "Muhammad Nur Shodiq",
-  "Arjuna Mahendra",
-  "Bintang Pradipta",
-  "Cahaya Lestari",
-  "Dewi Anggraini",
-  "Elang Pratama",
-  "Fajar Nugroho",
-  "Galuh Permana",
-  "Indah Maharani",
-  "Jatmiko Nugraha",
-  "Kirana Putri",
-  "Lutfi Ramadhan",
-  "Mega Puspita",
-  "Nanda Wicaksono",
-  "Olivia Savitri",
-  "Putra Mahardika",
-  "Qory Hanifah",
-  "Rizky Maulana",
-  "Syifa Zahra",
-  "Taufik Hidayat",
-];
-
+import { SubmissionsPatientService } from "../../services/submissions/submissionsPatient.services";
+import LoadingCircle from "../loader/LoadingCircle";
 
 const DoctorList = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const doctorsPerPage = 8;
 
-  const filteredDoctors = doctors.filter((name) =>
-    name.toLowerCase().includes(search.toLowerCase())
-  );
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["doctors", search],
+    queryFn: () => SubmissionsPatientService.getListDoctors({ search }),
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 30 * 60 * 1000,
+  });
 
+  const doctors = data?.data?.data || [];
+
+  const filteredDoctors = doctors.filter((doctor) =>
+    doctor.name.toLowerCase().includes(search.toLowerCase())
+  );
   const totalPages = Math.ceil(filteredDoctors.length / doctorsPerPage);
   const displayedDoctors = filteredDoctors.slice(
     (page - 1) * doctorsPerPage,
@@ -57,57 +44,70 @@ const DoctorList = () => {
         />
       </div>
 
-      {/* Grid of Doctors */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {displayedDoctors.map((name, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center bg-white rounded-xl shadow-md p-4"
-          >
-            <img
-              src="https://img.freepik.com/free-photo/young-female-doctor-office_1303-18666.jpg?w=200"
-              alt="dokter"
-              className="w-20 h-20 rounded-full object-cover mb-4"
-            />
-            <p className="font-semibold text-center">dr. {name}</p>
-            <button className="mt-3 bg-sky-900 text-white px-6 py-2 rounded-full">
-              Pilih Dokter
-            </button>
+      {/* Loading/Error State */}
+      {isLoading ? (
+        <LoadingCircle />
+      ) : isError ? (
+        <p className="text-center text-red-500">Gagal memuat data dokter.</p>
+      ) : (
+        <>
+          {/* Grid of Doctors */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {displayedDoctors.map((doctor) => (
+              <div
+                key={doctor.id}
+                className="flex flex-col items-center bg-white rounded-xl shadow-md p-4"
+              >
+                <img
+                  src="https://img.freepik.com/free-photo/young-female-doctor-office_1303-18666.jpg?w=200"
+                  alt="dokter"
+                  className="w-20 h-20 rounded-full object-cover mb-4"
+                />
+                <p className="font-semibold text-center">dr. {doctor.name}</p>
+                <button className="mt-3 bg-sky-900 text-white px-6 py-2 rounded-full cursor-pointer">
+                  Pilih Dokter
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center space-x-2 mt-8">
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={page === 1}
-            className="px-3 py-1 rounded-md bg-white border disabled:opacity-50"
-          >
-            <FaChevronLeft className="m-1"/>
-          </button>
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center space-x-2 mt-8">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1}
+                className="px-3 py-1 rounded-md bg-white border disabled:opacity-50"
+              >
+                <FaChevronLeft className="m-1" />
+              </button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-            <button
-              key={p}
-              onClick={() => setPage(p)}
-              className={`px-3 py-1 rounded-md border ${
-                page === p ? "bg-sky-900 text-white" : "bg-white text-gray-700"
-              }`}
-            >
-              {p}
-            </button>
-          ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`px-3 py-1 rounded-md border ${
+                    page === p
+                      ? "bg-sky-900 text-white"
+                      : "bg-white text-gray-700"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
 
-          <button
-            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={page === totalPages}
-            className="px-3 py-1 rounded-md bg-white border disabled:opacity-50"
-          >
-            <FaChevronRight className="m-1" />
-          </button>
-        </div>
+              <button
+                onClick={() =>
+                  setPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={page === totalPages}
+                className="px-3 py-1 rounded-md bg-white border disabled:opacity-50"
+              >
+                <FaChevronRight className="m-1" />
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -56,7 +56,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-between gap-x-4">
           <span className="font-bold">Status</span>
-          <span className={`font-semibold ${statusColor}`}>{item.status}</span>
+          <span className={`font-semibold capitalize ${statusColor}`}>{item.status}</span>
         </div>
 
         <div className="flex justify-between gap-x-4">

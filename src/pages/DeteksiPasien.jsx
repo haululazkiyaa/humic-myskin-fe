@@ -27,6 +27,7 @@ const DeteksiPasien = () => {
   const [dataPerPage, setDataPerPage] = useState(5);
   const [editData, setEditData] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const {
     data: submissionsData,
@@ -151,13 +152,18 @@ const DeteksiPasien = () => {
           </div>
         </div>
         <button
-          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded"
-          onClick={() => {
-            refetch();
-            console.log("data deteksi di refresh");
+          className="px-4 py-2 mb-4 bg-sky-700 hover:bg-sky-600 font-semibold text-white rounded cursor-pointer"
+          onClick={async () => {
+            try {
+              setIsRefreshing(true);
+              await refetch();
+              console.log("data deteksi di refresh");
+            } finally {
+              setIsRefreshing(false);
+            }
           }}
         >
-          Refresh Data 🔄
+          {isRefreshing ? "Memperbarui..." : "Refresh Data 🔄"}
         </button>
 
         {/* Desktop Table */}
@@ -256,7 +262,12 @@ const DeteksiPasien = () => {
                           )}
                         </div>
                         {item.isSubmitted === "Tidak" && (
-                          <button onClick={() => navigate(`/pengajuan-ulang/${item.id}`)} className="w-3/4 text-sm font-semibold border border-black py-2 mt-2 rounded-lg cursor-pointer">
+                          <button
+                            onClick={() =>
+                              navigate(`/pengajuan-ulang/${item.id}`)
+                            }
+                            className="w-3/4 text-sm font-semibold border border-black py-2 mt-2 rounded-lg cursor-pointer"
+                          >
                             Ajukan Verifikasi
                           </button>
                         )}
