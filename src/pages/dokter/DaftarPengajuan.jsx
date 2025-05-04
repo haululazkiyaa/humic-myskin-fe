@@ -1,7 +1,7 @@
 import { FaChevronLeft, FaChevronRight, FaSearch } from "react-icons/fa";
 import { useEffect, useMemo, useState } from "react";
 
-import { SubmissionsService } from "../../services/submissions/submissions.service";
+import { DoctorService } from "../../services/doctor/doctor.services";
 import { useNavigate } from "react-router-dom";
 
 const DaftarPengajuan = () => {
@@ -17,9 +17,7 @@ const DaftarPengajuan = () => {
     const fetchSubmissions = async () => {
       try {
         setLoading(true);
-        const response = await SubmissionsService.getSubmissions({
-          status: { eq: "pending" },
-        });
+        const response = await DoctorService.getPendingSubmissionsList();
         setAllSubmissions(response.data.data || []);
         setLoading(false);
       } catch (error) {
@@ -42,7 +40,8 @@ const DaftarPengajuan = () => {
       return (
         (item.patientName &&
           item.patientName.toLowerCase().includes(searchTerm)) ||
-        (item.diagnosis && item.diagnosis.toLowerCase().includes(searchTerm)) ||
+        (item.diagnosisAi &&
+          item.diagnosisAi.toLowerCase().includes(searchTerm)) ||
         (item.submittedAt &&
           item.submittedAt.toLowerCase().includes(searchTerm))
       );
@@ -213,7 +212,7 @@ const DaftarPengajuan = () => {
                 <h2 className="font-semibold mt-3">{item.patientName}</h2>
                 <p className="text-sm text-gray-600">{item.submittedAt}</p>
                 <p className="text-sm font-semibold text-red-600 mt-2">
-                  {item.diagnosis}: {item.probability}
+                  {item.diagnosisAi}
                 </p>
                 <button
                   className="w-full bg-[#12476B] text-white py-2 mt-3 rounded-full cursor-pointer"
