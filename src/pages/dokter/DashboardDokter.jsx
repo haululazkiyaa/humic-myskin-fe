@@ -1,11 +1,9 @@
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { FaCheckCircle, FaClock, FaFileAlt, FaUser } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-import { BiArrowFromRight } from "react-icons/bi";
+import { DoctorService } from "../../services/doctor/doctor.services";
+import { FaArrowRight } from "react-icons/fa6";
 import PropTypes from "prop-types";
-import { StatsService } from "../../services/doctor/stats.services";
-import { SummaryService } from "../../services/doctor/summary.services";
 
 const DashboardDokter = () => {
   const [stats, setStats] = useState({
@@ -20,7 +18,7 @@ const DashboardDokter = () => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const response = await StatsService.getStats();
+        const response = await DoctorService.getStats();
         setStats(response.data.data);
         setError(null);
       } catch (err) {
@@ -129,7 +127,9 @@ const VerificationTable = () => {
     const fetchPendingSummary = async () => {
       try {
         setLoading(true);
-        const response = await SummaryService.getPendingSummary();
+        const response = await DoctorService.getPendingSubmissions({
+          limit: 5,
+        });
         setPendingSummaries(response.data.data || []);
         setError(null);
       } catch (err) {
@@ -201,22 +201,21 @@ const VerificationTable = () => {
               {pendingSummaries.map((summary) => (
                 <tr key={summary.id}>
                   <td className="text-[16px] py-2 text-center">
-                    {summary.createdAt ? formatDate(summary.createdAt) : "-"}
+                    {summary.submittedAt
+                      ? formatDate(summary.submittedAt)
+                      : "-"}
                   </td>
                   <td className="text-[16px] py-2 text-center">
                     {summary.patientName || "-"}
                   </td>
                   <td className="text-[16px] py-2 text-center text-[#C11616]">
-                    {summary.aiConfidence
-                      ? parseFloat(summary.aiConfidence).toFixed(2)
-                      : "-"}
-                    % {summary.aiDiagnosis || ""}
+                    {summary.diagnosisAi || "-"}
                   </td>
                   <td className="text-[16px] py-2 text-center">
                     <button
                       className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
                       onClick={() =>
-                        (window.location.href = `/dokter/riwayat-verifikasi/${summary.id}`)
+                        (window.location.href = `/dokter/riwayat-verifikasi/informasi-penyakit/${summary.id}`)
                       }
                     >
                       <FaFileAlt /> Verifikasi
@@ -241,7 +240,7 @@ const PatientsTable = () => {
     const fetchPatients = async () => {
       try {
         setLoading(true);
-        const response = await SummaryService.getPatientSummary();
+        const response = await DoctorService.getPatients({ limit: 5 });
         setPatients(response.data.data || []);
         setError(null);
       } catch (err) {

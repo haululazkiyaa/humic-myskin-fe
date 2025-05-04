@@ -43,6 +43,15 @@ export const Endpoint = {
   },
   doctor: {
     doctorList: `${API_BASE_URL}/patient/doctors`,
-  }
+  },
+  doctor_services: {
+    stats: `${API_BASE_URL}/doctor/dashboard/stats`,
+    pending: `${API_BASE_URL}/doctor/dashboard/pending`,
+    patients: `${API_BASE_URL}/doctor/patients`,
+    submission: `${API_BASE_URL}/doctor/submissions/pending`,
+    history: `${API_BASE_URL}/doctor/submissions/history`,
+    detail: `${API_BASE_URL}/doctor/submissions/{id}/detail`,
+    verify: `${API_BASE_URL}/submissions/{id}`,
+  },
   // Add other namespaces and endpoints here as needed
 };
