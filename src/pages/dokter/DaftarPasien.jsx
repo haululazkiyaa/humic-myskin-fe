@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { AccountsService } from "../../services/accounts/accounts.services";
+import { DoctorService } from "../../services/doctor/doctor.services";
 import TanstackDaftarPasien from "../../components/table/TanstackDaftarPasien";
 
 const DaftarPasien = () => {
@@ -12,9 +12,7 @@ const DaftarPasien = () => {
     const fetchPatients = async () => {
       try {
         setLoading(true);
-        const response = await AccountsService.getAccounts({
-          role: { eq: "patient" },
-        });
+        const response = await DoctorService.getPatients();
         setPatients(response.data.data || []);
         setLoading(false);
       } catch (error) {

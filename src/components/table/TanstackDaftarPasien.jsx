@@ -28,15 +28,15 @@ const TanstackDaftarPasien = ({ data }) => {
     () => [
       {
         header: "Nama Pasien",
-        accessorKey: "nama",
+        accessorKey: "name",
       },
       {
         header: "Nomor HP",
-        accessorKey: "no_hp",
+        accessorKey: "phone",
       },
       {
         header: "Jumlah Ajuan",
-        accessorKey: "jmlah_ajuan",
+        accessorKey: "submissionCount",
         cell: ({ getValue }) => (
           <span className="text-blue-600 font-semibold">{getValue()} kali</span>
         ),
