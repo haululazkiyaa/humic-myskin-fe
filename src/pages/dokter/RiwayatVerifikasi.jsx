@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { SubmissionsService } from "../../services/submissions/submissions.service";
+import { DoctorService } from "../../services/doctor/doctor.services";
 import TanstackRiwayatVerifikasi from "../../components/table/TanstackRiwayatVerifikasi";
 
 const RiwayatVerifikasi = () => {
@@ -12,9 +12,7 @@ const RiwayatVerifikasi = () => {
     const fetchVerifications = async () => {
       try {
         setLoading(true);
-        const response = await SubmissionsService.getSubmissions({
-          status: { eq: "pending" },
-        });
+        const response = await DoctorService.getSubmissionsHistory();
 
         setVerifications(response.data.data || []);
         setLoading(false);

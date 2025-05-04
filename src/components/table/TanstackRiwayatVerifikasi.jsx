@@ -36,7 +36,7 @@ const TanstackRiwayatVerifikasi = ({ data }) => {
       },
       {
         header: "Diagnosis AI",
-        accessorKey: "diagnosis",
+        accessorKey: "diagnosisAi",
         cell: ({ getValue }) => (
           <span className="text-green-600 font-semibold block">
             {getValue()}

@@ -40,7 +40,7 @@ const DaftarPengajuan = () => {
       return (
         (item.patientName &&
           item.patientName.toLowerCase().includes(searchTerm)) ||
-        (item.diagnosisAi &&
+        (typeof item.diagnosisAi === "string" &&
           item.diagnosisAi.toLowerCase().includes(searchTerm)) ||
         (item.submittedAt &&
           item.submittedAt.toLowerCase().includes(searchTerm))
