@@ -14,7 +14,7 @@ const InfoPengajuan = () => {
   const { user } = useAuth();
 
   const {
-    data: submission,
+    data: submissionData,
     isLoading: isSubmissionLoading,
     isError,
   } = useQuery({
@@ -31,7 +31,7 @@ const InfoPengajuan = () => {
     );
   }
 
-  if (isError || !submission?.data) {
+  if (isError || !submissionData?.data) {
     return (
       <div className="w-full h-96 flex items-center justify-center font-semibold">
         Gagal memuat data...
@@ -39,7 +39,8 @@ const InfoPengajuan = () => {
     );
   }
 
-  const data = submission.data;
+  const data = submissionData.data.data;
+  console.log("data submission:",data);
 
   const calculateAge= (dob) => {
     return dayjs().diff(dayjs(dob), 'year');
@@ -78,7 +79,7 @@ const InfoPengajuan = () => {
               <h1 className="font-bold text-2xl text-black mb-2">
                 Diverifikasi Oleh
               </h1>
-              <p>Dr. Elfa Erfiana</p>
+              <p>Dr. {data.verifiedBy}</p>
             </div>
             <div className="p-4 text-left rounded-lg shadow-md">
               <h1 className="font-bold text-2xl text-black mb-2">

@@ -17,15 +17,16 @@ export const Endpoint = {
   },
   detectionsPatient: {
     history: `${API_BASE_URL}/patient/detections`,
-    detail: `${API_BASE_URL}/patient/detections`,
-    create: `${API_BASE_URL}/patient/detections`,
-    update: `${API_BASE_URL}/patient/detections`,
-    delete: `${API_BASE_URL}/patient/detections`,
+    create: `${API_BASE_URL}/patient/detection`,
+    detail: `${API_BASE_URL}/patient/detection`,
+    update: `${API_BASE_URL}/patient/detection`,
+    delete: `${API_BASE_URL}/patient/detection`,
   },
   submissionsPatient: {
     history: `${API_BASE_URL}/patient/submissions`,
-    detail: `${API_BASE_URL}/patient/submissions`,
-    delete: `${API_BASE_URL}/patient/submissions`,
+    update: `${API_BASE_URL}/patient/submission`,
+    detail: `${API_BASE_URL}/patient/submission`,
+    delete: `${API_BASE_URL}/patient/submission`,
   },
   accounts: {
     list: `${API_BASE_URL}/accounts`,

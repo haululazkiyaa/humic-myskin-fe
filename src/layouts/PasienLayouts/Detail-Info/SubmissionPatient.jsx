@@ -15,7 +15,7 @@ const SubmissionPatient = () => {
   const navigate = useNavigate();
 
   const {
-    data: submission,
+    data: reSubmission,
     isLoading: isSubmissionLoading,
     isError,
   } = useQuery({
@@ -23,6 +23,8 @@ const SubmissionPatient = () => {
     queryFn: () => SubmissionsPatientService.getDetectionsById(id),
     enabled: !!id,
   });
+
+  const dataReSubmission = reSubmission?.data?.data || [];
 
   if (isSubmissionLoading) {
     return (
@@ -32,7 +34,7 @@ const SubmissionPatient = () => {
     );
   }
 
-  if (isError || !submission?.data) {
+  if (isError || !dataReSubmission) {
     return (
       <div className="w-full h-96 flex items-center justify-center font-semibold">
         Gagal memuat data...
@@ -40,7 +42,7 @@ const SubmissionPatient = () => {
     );
   }
 
-  const data = submission.data;
+  const data = dataReSubmission;
 
   return (
     <div className="py-20 lg:py-32 w-full px-4 lg:px-32">
@@ -119,7 +121,7 @@ const SubmissionPatient = () => {
             *Hasil deteksi belum dipastikan benar karena web hanya memberikan
             indikasi awal, silahkan ajukan hasil verifikasi ke dokter.
           </p>
-          <div className="w-full">
+          <div className="w-full mt-6">
             <h1 className="text-2xl font-bold text-center text-black">
               Pengajuan Verifikasi
             </h1>

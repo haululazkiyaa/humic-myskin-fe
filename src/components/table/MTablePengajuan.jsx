@@ -83,7 +83,7 @@ const MTablePengajuan = ({ item, handleDelete }) => {
 
         <div className="flex justify-center gap-4 mt-4">
           <button
-            onClick={() => navigate(`/info-pengajuan/${item.id}`)}
+            onClick={() => navigate(`/pengajuan/info/${item.id}`)}
             className="rounded-full flex items-center justify-center shadow-md cursor-pointer"
           >
             <img src={infoBtn} alt="Info" />

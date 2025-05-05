@@ -57,6 +57,10 @@ const DeteksiPasien = () => {
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentData = filteredData.slice(indexOfFirstData, indexOfLastData);
 
+  const handleInfo = (id) => {
+    navigate(`/deteksi/${id}`);
+  };
+
   const handleEdit = (data) => {
     setEditData(data);
     setShowEdit(true);
@@ -240,12 +244,16 @@ const DeteksiPasien = () => {
                       <td className="flex flex-col items-center justify-center pt-4">
                         <div className="flex gap-x-3">
                           <button
-                            onClick={() => navigate(`/info-detect/${item.id}`)}
+                            type="button"
+                            onClick={() => handleInfo(item.id)}
                             className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
                           >
                             <img src={infoBtn} alt="Info" />
                           </button>
-                          <button className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer">
+                          <button
+                            type="button"
+                            className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
+                          >
                             <img
                               src={deleteBtn}
                               alt="Hapus"
@@ -254,6 +262,7 @@ const DeteksiPasien = () => {
                           </button>
                           {item.isSubmitted === "Sudah" && (
                             <button
+                              type="button"
                               onClick={() => handleEdit(item)}
                               className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
                             >
@@ -263,8 +272,9 @@ const DeteksiPasien = () => {
                         </div>
                         {item.isSubmitted === "Tidak" && (
                           <button
+                            type="button"
                             onClick={() =>
-                              navigate(`/pengajuan-ulang/${item.id}`)
+                              navigate(`/pengajuan/ulang/${item.id}`)
                             }
                             className="w-3/4 text-sm font-semibold border border-black py-2 mt-2 rounded-lg cursor-pointer"
                           >
@@ -296,9 +306,10 @@ const DeteksiPasien = () => {
               <MTableDeteksi
                 key={index}
                 item={mappedItem}
+                handleInfo={() => handleInfo(item.id)}
                 handleEdit={() => handleEdit(item)}
                 handleDelete={() => handleDelete(item.id)}
-                handleSubmission={() => navigate(`/pengajuan-ulang/${item.id}`)}
+                handleSubmission={() => navigate(`/pengajuan/ulang/${item.id}`)}
               />
             );
           })}

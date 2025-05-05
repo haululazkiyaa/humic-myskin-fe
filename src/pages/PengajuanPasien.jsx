@@ -203,8 +203,9 @@ const PengajuanPasien = () => {
                       <td>
                         <div className="flex gap-x-3">
                           <button
+                            type="button"
                             onClick={() =>
-                              navigate(`/info-pengajuan/${item.id}`)
+                              navigate(`/pengajuan/info/${item.id}`)
                             }
                             className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
                           >

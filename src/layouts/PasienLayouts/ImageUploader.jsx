@@ -2,12 +2,14 @@ import { useState } from "react";
 import ImageCropper from "../../components/cropper/ImageCropper";
 import ResultDetect from "../../components/wellcome/ResultDetect";
 import DoctorList from "../../components/wellcome/DoctorList";
+import { useAuth } from "../../context/AuthContext";
 
 const ImageUploader = () => {
   const [image, setImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
   const [submission, setSubmission] = useState(true);
+  const {user } = useAuth();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -89,7 +91,7 @@ const ImageUploader = () => {
 
           {croppedImage && <ResultDetect />}
 
-          {croppedImage && (
+          {croppedImage && user && (
             <button
               onClick={() => setSubmission((prev) => !prev)}
               className={`md:w-1/3 font-bold text-white rounded-full px-6 py-2 my-4 cursor-pointer ${

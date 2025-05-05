@@ -6,7 +6,7 @@ import DashboardDokter from "../pages/dokter/DashboardDokter";
 import DeteksiPasien from "../pages/DeteksiPasien";
 import FAQ from "../pages/FAQ";
 import Homepage from "../pages/Homepage";
-import InfoDetect from "../layouts/PasienLayouts/Detail-Info/InfoDetect";
+import InfoDetect from "../layouts/PasienLayouts/Detail-Info/InfoDetect.jsx"
 import InfoPengajuan from "../layouts/PasienLayouts/Detail-Info/infoPengajuan";
 import InformasiPenyakit from "../pages/dokter/InformasiPenyakit";
 import PengajuanPasien from "../pages/PengajuanPasien";
@@ -52,16 +52,16 @@ export const router = createBrowserRouter([
             element: <PengajuanPasien />,
           },
           {
-            path: "/info-detect/:id",
+            path: "deteksi/:id",
             element: <InfoDetect />,
           },
           {
-            path: "/info-pengajuan/:id",
+            path: "pengajuan/info/:id",
             element: <InfoPengajuan />,
           },
           {
-            path: "/pengajuan-ulang/:id",
-            element: <SubmissionPatient/>,
+            path: "pengajuan/ulang/:id",
+            element: <SubmissionPatient />,
           },
         ],
       },

@@ -13,7 +13,7 @@ export const SubmissionsPatientService = {
     return axiosReq.post(Endpoint.detectionsPatient.create, data);
   },
   updateDetection(id, data) {
-    return axiosReq.put(`${Endpoint.detectionsPatient.update}/${id}`, data);
+    return axiosReq.patch(`${Endpoint.detectionsPatient.update}/${id}`, data);
   },
   deleteDetection(id) {
     return axiosReq.delete(`${Endpoint.detectionsPatient.delete}/${id}`);
@@ -22,6 +22,9 @@ export const SubmissionsPatientService = {
   // Pengajuan Pasien
   getSubmissions(params) {
     return axiosReq.get(Endpoint.submissionsPatient.history, { params });
+  },
+  patchSubmission(id, data) {
+    return axiosReq.patch(`${Endpoint.submissionsPatient.update}/${id}`, data);
   },
   getSubmissionsById(id) {
     return axiosReq.get(`${Endpoint.submissionsPatient.detail}/${id}`);
