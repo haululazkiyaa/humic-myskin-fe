@@ -1,23 +1,125 @@
-import { useState } from "react";
-import ImageCropper from "../../components/cropper/ImageCropper";
-import ResultDetect from "../../components/wellcome/ResultDetect";
-import DoctorList from "../../components/wellcome/DoctorList";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useMutation } from "@tanstack/react-query";
+import { SubmissionsPatientService } from "../../services/submissions/submissionsPatient.services";
+
+import ImageCropper from "../../components/cropper/ImageCropper";
+import keakuratan from "../../assets/icon/Ellipse 1.png";
+import melanoma from "../../assets/icon/Ellipse 3.png";
+import DoctorList from "../../components/wellcome/DoctorList";
 
 const ImageUploader = () => {
   const [image, setImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
   const [submission, setSubmission] = useState(true);
-  const {user } = useAuth();
+  const [detectionResult, setDetectionResult] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const hasSubmittedRef = useRef(false);
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImage(URL.createObjectURL(file));
-      setCroppedImage(null);
+
+  const { user } = useAuth();
+  const patientId = user?.data?.id;
+
+  const mutation = useMutation({
+    mutationFn: (formData) =>
+      SubmissionsPatientService.createDetection(formData),
+    onSuccess: (data) => {
+      console.log("Detection submitted successfully:", data);
+      setDetectionResult(data?.data?.data);
+      setIsProcessing(false);
+    },
+    onError: (error) => {
+      console.error("Detailed error response:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        headers: error.response?.headers,
+      });
+      setIsProcessing(false);
+    },
+  });
+
+  useEffect(() => {
+    console.log("data input deteksi:", detectionResult);
+  }, [detectionResult]);
+
+  const submitDetection = async (croppedImageUrl) => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    if (!croppedImageUrl) {
+      console.error("Missing cropped image URL");
+      return;
+    }
+
+    if (!patientId) {
+      console.error("Patient ID not available. Current user:", user);
+      return;
+    }
+
+    try {
+      setIsProcessing(true);
+
+      if (
+        !croppedImageUrl.startsWith("blob:") &&
+        !croppedImageUrl.startsWith("data:")
+      ) {
+        console.error("Invalid image URL format:", croppedImageUrl);
+        setIsProcessing(false);
+        return;
+      }
+
+      const response = await fetch(croppedImageUrl);
+      if (!response.ok) throw new Error("Failed to fetch cropped image");
+
+      const blob = await response.blob();
+      if (!blob || blob.size === 0) {
+        throw new Error("Empty image blob");
+      }
+
+      const file = new File([blob], "diagnosis.jpg", {
+        type: blob.type || "image/jpeg",
+      });
+
+      const formData = new FormData();
+      formData.append("patient_id", patientId.toString());
+      formData.append("image", file, file.name);
+
+      for (let [key, value] of formData.entries()) {
+        console.log(
+          key,
+          value instanceof File ? `${value.name} (${value.type})` : value
+        );
+      }
+
+      mutation.mutate(formData);
+    } catch (error) {
+      console.error("Submission error details:", {
+        error: error.message,
+        patientId,
+        hasCroppedImage: !!croppedImageUrl,
+        userAuthStatus: !!user,
+      });
+      setIsProcessing(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+ const handleImageUpload = (event) => {
+   const file = event.target.files[0];
+   if (file) {
+     setImage(URL.createObjectURL(file));
+     setCroppedImage(null);
+     setDetectionResult(null);
+     setSubmission(true);
+     hasSubmittedRef.current = false; 
+   }
+ };
+
+  const textLevel = detectionResult?.percentage >= 50 ? "Tidak Aman" : "Aman";
 
   return (
     <div className="flex justify-center py-10 px-10 md:px-20 w-full">
@@ -59,9 +161,14 @@ const ImageUploader = () => {
           ) : (
             <ImageCropper
               image={image}
-              onCropComplete={(cropped) => {
+              onCropComplete={async (cropped) => {
                 setCroppedImage(cropped);
                 setIsCropping(false);
+
+                if (!hasSubmittedRef.current && cropped) {
+                  hasSubmittedRef.current = true;
+                  await submitDetection(cropped);
+                }
               }}
             />
           )}
@@ -89,11 +196,39 @@ const ImageUploader = () => {
             </div>
           )}
 
-          {croppedImage && <ResultDetect />}
+          {isProcessing && (
+            <div className="mt-4 text-center">
+              <p className="text-gray-600">Memproses deteksi...</p>
+            </div>
+          )}
+
+          {croppedImage && detectionResult && (
+            <div className="w-full flex flex-wrap md:flex-nowrap justify-center gap-5 py-6">
+              <div className="w-full h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4 border border-gray-100">
+                <img src={melanoma} alt="Melanoma" className="w-16 h-16" />
+                <h4 className="text-black font-semibold">Melanoma</h4>
+                <p>{detectionResult.diagnosis}</p>
+              </div>
+              <div className="w-full h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4 border border-gray-100">
+                <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />
+                <h4 className="text-black font-semibold">Keakuratan</h4>
+                <p className="text-green-500">
+                  {`${detectionResult.percentage}% ${detectionResult.diagnosisAi} (${textLevel})`}
+                </p>
+              </div>
+            </div>
+          )}
 
           {croppedImage && user && (
             <button
-              onClick={() => setSubmission((prev) => !prev)}
+              onClick={async () => {
+                const newSubmissionState = !submission;
+                setSubmission(newSubmissionState);
+
+                if (newSubmissionState === false) {
+                  await submitDetection(croppedImage);
+                }
+              }}
               className={`md:w-1/3 font-bold text-white rounded-full px-6 py-2 my-4 cursor-pointer ${
                 submission ? "bg-sky-900" : "bg-red-700"
               }`}

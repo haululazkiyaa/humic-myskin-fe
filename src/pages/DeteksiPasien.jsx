@@ -17,6 +17,7 @@ import { SubmissionsPatientService } from "../services/submissions/submissionsPa
 
 const DeteksiPasien = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
   const userId = user?.data?.id;
   const navigate = useNavigate();
 
@@ -43,7 +44,6 @@ const DeteksiPasien = () => {
   });
 
   const data = submissionsData?.data?.data || [];
-  console.log("Data deteksi pasien:", data);
 
   const filteredData =
     data?.filter((item) =>
@@ -71,8 +71,8 @@ const DeteksiPasien = () => {
   };
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      SubmissionsPatientService.updateDetection(id, data),
+    mutationFn: ({ id, data, token }) =>
+      SubmissionsPatientService.updateDetection(id, data, token),
     onSuccess: () => {
       toast.success("Data berhasil diperbarui");
       refetch();
@@ -110,9 +110,12 @@ const DeteksiPasien = () => {
         <Edit
           data={editData}
           onClose={() => setShowEdit(false)}
-          onUpdated={(formData) =>
-            updateMutation.mutate({ id: editData.id, data: formData })
-          }
+          onUpdated={(formData) => {
+            console.log("FORM DATA", formData);
+            console.log("TOKEN", token);
+            console.log("ID", editData.id);
+            updateMutation.mutate({ id: editData.id, data: formData, token: token });
+          }}
         />
       )}
       {showDelete && (
@@ -198,7 +201,7 @@ const DeteksiPasien = () => {
                   </td>
                 </tr>
               ) : (
-                currentData.map((item, index) => {
+                currentData.map((item) => {
                   const percentValue = parseFloat(item.diagnosisAi);
                   const textColor =
                     percentValue >= 50 ? "text-red-600" : "text-green-600";
@@ -212,7 +215,7 @@ const DeteksiPasien = () => {
 
                   return (
                     <tr
-                      key={index}
+                      key={item.id}
                       className="*:align-middle *:text-start *:px-6"
                     >
                       <td>{item.submittedAt}</td>
@@ -292,7 +295,7 @@ const DeteksiPasien = () => {
 
         {/* Mobile View */}
         <div className="lg:hidden mt-4 space-y-4">
-          {currentData.map((item, index) => {
+          {currentData.map((item) => {
             const mappedItem = {
               date: item.submittedAt,
               persentase: item.diagnosisAi,
@@ -304,7 +307,7 @@ const DeteksiPasien = () => {
 
             return (
               <MTableDeteksi
-                key={index}
+                key={item.id}
                 item={mappedItem}
                 handleInfo={() => handleInfo(item.id)}
                 handleEdit={() => handleEdit(item)}

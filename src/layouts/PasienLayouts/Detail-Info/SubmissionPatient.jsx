@@ -44,6 +44,16 @@ const SubmissionPatient = () => {
 
   const data = dataReSubmission;
 
+  const percentValue = parseFloat(data.diagnosisAi);
+  const textColor = percentValue >= 50 ? "text-red-600" : "text-green-600";
+
+  const statusColor =
+    data.status === "rejected"
+      ? "text-red-600"
+      : data.status === "pending"
+      ? "text-yellow-600"
+      : "text-green-600";
+
   return (
     <div className="py-20 lg:py-32 w-full px-4 lg:px-32">
       <div className="w-full rounded-lg shadow-xl bg-white p-6 lg:p-10">
@@ -91,7 +101,7 @@ const SubmissionPatient = () => {
             <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
               <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />
               <h4 className="text-black font-semibold">Keakuratan</h4>
-              <p className="text-green-500">
+              <p className={textColor}>
                 {data.diagnosisAi || "Tidak tersedia"}
               </p>
             </div>
@@ -102,18 +112,20 @@ const SubmissionPatient = () => {
                 className="w-16 h-16"
               />
               <h4 className="text-black font-semibold">Pengajuan Verifikasi</h4>
-              <p className="text-red-500">{data.isSubmitted}</p>
+              <p
+                className={`font-semibold ${
+                  data.isSubmitted === "Sudah"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {data.isSubmitted}
+              </p>
             </div>
             <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
               <img src={statusIcon} alt="Status" className="w-16 h-16" />
               <h4 className="text-black font-semibold">Status</h4>
-              <p
-                className={`font-semibold ${
-                  data.status === "verified" ? "text-green-600" : "text-red-500"
-                }`}
-              >
-                {data.status}
-              </p>
+              <p className={`font-semibold ${statusColor}`}>{data.status}</p>
             </div>
           </div>
 

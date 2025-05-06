@@ -1,12 +1,13 @@
 import { FaPenToSquare } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { SubmissionsService } from "../../services/submissions/submissions.service";
+import { SubmissionsPatientService } from "../../services/submissions/submissionsPatient.services";
 
 const EditBox = ({ data, onClose, onUpdated }) => {
   const [editedKeluhan, setEditedKeluhan] = useState(data.complaint || "");
   const [editable, setEditable] = useState(false);
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("token");
 
   const handleEdit = async () => {
     if (!editable) {
@@ -16,10 +17,12 @@ const EditBox = ({ data, onClose, onUpdated }) => {
 
     try {
       setLoading(true);
-      await SubmissionsService.updateSubmission({
-        id: data.id,
-        complaint: editedKeluhan,
-      });
+      await SubmissionsPatientService.updateDetection(
+        data.id, 
+        { complaint: editedKeluhan },
+        token
+      );
+
 
       if (onUpdated) onUpdated({ complaint: editedKeluhan });
       onClose(); 

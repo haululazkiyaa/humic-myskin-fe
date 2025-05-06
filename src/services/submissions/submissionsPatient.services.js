@@ -9,12 +9,22 @@ export const SubmissionsPatientService = {
   getDetectionsById(id) {
     return axiosReq.get(`${Endpoint.detectionsPatient.detail}/${id}`);
   },
-  createDetection(data) {
-    return axiosReq.post(Endpoint.detectionsPatient.create, data);
+  createDetection: (formData) => {
+    return axiosReq.post(`${Endpoint.detectionsPatient.create}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
-  updateDetection(id, data) {
-    return axiosReq.patch(`${Endpoint.detectionsPatient.update}/${id}`, data);
+  updateDetection: async (id, data, token) => {
+    return axiosReq.patch(`${Endpoint.detectionsPatient.update}/${id}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
+
   deleteDetection(id) {
     return axiosReq.delete(`${Endpoint.detectionsPatient.delete}/${id}`);
   },
@@ -22,9 +32,6 @@ export const SubmissionsPatientService = {
   // Pengajuan Pasien
   getSubmissions(params) {
     return axiosReq.get(Endpoint.submissionsPatient.history, { params });
-  },
-  patchSubmission(id, data) {
-    return axiosReq.patch(`${Endpoint.submissionsPatient.update}/${id}`, data);
   },
   getSubmissionsById(id) {
     return axiosReq.get(`${Endpoint.submissionsPatient.detail}/${id}`);

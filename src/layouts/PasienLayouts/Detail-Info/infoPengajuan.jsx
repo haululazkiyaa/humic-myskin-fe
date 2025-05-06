@@ -1,4 +1,6 @@
-import ResultDetect from "../../../components/wellcome/ResultDetect";
+import melanoma from "../../../assets/icon/Ellipse 3.png";
+import keakuratan from "../../../assets/icon/Ellipse 1.png";
+import statusIcon from "../../../assets/icon/Ellipse 5.png";
 import LoadingCircle from "../../../components/loader/LoadingCircle";
 import dayjs from "dayjs";
 
@@ -40,14 +42,20 @@ const InfoPengajuan = () => {
   }
 
   const data = submissionData.data.data;
-  console.log("data submission:",data);
+  const percentValue = parseFloat(data.diagnosisAi);
+  const textColor = percentValue >= 50 ? "text-red-600" : "text-green-600";
 
-  const calculateAge= (dob) => {
-    return dayjs().diff(dayjs(dob), 'year');
-  }
+  const statusColor =
+    data.status === "rejected"
+      ? "text-red-600"
+      : data.status === "pending"
+      ? "text-yellow-600"
+      : "text-green-600";
 
-  console.log(calculateAge("2007-02-22"))
-
+  const calculateAge = (dob) => {
+    return dayjs().diff(dayjs(dob), "year");
+  };
+  
   return (
     <div className="py-20 lg:py-32 w-full px-4 lg:px-32">
       <div className="w-full rounded-lg shadow-xl bg-white p-4 lg:p-10">
@@ -98,7 +106,30 @@ const InfoPengajuan = () => {
             </div>
           </div>
 
-          <ResultDetect />
+          {/* Informasi Detail */}
+          <div className="w-full flex flex-wrap md:flex-nowrap justify-center gap-5 py-4">
+            {/* Diagnosis */}
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+              <img src={melanoma} alt="Diagnosis" className="w-16 h-16" />
+              <h4 className="text-black font-semibold">Diagnosis</h4>
+              <p>{data.diagnosis || "Tidak diketahui"}</p>
+            </div>
+
+            {/* Keakuratan */}
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+              <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />
+              <h4 className="text-black font-semibold">Keakuratan</h4>
+              <p className={textColor}>
+                {data.diagnosisAi || "Tidak tersedia"}
+              </p>
+            </div>
+            {/* Status */}
+            <div className="w-full shadow-md rounded-lg bg-white flex flex-col items-center gap-y-2 px-4 py-4">
+              <img src={statusIcon} alt="Status" className="w-16 h-16" />
+              <h4 className="text-black font-semibold">Status</h4>
+              <p className={`font-semibold ${statusColor}`}>{data.status}</p>
+            </div>
+          </div>
 
           <div className="w-full text-left">
             <h1 className="text-2xl font-semibold text-center my-4">
