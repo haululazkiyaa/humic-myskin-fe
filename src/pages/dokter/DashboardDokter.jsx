@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import { DoctorService } from "../../services/doctor/doctor.services";
 import { FaArrowRight } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import { useAuth } from "../../context/AuthContext";
 
 const DashboardDokter = () => {
+  const { user } = useAuth();
+
   const [stats, setStats] = useState({
     totalPatients: 0,
     pending: 0,
@@ -44,7 +47,7 @@ const DashboardDokter = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-[28px]">Hi, Muhammad</h2>
+      <h2 className="text-[28px]">Hi, {user?.data?.name}</h2>
       <h3 className="text-[16px] text-[#646464]">{formattedDate}</h3>
 
       {loading ? (
