@@ -56,7 +56,7 @@ const DaftarPasien = () => {
       <h1 className="text-3xl font-bold text-black text-center">
         Daftar Pasien
       </h1>
-      <div className="py-10 px-6 flex justify-center">
+      <div className="px-6 flex justify-center">
         <TanstackDaftarPasien data={patients} />
       </div>
     </div>
