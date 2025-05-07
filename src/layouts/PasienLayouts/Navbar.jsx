@@ -1,9 +1,9 @@
+import AuthModalController from "../../components/form/AuthModalController";
 import { FaBarsStaggered } from "react-icons/fa6";
 import ListNavbar from "../../components/wellcome/ListNavbar";
 import { useAuth } from "../../context/AuthContext";
 import useModal from "../../hooks/useModal";
 import { useState } from "react";
-import AuthModalController from "../../components/form/AuthModalController";
 
 const Navbar = () => {
   const { Modal, onOpen, onClose, type } = useModal();
@@ -12,6 +12,14 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
+  };
+
+  const openDashboard = () => {
+    if (user?.data?.role === "patient") {
+      window.location.href = "/deteksi";
+    } else if (user?.data?.role === "doctor") {
+      window.location.href = "/dokter";
+    }
   };
 
   return (
@@ -51,6 +59,7 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex space-x-4">
+                <button onClick={openDashboard}>Dashboard</button>
                 <button
                   onClick={handleLogout}
                   className="font-extralight text-md cursor-pointer text-red-500"
@@ -94,6 +103,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex space-x-4">
+            <button onClick={openDashboard}>Dashboard</button>
             <button
               onClick={handleLogout}
               className="font-extralight text-md cursor-pointer text-red-500"
