@@ -1,19 +1,25 @@
-import { FaArrowLeft } from "react-icons/fa";
 import melanoma from "../../../assets/icon/Ellipse 3.png";
 import keakuratan from "../../../assets/icon/Ellipse 1.png";
 import statusIcon from "../../../assets/icon/Ellipse 5.png";
 import time from "../../../assets/icon/Ellipse 4.png";
 import LoadingCircle from "../../../components/loader/LoadingCircle";
+import DoctorList from "../../../components/wellcome/DoctorList";
 
+import Swal from "sweetalert2";
+import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { SubmissionsPatientService } from "../../../services/submissions/submissionsPatient.services";
-import DoctorList from "../../../components/wellcome/DoctorList";
+import { useState } from "react";
+import { useAuth } from "../../../context/AuthContext";
 
 const SubmissionPatient = () => {
   const { id } = useParams();
+  const {user} = useAuth();
   const navigate = useNavigate();
-
+  const [complaint, setComplaint] = useState("");
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  
   const {
     data: reSubmission,
     isLoading: isSubmissionLoading,
@@ -43,6 +49,49 @@ const SubmissionPatient = () => {
   }
 
   const data = dataReSubmission;
+
+  const handleSubmission = async (doctor) => {
+    if (!complaint || !doctor || !data?.id) {
+      Swal.fire("Error", "Keluhan dan dokter wajib diisi", "error");
+      return;
+    }
+
+    const payload = {
+      doctorId: doctor.id,
+      complaint,
+    };
+
+    try {
+      const response = await SubmissionsPatientService.updateDetection(
+        data.id,
+        payload,
+        user.token
+      );
+      console.log("data submit:", response);
+      Swal.fire("Berhasil", "Pengajuan berhasil dikirim ke dokter", "success");
+      setComplaint("");
+      setSelectedDoctor(null);
+    } catch (error) {
+      console.error(error);
+      Swal.fire("Gagal", "Terjadi kesalahan saat mengirim data", "error");
+    }
+  };
+
+  const handleDoctorSelect = async (doctor) => {
+    const confirmed = await Swal.fire({
+      title: `Pilih Dokter ${doctor.name}?`,
+      text: "Apakah Anda yakin ingin mengajukan verifikasi ke dokter ini?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Ya, pilih dokter ini",
+      cancelButtonText: "Batal",
+    });
+
+    if (confirmed.isConfirmed) {
+      setSelectedDoctor(doctor);
+      handleSubmission(doctor);
+    }
+  };
 
   const percentValue = parseFloat(data.diagnosisAi);
   const textColor = percentValue >= 50 ? "text-red-600" : "text-green-600";
@@ -144,12 +193,18 @@ const SubmissionPatient = () => {
             <div className="text-left w-full">
               <p>Keluhan:</p>
               <textarea
-                name="keluhan"
-                id=""
+                value={complaint}
+                onChange={(e) => setComplaint(e.target.value)}
                 className="w-full h-32 border border-gray-400 rounded-lg p-2 mt-2"
                 placeholder="Masukkan keluhan Anda disini"
+                required
               ></textarea>
-              <DoctorList />
+              <DoctorList handleDoctorSelect={handleDoctorSelect} />
+              {selectedDoctor && (
+                <div className="mt-4 text-sm text-green-700">
+                  Dokter terpilih: <strong>dr. {selectedDoctor.name}</strong>
+                </div>
+              )}
             </div>
           </div>
         </div>

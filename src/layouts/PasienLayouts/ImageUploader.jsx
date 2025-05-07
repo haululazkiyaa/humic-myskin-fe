@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { SubmissionsPatientService } from "../../services/submissions/submissionsPatient.services";
 
+import Swal from "sweetalert2";
 import ImageCropper from "../../components/cropper/ImageCropper";
 import keakuratan from "../../assets/icon/Ellipse 1.png";
 import melanoma from "../../assets/icon/Ellipse 3.png";
@@ -17,7 +18,8 @@ const ImageUploader = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const hasSubmittedRef = useRef(false);
-
+  const [complaint, setComplaint] = useState("");
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const { user } = useAuth();
   const patientId = user?.data?.id;
@@ -39,10 +41,6 @@ const ImageUploader = () => {
       setIsProcessing(false);
     },
   });
-
-  useEffect(() => {
-    console.log("data input deteksi:", detectionResult);
-  }, [detectionResult]);
 
   const submitDetection = async (croppedImageUrl) => {
     if (isSubmitting) return;
@@ -108,6 +106,50 @@ const ImageUploader = () => {
     }
   };
 
+  const handleSubmission = async (doctor) => {
+    if (!complaint || !doctor || !detectionResult?.id) {
+      Swal.fire("Error", "Keluhan dan dokter wajib diisi", "error");
+      return;
+    }
+
+    const payload = {
+      doctorId: doctor.id,
+      complaint,
+    };
+
+    try {
+      const response = await SubmissionsPatientService.updateDetection(
+        detectionResult.id,
+        payload,
+        user.token
+      );
+      console.log("data submit:",response);
+      Swal.fire("Berhasil", "Pengajuan berhasil dikirim ke dokter", "success");
+      setSubmission(true);
+      setComplaint("");
+      setSelectedDoctor(null);
+    } catch (error) {
+      console.error(error);
+      Swal.fire("Gagal", "Terjadi kesalahan saat mengirim data", "error");
+    }
+  };
+
+
+  const handleDoctorSelect = async (doctor) => {
+    const confirmed = await Swal.fire({
+      title: `Pilih Dokter ${doctor.name}?`,
+      text: "Apakah Anda yakin ingin mengajukan verifikasi ke dokter ini?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Ya, pilih dokter ini",
+      cancelButtonText: "Batal",
+    });
+
+    if (confirmed.isConfirmed) {
+      setSelectedDoctor(doctor);
+      handleSubmission(doctor);
+    }
+  };
  const handleImageUpload = (event) => {
    const file = event.target.files[0];
    if (file) {
@@ -221,14 +263,7 @@ const ImageUploader = () => {
 
           {croppedImage && user && (
             <button
-              onClick={async () => {
-                const newSubmissionState = !submission;
-                setSubmission(newSubmissionState);
-
-                if (newSubmissionState === false) {
-                  await submitDetection(croppedImage);
-                }
-              }}
+              onClick={() => setSubmission((prev) => !prev)}
               className={`md:w-1/3 font-bold text-white rounded-full px-6 py-2 my-4 cursor-pointer ${
                 submission ? "bg-sky-900" : "bg-red-700"
               }`}
@@ -249,12 +284,18 @@ const ImageUploader = () => {
               <div className="text-left w-full">
                 <p>Keluhan:</p>
                 <textarea
-                  name="keluhan"
-                  id=""
+                  value={complaint}
+                  onChange={(e) => setComplaint(e.target.value)}
                   className="w-full h-32 border border-gray-400 rounded-lg p-2 mt-2"
                   placeholder="Masukkan keluhan Anda disini"
+                  required
                 ></textarea>
-                <DoctorList />
+                <DoctorList handleDoctorSelect={handleDoctorSelect} />
+                {selectedDoctor && (
+                  <div className="mt-4 text-sm text-green-700">
+                    Dokter terpilih: <strong>dr. {selectedDoctor.name}</strong>
+                  </div>
+                )}
               </div>
             </div>
           )}

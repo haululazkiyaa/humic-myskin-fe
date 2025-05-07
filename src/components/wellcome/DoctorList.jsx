@@ -3,8 +3,9 @@ import { useState } from "react";
 import { FaSearch, FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { SubmissionsPatientService } from "../../services/submissions/submissionsPatient.services";
 import LoadingCircle from "../loader/LoadingCircle";
+import PropTypes from "prop-types";
 
-const DoctorList = () => {
+const DoctorList = ({ handleDoctorSelect }) => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const doctorsPerPage = 8;
@@ -40,7 +41,7 @@ const DoctorList = () => {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="flex-1 outline-none bg-transparent text-gray-700"
+          className="flex- outline-none bg-transparent text-gray-700"
         />
       </div>
 
@@ -64,7 +65,10 @@ const DoctorList = () => {
                   className="w-20 h-20 rounded-full object-cover mb-4"
                 />
                 <p className="font-semibold text-center">dr. {doctor.name}</p>
-                <button className="mt-3 bg-sky-900 text-white px-6 py-2 rounded-full cursor-pointer">
+                <button
+                  onClick={() => handleDoctorSelect?.(doctor)}
+                  className="mt-3 bg-sky-900 text-white px-6 py-2 rounded-full cursor-pointer"
+                >
                   Pilih Dokter
                 </button>
               </div>
@@ -111,6 +115,10 @@ const DoctorList = () => {
       )}
     </div>
   );
+};
+
+DoctorList.propTypes = {
+  handleDoctorSelect: PropTypes.func,
 };
 
 export default DoctorList;

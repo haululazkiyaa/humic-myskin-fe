@@ -244,7 +244,7 @@ const DeteksiPasien = () => {
                       <td className={`font-semibold capitalize ${statusColor}`}>
                         {item.status}
                       </td>
-                      <td className="flex flex-col items-center justify-center pt-4">
+                      <td className="flex flex-col items-center pt-4">
                         <div className="flex gap-x-3">
                           <button
                             type="button"
