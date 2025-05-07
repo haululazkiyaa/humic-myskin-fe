@@ -11,9 +11,11 @@ import infoBtn from "../assets/icon/info-btn.png";
 import MTablePengajuan from "../components/table/MTablePengajuan";
 import LoadingDot from "../components/loader/LoadingDot";
 import { SubmissionsPatientService } from "../services/submissions/submissionsPatient.services";
+import { useAuth } from "../context/AuthContext";
 
 const PengajuanPasien = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useAuth();
+  const token = user?.token;
   const userId = user?.data?.id;
 
   const [showDelete, setShowDelete] = useState(false);
@@ -59,17 +61,17 @@ const PengajuanPasien = () => {
   };
 
   const deleteMutation = useMutation({
-      mutationFn: (id) => SubmissionsPatientService.deleteSubmission(id),
-      onSuccess: () => {
-        toast.success("Data berhasil dihapus");
-        refetch();
-        setShowDelete(false);
-        setDeleteId(null);
-      },
-      onError: () => {
-        toast.error("Gagal menghapus data");
-      },
-    });
+    mutationFn: (id) => SubmissionsPatientService.deleteSubmission(id, token),
+    onSuccess: () => {
+      toast.success("Data berhasil dihapus");
+      refetch();
+      setShowDelete(false);
+      setDeleteId(null);
+    },
+    onError: () => {
+      toast.error("Gagal menghapus data");
+    },
+  });
   const goToNextPage = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };

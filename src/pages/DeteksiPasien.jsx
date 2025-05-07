@@ -84,7 +84,7 @@ const DeteksiPasien = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => SubmissionsPatientService.deleteDetection(id),
+    mutationFn: (id) => SubmissionsPatientService.deleteSubmission(id, token),
     onSuccess: () => {
       toast.success("Data berhasil dihapus");
       refetch();
@@ -231,15 +231,15 @@ const DeteksiPasien = () => {
                           />
                         </div>
                       </td>
-                      <td className="text-ellipsis">{item.complaint}</td>
+                      <td className="text-ellipsis">{item?.complaint}</td>
                       <td
                         className={`font-semibold ${
-                          item.isSubmitted === "Sudah"
+                          item?.isSubmitted === "Sudah"
                             ? "text-green-600"
                             : "text-red-600"
                         }`}
                       >
-                        {item.isSubmitted}
+                        {item?.isSubmitted}
                       </td>
                       <td className={`font-semibold capitalize ${statusColor}`}>
                         {item.status}

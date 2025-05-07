@@ -25,10 +25,6 @@ export const SubmissionsPatientService = {
     });
   },
 
-  deleteDetection(id) {
-    return axiosReq.delete(`${Endpoint.detectionsPatient.delete}/${id}`);
-  },
-
   // Pengajuan Pasien
   getSubmissions(params) {
     return axiosReq.get(Endpoint.submissionsPatient.history, { params });
@@ -36,8 +32,12 @@ export const SubmissionsPatientService = {
   getSubmissionsById(id) {
     return axiosReq.get(`${Endpoint.submissionsPatient.detail}/${id}`);
   },
-  deleteSubmission(id) {
-    return axiosReq.delete(`${Endpoint.submissionsPatient.delete}/${id}`);
+  deleteSubmission: async (id, token) => {
+    return await axiosReq.delete(`${Endpoint.submissionsPatient.delete}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 
   // Doctor list
