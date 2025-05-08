@@ -15,7 +15,22 @@ const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
   };
 
   const handleSubmit = async (dataFromPage2) => {
-    const finalData = { ...formData, ...dataFromPage2 };
+    const finalData = new FormData();
+    finalData.append("name", formData.name);
+    finalData.append("email", formData.email);
+    finalData.append("phone", formData.phone);
+    finalData.append("password", formData.password);
+    finalData.append("password_confirmation", formData.password_confirmation);
+    finalData.append("practice_address", formData.practice_address);
+    finalData.append("specialization", dataFromPage2.specialist);
+    finalData.append("license_number", dataFromPage2.registrationNumber);
+    finalData.append("license_file", dataFromPage2.licenseFile);
+    finalData.append("diploma_file", dataFromPage2.medicalDegreeFile);
+    finalData.append("certification_file", dataFromPage2.certificationFile);
+    finalData.append("current_institution", dataFromPage2.currentInstitution);
+    finalData.append("work_history", dataFromPage2.workHistory);
+    finalData.append("publications", dataFromPage2.publications || "");
+
     try {
       await AuthService.registerDoctor(finalData);
       alert("Pendaftaran berhasil!");
@@ -57,10 +72,7 @@ const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
 
         <div>
           {page === 1 && (
-            <PageForm1
-              onNext={handleNext}
-              onDotClick={() => setPage(2)}
-            />
+            <PageForm1 onNext={handleNext} onDotClick={() => setPage(2)} />
           )}
           {page === 2 && (
             <PageForm2

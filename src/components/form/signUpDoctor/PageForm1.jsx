@@ -25,6 +25,11 @@ const PageForm1 = ({ onNext, onDotClick }) => {
   const handleNextClick = (e) => {
     e.preventDefault();
 
+    if (formData.password.length < 8) {
+      alert("Kata sandi harus terdiri dari minimal 8 karakter!");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert("Kata sandi tidak cocok!");
       return;
@@ -45,7 +50,7 @@ const PageForm1 = ({ onNext, onDotClick }) => {
       password: formData.password,
       role: "doctor",
       password_confirmation: formData.confirmPassword,
-      address: formData.practiceAddress,
+      practice_address: formData.practiceAddress,
     });
   };
 
