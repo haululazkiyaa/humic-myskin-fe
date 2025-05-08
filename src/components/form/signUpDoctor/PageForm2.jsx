@@ -13,6 +13,12 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
     publications: "",
     agree: false,
   });
+  const [pendingFiles, setPendingFiles] = useState({
+    license_file: null,
+    diploma_file: null,
+    certification_file: null,
+  });
+
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -27,12 +33,25 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
           alert("File harus berupa PDF, JPG, atau PNG.");
           return;
         }
-        setDataForm((prev) => ({ ...prev, [name]: file }));
+        setPendingFiles((prev) => ({ ...prev, [name]: file }));
       }
     } else {
       setDataForm((prev) => ({ ...prev, [name]: value }));
     }
   };
+
+  const handleUpload = (fieldName) => {
+    if (pendingFiles[fieldName]) {
+      setDataForm((prev) => ({
+        ...prev,
+        [fieldName]: pendingFiles[fieldName],
+      }));
+      alert(`File untuk ${fieldName} berhasil diunggah.`);
+    } else {
+      alert("Silakan pilih file terlebih dahulu.");
+    }
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -115,10 +134,19 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
               className="flex-1 px-4 py-2 text-sm"
               required
             />
-            <button className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg">
+            <button
+              type="button"
+              onClick={() => handleUpload("license_file")}
+              className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg"
+            >
               Upload
             </button>
           </div>
+          {dataForm.license_file && (
+            <p className="text-green-600 text-sm mt-1">
+              ✅ {dataForm.license_file.name} berhasil diunggah
+            </p>
+          )}
         </div>
 
         <div className="w-full flex items-center space-x-2">
@@ -132,10 +160,19 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
                 className="w-2/3 flex-1 px-4 py-2 text-sm"
                 required
               />
-              <button className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg">
+              <button
+                type="button"
+                onClick={() => handleUpload("diploma_file")}
+                className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg"
+              >
                 Upload
               </button>
             </div>
+            {dataForm.diploma_file && (
+              <p className="text-green-600 text-sm mt-1">
+                ✅ {dataForm.diploma_file.name} berhasil diunggah
+              </p>
+            )}
           </div>
           <div className="w-1/2">
             <label className="font-semibold mb-1">
@@ -148,10 +185,19 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
                 onChange={handleChange}
                 className="w-2/3 flex-1 px-4 py-2 text-sm"
               />
-              <button className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg">
+              <button
+                type="button"
+                onClick={() => handleUpload("certification_file")}
+                className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg"
+              >
                 Upload
               </button>
             </div>
+            {dataForm.certification_file && (
+              <p className="text-green-600 text-sm mt-1">
+                ✅ {dataForm.certification_file.name} berhasil diunggah
+              </p>
+            )}
           </div>
         </div>
 
