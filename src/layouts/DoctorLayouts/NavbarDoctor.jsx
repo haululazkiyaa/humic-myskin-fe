@@ -72,7 +72,6 @@ const Navbar = () => {
               </ListNavbar>
             ))}
             <div className="d-flex space-x-4">
-              <a href="/dokter">Dashboard</a>
               <button
                 onClick={handleLogout}
                 className="font-extralight text-md cursor-pointer text-red-500"
@@ -114,7 +113,6 @@ const Navbar = () => {
           ))}
         </div>
         <div className="d-flex space-x-4">
-          <a href="/dokter">Dashboard</a>
           <button
             onClick={handleLogout}
             className="font-extralight text-md cursor-pointer text-red-500"
