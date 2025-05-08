@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DoctorService } from "../../services/doctor/doctor.services";
 import { FaArrowLeft } from "react-icons/fa";
 import ResultDetect from "../../components/wellcome/ResultDetect";
+import Swal from "sweetalert2";
 import defaultImagePath from "../../assets/img/default.png";
 import { toast } from "react-hot-toast";
 
@@ -15,6 +16,7 @@ const InformasiPenyakit = () => {
   const [diagnosis, setDiagnosis] = useState("");
   const [doctorNote, setDoctorNote] = useState("");
   const [imageError, setImageError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Add loading state for submit button
 
   useEffect(() => {
     const fetchSubmissionDetail = async () => {
@@ -52,23 +54,50 @@ const InformasiPenyakit = () => {
   };
 
   const handleVerifySubmission = async () => {
-    try {
-      if (!diagnosis) {
-        toast.error("Silakan pilih diagnosis terlebih dahulu");
-        return;
+    // Validate form first
+    if (!diagnosis) {
+      toast.error("Silakan pilih diagnosis terlebih dahulu");
+      return;
+    }
+
+    // Show confirmation dialog
+    const result = await Swal.fire({
+      title: "Konfirmasi Verifikasi",
+      html:
+        "Apakah Anda sudah memverifikasi data dengan benar?<br><br>" +
+        "<b>Hasil verifikasi tidak dapat diubah lagi</b><br>" +
+        "Pastikan Anda memeriksa dengan benar keluhan pasien.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#12476B",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, verifikasi",
+      cancelButtonText: "Batalkan",
+    });
+
+    // If confirmed, proceed with submission
+    if (result.isConfirmed) {
+      try {
+        setIsSubmitting(true); // Set loading state when submitting
+
+        const verificationData = {
+          diagnosis,
+          doctorNote,
+        };
+
+        await DoctorService.verifySubmission(id, verificationData);
+
+        // Show success message
+        toast.success("Verifikasi berhasil");
+
+        // Navigate away after successful submission
+        navigate("/dokter/riwayat-verifikasi");
+      } catch (error) {
+        console.error("Error verifying submission:", error);
+        toast.error("Gagal memverifikasi submission");
+      } finally {
+        setIsSubmitting(false); // Reset loading state when done
       }
-
-      const verificationData = {
-        diagnosis,
-        doctorNote,
-      };
-
-      await DoctorService.verifySubmission(id, verificationData);
-      toast.success("Verifikasi berhasil");
-      navigate("/dokter/riwayat-verifikasi");
-    } catch (error) {
-      console.error("Error verifying submission:", error);
-      toast.error("Gagal memverifikasi submission");
     }
   };
 
@@ -232,10 +261,41 @@ const InformasiPenyakit = () => {
 
           {!isVerified && (
             <button
-              className="w-full bg-[#12476B] text-white font-semibold py-2 rounded-full hover:bg-[#0f3c5b]"
+              className={`w-full text-white font-semibold py-2 rounded-full ${
+                isSubmitting
+                  ? "bg-gray-500 cursor-not-allowed"
+                  : "bg-[#12476B] hover:bg-[#0f3c5b] cursor-pointer"
+              }`}
               onClick={handleVerifySubmission}
+              disabled={isSubmitting}
             >
-              Verifikasi
+              {isSubmitting ? (
+                <div className="flex items-center justify-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Memproses...
+                </div>
+              ) : (
+                "Verifikasi"
+              )}
             </button>
           )}
         </div>

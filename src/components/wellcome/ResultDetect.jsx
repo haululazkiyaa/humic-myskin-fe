@@ -15,7 +15,7 @@ const ResultDetect = (props) => {
       <div className="w-full h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4 border border-gray-100">
         <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />
         <h4 className="text-black font-semibold">Keakuratan</h4>
-        <p className={percentage > 49 ? "text-green-500" : "text-red-500"}>
+        <p className={percentage > 49 ? "text-red-500" : "text-green-500"}>
           {diagnosis}
         </p>
       </div>
