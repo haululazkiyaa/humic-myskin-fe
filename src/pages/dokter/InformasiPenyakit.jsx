@@ -160,6 +160,7 @@ const InformasiPenyakit = () => {
           <ResultDetect
             diagnosis={submissionData.diagnosisAi}
             percentage={submissionData.percentage}
+            status={submissionData.status}
           />
         )}
         <div className="p-6 mt-4 rounded-lg shadow-md w-full text-left border border-gray-100">
