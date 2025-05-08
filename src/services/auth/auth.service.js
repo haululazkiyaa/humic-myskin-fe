@@ -3,7 +3,11 @@ import { axiosReq } from "../axios.service";
 
 export const AuthService = {
   registerDoctor(data) {
-    return axiosReq.post(Endpoint.auth.registerDoctor, data);
+    return axiosReq.post(Endpoint.auth.registerDoctor, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
   registerPatient(data) {
     return axiosReq.post(Endpoint.auth.registerPatient, data);
