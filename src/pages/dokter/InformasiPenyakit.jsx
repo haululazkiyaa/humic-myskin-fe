@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DoctorService } from "../../services/doctor/doctor.services";
 import { FaArrowLeft } from "react-icons/fa";
 import ResultDetect from "../../components/wellcome/ResultDetect";
+import defaultImagePath from "../../assets/img/default.png";
 import { toast } from "react-hot-toast";
 
 const InformasiPenyakit = () => {
@@ -13,6 +14,7 @@ const InformasiPenyakit = () => {
   const [loading, setLoading] = useState(true);
   const [diagnosis, setDiagnosis] = useState("");
   const [doctorNote, setDoctorNote] = useState("");
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     const fetchSubmissionDetail = async () => {
@@ -39,8 +41,15 @@ const InformasiPenyakit = () => {
 
     if (id) {
       fetchSubmissionDetail();
+      // Reset image error state when component mounts or ID changes
+      setImageError(false);
     }
   }, [id]);
+
+  const handleImageError = () => {
+    setImageError(true);
+    console.log("Image failed to load, using default image");
+  };
 
   const handleVerifySubmission = async () => {
     try {
@@ -63,6 +72,22 @@ const InformasiPenyakit = () => {
     }
   };
 
+  // Function to handle image download
+  const handleDownloadImage = () => {
+    if (!submissionData?.imageUrl || imageError) {
+      toast.error("Gambar tidak tersedia untuk diunduh");
+      return;
+    }
+
+    // Create an anchor element and set properties for download
+    const link = document.createElement("a");
+    link.href = submissionData.imageUrl;
+    link.download = `skin-condition-${id}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto py-10 px-6 lg:px-0 text-center">
@@ -72,6 +97,9 @@ const InformasiPenyakit = () => {
   }
 
   const isVerified = submissionData?.status === "verified";
+  const displayImageSrc = imageError
+    ? defaultImagePath
+    : submissionData?.imageUrl;
 
   return (
     <div className="container mx-auto py-10 px-6 lg:px-0">
@@ -87,16 +115,27 @@ const InformasiPenyakit = () => {
           <h1 className="text-2xl font-semibold">Prediksi Penyakit</h1>
           <p>ID: {id || "-"}</p>
         </div>
-        {submissionData?.imageUrl && (
-          <img
-            className="rounded-3xl w-full lg:w-1/2"
-            src={submissionData.imageUrl}
-            alt="Skin condition"
-          />
-        )}
-        <button className="w-full lg:w-1/2 px-4 py-2 my-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer">
-          Unduh Gambar
+
+        {/* Image with error handling */}
+        <img
+          className="rounded-3xl w-full lg:w-1/2 object-cover max-h-[400px]"
+          src={displayImageSrc || defaultImagePath}
+          alt="Skin condition"
+          onError={handleImageError}
+        />
+
+        <button
+          className={`w-full lg:w-1/2 px-4 py-2 my-2 text-white font-bold rounded-full ${
+            imageError
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-sky-800 hover:bg-sky-900 cursor-pointer"
+          }`}
+          onClick={handleDownloadImage}
+          disabled={imageError}
+        >
+          {imageError ? "Gambar tidak tersedia" : "Unduh Gambar"}
         </button>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-4 gap-4 w-full">
           <div className="p-4 text-left rounded-lg shadow-md border border-gray-100">
             <h1 className="font-bold text-2xl text-black mb-2">
@@ -121,6 +160,7 @@ const InformasiPenyakit = () => {
           <ResultDetect
             diagnosis={submissionData.diagnosisAi}
             percentage={submissionData.percentage}
+            status={submissionData.status}
           />
         )}
         <div className="p-6 mt-4 rounded-lg shadow-md w-full text-left border border-gray-100">
@@ -131,7 +171,7 @@ const InformasiPenyakit = () => {
           </h1>
 
           <div className="mb-4">
-            <p className="font-medium mb-2">
+            <p className="font-bold mb-2">
               {isVerified ? "Diagnosis Dokter:" : "*Verifikasi Diagnosis"}
             </p>
             <div className="flex gap-8">
@@ -171,7 +211,7 @@ const InformasiPenyakit = () => {
           </div>
 
           <div className="mb-6">
-            <label htmlFor="catatan" className="block font-medium mb-2">
+            <label htmlFor="catatan" className="block font-bold mb-2">
               {isVerified ? "Catatan Dokter:" : "Catatan:"}
             </label>
             {isVerified ? (
