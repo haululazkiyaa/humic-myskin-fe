@@ -45,7 +45,7 @@ const PengajuanPasien = () => {
 
   const filteredData =
     submissions?.filter((item) =>
-      item.complaint?.toLowerCase().includes(searchTerm.toLowerCase())
+      item.verifiedBy?.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
   const totalData = filteredData.length;
@@ -110,7 +110,7 @@ const PengajuanPasien = () => {
           <div>
             <input
               type="text"
-              placeholder="Cari keluhan..."
+              placeholder="Cari dokter..."
               className="border rounded px-3 py-1 w-full md:w-64"
               value={searchTerm}
               onChange={(e) => {
