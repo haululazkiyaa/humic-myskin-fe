@@ -1,9 +1,9 @@
+import { AccountsService } from "../../services/accounts/accounts.services";
 import { AuthService } from "../../services/auth/auth.service"; // Updated import
+import PropTypes from "prop-types";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { AccountsService } from "../../services/accounts/accounts.services";
-import PropTypes from "prop-types";
 
 const LoginForm = ({ onClose }) => {
   const [email, setEmail] = useState("");
@@ -28,18 +28,27 @@ const LoginForm = ({ onClose }) => {
       const fullAccount = accountRes.data;
 
       localStorage.setItem("user", JSON.stringify(fullAccount));
-      login(fullAccount); 
+      login(fullAccount);
 
-      alert("Login berhasil!");
-
-      if(onClose) onClose();
-
-      // Redirect based on role
-      if (fullAccount.data.role === "doctor") {
-        navigate("/dokter");
-      } else if (fullAccount.data.role === "patient") {
-        navigate("/");
-      }
+      // Menggunakan SweetAlert2 untuk notifikasi sukses
+      import("sweetalert2").then((Swal) => {
+        Swal.default
+          .fire({
+            icon: "success",
+            title: "Login berhasil!",
+            text: "Membuka halaman utama...",
+            showConfirmButton: false,
+            timer: 2000,
+          })
+          .then(() => {
+            // Redirect based on role after alert closes
+            if (fullAccount.data.role === "doctor") {
+              navigate("/dokter");
+            } else if (fullAccount.data.role === "patient") {
+              navigate("/");
+            }
+          });
+      });
 
       // Clear form
       setEmail("");
