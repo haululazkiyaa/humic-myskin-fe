@@ -14,6 +14,14 @@ const Navbar = () => {
     logout();
   };
 
+  const goDashboard = () => {
+    if (user?.data?.role === "doctor") {
+      window.location.href = "/dokter";
+    } else if (user?.data?.role === "patient") {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <div className="fixed w-full flex justify-center lg:pt-5 absolute z-50">
       <div className="relative w-full lg:w-6xl flex md:justify-between items-center px-12 py-5 lg:rounded-xl shadow-md bg-white/60 backdrop-blur-sm">
@@ -51,6 +59,12 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex space-x-4">
+                <button
+                  onClick={() => goDashboard()}
+                  className="cursor-pointer"
+                >
+                  Dashboard
+                </button>
                 <button
                   onClick={handleLogout}
                   className="font-extralight text-md cursor-pointer text-red-500"
@@ -94,6 +108,9 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex space-x-4">
+            <button onClick={() => goDashboard()} className="cursor-pointer">
+              Dashboard
+            </button>
             <button
               onClick={handleLogout}
               className="font-extralight text-md cursor-pointer text-red-500"

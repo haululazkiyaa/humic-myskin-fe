@@ -50,6 +50,15 @@ const LoginForm = ({ onClose }) => {
           });
       });
 
+      if (onClose) onClose();
+
+      // Redirect based on role
+      if (fullAccount.data.role === "doctor") {
+        navigate("/dokter");
+      } else if (fullAccount.data.role === "patient") {
+        navigate("/");
+      }
+
       // Clear form
       setEmail("");
       setPassword("");
