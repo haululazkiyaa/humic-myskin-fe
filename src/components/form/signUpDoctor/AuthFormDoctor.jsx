@@ -55,13 +55,6 @@ const AuthFormDoctor = ({ onClose, onBackToLogin }) => {
           )}
         </div>
 
-        <p className="text-[12px] text-[#646464] text-center mt-4">
-          Email harus mengandung salah satu dari domain berikut:
-          <span className="text-[#2699E8]"> @pasien.myskin.ac.id </span>
-          untuk mendaftar sebagai pasien, atau
-          <span className="text-[#2699E8]"> @dokter.myskin.ac.id </span>
-          untuk mendaftar sebagai dokter.
-        </p>
         <p className="text-[12px] text-center text-[#646464] mt-2">
           Sudah memiliki akun?{" "}
           <button

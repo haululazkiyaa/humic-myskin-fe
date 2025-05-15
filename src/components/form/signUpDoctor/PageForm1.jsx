@@ -35,12 +35,6 @@ const PageForm1 = ({ onNext, onDotClick }) => {
       return;
     }
 
-    const domain = formData.email.split("@")[1];
-    if (domain !== "dokter.myskin.ac.id") {
-      alert("Email harus dengan domain dokter.myskin.ac.id");
-      return;
-    }
-
     // Kirim data ke komponen utama
     onNext({
       name: formData.name,
