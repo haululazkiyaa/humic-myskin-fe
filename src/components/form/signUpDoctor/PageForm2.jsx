@@ -35,14 +35,6 @@ const PageForm2 = ({  onDotClick, formDataPage1 }) => {
     }
   };
 
-  const handleUpload = (fieldName) => {
-    if (files[fieldName]) {
-      alert(`File untuk ${fieldName} berhasil diunggah.`);
-    } else {
-      alert("Silakan pilih file terlebih dahulu.");
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -151,13 +143,6 @@ const PageForm2 = ({  onDotClick, formDataPage1 }) => {
               className="flex-1 px-4 py-2 text-sm"
               required
             />
-            <button
-              type="button"
-              onClick={() => handleUpload("license_file")}
-              className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg"
-            >
-              Upload
-            </button>
           </div>
           {files.license_file && (
             <p className="text-green-600 text-sm mt-1">
@@ -177,13 +162,6 @@ const PageForm2 = ({  onDotClick, formDataPage1 }) => {
                 className="w-2/3 flex-1 px-4 py-2 text-sm"
                 required
               />
-              <button
-                type="button"
-                onClick={() => handleUpload("diploma_file")}
-                className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg"
-              >
-                Upload
-              </button>
             </div>
             {files.diploma_file && (
               <p className="text-green-600 text-sm mt-1">
@@ -202,13 +180,6 @@ const PageForm2 = ({  onDotClick, formDataPage1 }) => {
                 onChange={handleChange}
                 className="w-2/3 flex-1 px-4 py-2 text-sm"
               />
-              <button
-                type="button"
-                onClick={() => handleUpload("certification_file")}
-                className="mx-2 px-2 py-1 border-r border-sky-900 bg-sky-900 text-sm font-normal text-white rounded-lg"
-              >
-                Upload
-              </button>
             </div>
             {files.certification_file && (
               <p className="text-green-600 text-sm mt-1">
