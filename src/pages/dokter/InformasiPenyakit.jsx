@@ -8,6 +8,86 @@ import Swal from "sweetalert2";
 import defaultImagePath from "../../assets/img/default.png";
 import { toast } from "react-hot-toast";
 
+const InformasiPenyakitSkeleton = () => {
+  return (
+    <div className="container mx-auto py-10 px-6 lg:px-0 animate-pulse">
+      {/* Tombol kembali */}
+      <div className="flex items-center gap-2 mb-6">
+        <div className="w-6 h-6 bg-gray-300 rounded-full" />
+        <div className="h-6 w-24 bg-gray-300 rounded" />
+      </div>
+
+      {/* Judul dan ID */}
+      <div className="text-center mb-6">
+        <div className="h-6 w-48 bg-gray-300 rounded mx-auto mb-2" />
+        <div className="h-4 w-24 bg-gray-200 rounded mx-auto" />
+      </div>
+
+      {/* Gambar */}
+      <div className="flex justify-center">
+        <div className="w-full lg:w-1/2 h-[300px] bg-gray-200 rounded-2xl mb-4" />
+      </div>
+      <div className="w-full lg:w-1/2 h-10 bg-gray-300 rounded-full mx-auto mb-6" />
+
+      {/* Grid: Detail Pasien + Keluhan */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        <div className="p-4 rounded-lg shadow-md border border-gray-100">
+          <div className="h-6 w-32 bg-gray-300 mb-4 rounded" />
+          <div className="space-y-2">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-4 w-3/4 bg-gray-200 rounded" />
+            ))}
+          </div>
+        </div>
+        <div className="lg:col-span-2 p-4 rounded-lg shadow-md border border-gray-100">
+          <div className="h-6 w-32 bg-gray-300 mb-4 rounded" />
+          <div className="space-y-2">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-4 w-full bg-gray-200 rounded" />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Diagnosis AI */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 w-full">
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={i}
+            className="h-24 bg-gray-200 rounded-lg shadow-md border border-gray-100"
+          />
+        ))}
+      </div>
+
+      {/* Verifikasi Hasil Deteksi */}
+      <div className="p-6 rounded-lg shadow-md w-full border border-gray-100">
+        <div className="h-6 w-40 bg-gray-300 mb-6 rounded" />
+
+        {/* Radio */}
+        <div className="flex gap-8 mb-6">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-gray-300" />
+            <div className="w-24 h-4 bg-gray-200 rounded" />
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-gray-300" />
+            <div className="w-32 h-4 bg-gray-200 rounded" />
+          </div>
+        </div>
+
+        {/* Catatan */}
+        <div className="mb-6">
+          <div className="w-24 h-4 bg-gray-300 mb-2 rounded" />
+          <div className="h-28 w-full bg-gray-100 rounded-lg" />
+        </div>
+
+        {/* Tombol */}
+        <div className="w-full h-10 bg-gray-300 rounded-full" />
+      </div>
+    </div>
+  );
+};
+
 const InformasiPenyakit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -120,7 +200,7 @@ const InformasiPenyakit = () => {
   if (loading) {
     return (
       <div className="container mx-auto py-10 px-6 lg:px-0 text-center">
-        <p>Loading...</p>
+        <InformasiPenyakitSkeleton />;
       </div>
     );
   }

@@ -4,6 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import { DoctorService } from "../../services/doctor/doctor.services";
 import { useNavigate } from "react-router-dom";
 
+const SkeletonCard = () => (
+  <div className="bg-white rounded-lg shadow-lg p-4 animate-pulse">
+    <div className="w-full h-40 bg-gray-300 rounded-lg" />
+    <div className="h-4 bg-gray-300 rounded mt-4 w-3/4" />
+    <div className="h-3 bg-gray-200 rounded mt-2 w-1/2" />
+    <div className="h-3 bg-red-200 rounded mt-2 w-2/3" />
+    <div className="h-10 bg-gray-300 rounded-full mt-4" />
+  </div>
+);
+
 const DaftarPengajuan = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allSubmissions, setAllSubmissions] = useState([]);
@@ -192,8 +202,10 @@ const DaftarPengajuan = () => {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <p className="text-lg">Loading...</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
+          {[...Array(8)].map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
         </div>
       ) : error ? (
         <div className="flex justify-center items-center h-64">
