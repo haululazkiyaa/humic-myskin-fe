@@ -1,39 +1,34 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { AuthService } from "../../../services/auth/auth.service";
 
-const PageForm2 = ({ onSubmit, onDotClick }) => {
+const PageForm2 = ({  onDotClick, formDataPage1 }) => {
   const [dataForm, setDataForm] = useState({
     specialization: "",
     license_number: "",
-    license_file: null,
-    diploma_file: null,
-    certification_file: null,
     current_institution: "",
     work_history: "",
     publications: "",
     agree: false,
   });
-  const [pendingFiles, setPendingFiles] = useState({
+  const [files, setFiles] = useState({
     license_file: null,
     diploma_file: null,
     certification_file: null,
   });
 
-
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+    const { name, value, type, checked, files: fileList } = e.target;
 
     if (type === "checkbox") {
       setDataForm((prev) => ({ ...prev, [name]: checked }));
     } else if (type === "file") {
-      const file = files[0];
-      if (file) {
-        const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
-        if (!allowedTypes.includes(file.type)) {
-          alert("File harus berupa PDF, JPG, atau PNG.");
-          return;
-        }
-        setPendingFiles((prev) => ({ ...prev, [name]: file }));
+      const file = fileList[0];
+      const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+      if (file && allowedTypes.includes(file.type)) {
+        setFiles((prev) => ({ ...prev, [name]: file }));
+      } else {
+        alert("File harus berupa PDF, JPG, atau PNG.");
       }
     } else {
       setDataForm((prev) => ({ ...prev, [name]: value }));
@@ -41,52 +36,74 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
   };
 
   const handleUpload = (fieldName) => {
-    if (pendingFiles[fieldName]) {
-      setDataForm((prev) => ({
-        ...prev,
-        [fieldName]: pendingFiles[fieldName],
-      }));
+    if (files[fieldName]) {
       alert(`File untuk ${fieldName} berhasil diunggah.`);
     } else {
       alert("Silakan pilih file terlebih dahulu.");
     }
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!dataForm.agree) {
       alert("Harap menyetujui persyaratan penggunaan.");
       return;
     }
 
     const formData = new FormData();
+
+    // Data dari PageForm1
+    formData.append("name", formDataPage1.name);
+    formData.append("email", formDataPage1.email);
+    formData.append("phone", formDataPage1.phone);
+    formData.append("password", formDataPage1.password);
+    formData.append(
+      "password_confirmation",
+      formDataPage1.password_confirmation
+    );
+    formData.append("practice_address", formDataPage1.practice_address);
+
+    // Data dari PageForm2
     formData.append("specialization", dataForm.specialization);
     formData.append("license_number", dataForm.license_number);
-    formData.append("license_file", dataForm.license_file);
-    formData.append("diploma_file", dataForm.diploma_file);
-    if (dataForm.certification_file) {
-      formData.append("certification_file", dataForm.certification_file);
-    }
     formData.append("current_institution", dataForm.current_institution);
     formData.append("work_history", dataForm.work_history);
     formData.append("publications", dataForm.publications || "");
 
-    onSubmit(dataForm); 
+    if (files.license_file) {
+      formData.append("license_file", files.license_file);
+    }
+    if (files.diploma_file) {
+      formData.append("diploma_file", files.diploma_file);
+    }
+    if (files.certification_file) {
+      formData.append("certification_file", files.certification_file);
+    }
 
-    alert("Pendaftaran berhasil!");
+    try {
+      await AuthService.registerDoctor(formData);
+      alert("Pendaftaran berhasil!");
+      
+      // Reset form setelah berhasil
+      setDataForm({
+        specialization: "",
+        license_number: "",
+        current_institution: "",
+        work_history: "",
+        publications: "",
+        agree: false,
+      });
 
-    setDataForm({
-      specialization: "",
-      license_number: "",
-      license_file: null,
-      diploma_file: null,
-      certification_file: null,
-      current_institution: "",
-      work_history: "",
-      publications: "",
-      agree: false,
-    });
+      setFiles({
+        license_file: null,
+        diploma_file: null,
+        certification_file: null,
+      });
+    } catch (error) {
+      console.error("Gagal mendaftar:", error);
+      alert("Terjadi kesalahan saat mendaftar. Silakan coba lagi.");
+    }
   };
 
   return (
@@ -142,9 +159,9 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
               Upload
             </button>
           </div>
-          {dataForm.license_file && (
+          {files.license_file && (
             <p className="text-green-600 text-sm mt-1">
-              ✅ {dataForm.license_file.name} berhasil diunggah
+              ✅ {files.license_file.name} berhasil diunggah
             </p>
           )}
         </div>
@@ -168,9 +185,9 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
                 Upload
               </button>
             </div>
-            {dataForm.diploma_file && (
+            {files.diploma_file && (
               <p className="text-green-600 text-sm mt-1">
-                ✅ {dataForm.diploma_file.name} berhasil diunggah
+                ✅ {files.diploma_file.name} berhasil diunggah
               </p>
             )}
           </div>
@@ -193,9 +210,9 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
                 Upload
               </button>
             </div>
-            {dataForm.certification_file && (
+            {files.certification_file && (
               <p className="text-green-600 text-sm mt-1">
-                ✅ {dataForm.certification_file.name} berhasil diunggah
+                ✅ {files.certification_file.name} berhasil diunggah
               </p>
             )}
           </div>
@@ -259,6 +276,7 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
 
         <button
           type="submit"
+          onClick={handleSubmit}
           className="w-full bg-[#1E3A5F] text-white font-semibold py-2 rounded-full hover:bg-[#1A2F4A] transition"
         >
           Daftar
@@ -279,6 +297,7 @@ const PageForm2 = ({ onSubmit, onDotClick }) => {
 PageForm2.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onDotClick: PropTypes.func.isRequired,
+  formDataPage1: PropTypes.object.isRequired,
 };
 
 export default PageForm2;

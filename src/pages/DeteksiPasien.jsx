@@ -1,12 +1,10 @@
 import { useState } from "react";
 
 import Delete from "../components/pop-up/Delete";
-import Edit from "../components/pop-up/EditBox";
 import MTableDeteksi from "../components/table/MTableDeteksi";
 // import data from "../json/dataDeteksi";
 
 import deleteBtn from "../assets/icon/delete-button.png";
-import editBtn from "../assets/icon/edit-button.png";
 import infoBtn from "../assets/icon/info-btn.png";
 import LoadingDot from "../components/loader/LoadingDot";
 
@@ -21,12 +19,10 @@ const DeteksiPasien = () => {
   const userId = user?.data?.id;
   const navigate = useNavigate();
 
-  const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(5);
-  const [editData, setEditData] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -61,27 +57,10 @@ const DeteksiPasien = () => {
     navigate(`/deteksi/${id}`);
   };
 
-  const handleEdit = (data) => {
-    setEditData(data);
-    setShowEdit(true);
-  };
   const handleDelete = (id) => {
     setDeleteId(id);
     setShowDelete(true);
   };
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data, token }) =>
-      SubmissionsPatientService.updateDetection(id, data, token),
-    onSuccess: () => {
-      toast.success("Data berhasil diperbarui");
-      refetch();
-      setShowEdit(false);
-    },
-    onError: () => {
-      toast.error("Gagal memperbarui data");
-    },
-  });
 
   const deleteMutation = useMutation({
     mutationFn: (id) => SubmissionsPatientService.deleteSubmission(id, token),
@@ -106,18 +85,6 @@ const DeteksiPasien = () => {
 
   return (
     <>
-      {showEdit && (
-        <Edit
-          data={editData}
-          onClose={() => setShowEdit(false)}
-          onUpdated={(formData) => {
-            console.log("FORM DATA", formData);
-            console.log("TOKEN", token);
-            console.log("ID", editData.id);
-            updateMutation.mutate({ id: editData.id, data: formData, token: token });
-          }}
-        />
-      )}
       {showDelete && (
         <Delete
           onClose={() => setShowDelete(false)}
@@ -244,7 +211,7 @@ const DeteksiPasien = () => {
                       <td className={`font-semibold capitalize ${statusColor}`}>
                         {item.status}
                       </td>
-                      <td className="flex flex-col items-center pt-4">
+                      <td>
                         <div className="flex gap-x-3">
                           <button
                             type="button"
@@ -263,15 +230,6 @@ const DeteksiPasien = () => {
                               onClick={() => handleDelete(item.id)}
                             />
                           </button>
-                          {item.isSubmitted === "Sudah" && (
-                            <button
-                              type="button"
-                              onClick={() => handleEdit(item)}
-                              className="w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer"
-                            >
-                              <img src={editBtn} alt="Edit" />
-                            </button>
-                          )}
                         </div>
                         {item.isSubmitted === "Tidak" && (
                           <button
@@ -310,7 +268,6 @@ const DeteksiPasien = () => {
                 key={item.id}
                 item={mappedItem}
                 handleInfo={() => handleInfo(item.id)}
-                handleEdit={() => handleEdit(item)}
                 handleDelete={() => handleDelete(item.id)}
                 handleSubmission={() => navigate(`/pengajuan/ulang/${item.id}`)}
               />

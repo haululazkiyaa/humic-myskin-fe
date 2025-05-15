@@ -42,6 +42,21 @@ const ImageUploader = () => {
     },
   });
 
+  const publicMutation = useMutation({
+    mutationFn: (formData) =>
+      SubmissionsPatientService.createPublicDetection(formData),
+    onSuccess: (data) => {
+      console.log("Public detection successful:", data);
+      setDetectionResult(data?.data);
+      setIsProcessing(false);
+    },
+    onError: (error) => {
+      console.error("Error on public detection:", error);
+      setIsProcessing(false);
+    },
+  });
+  
+
   const submitDetection = async (croppedImageUrl) => {
     if (isSubmitting) return;
 
@@ -51,12 +66,7 @@ const ImageUploader = () => {
       console.error("Missing cropped image URL");
       return;
     }
-
-    if (!patientId) {
-      console.error("Patient ID not available. Current user:", user);
-      return;
-    }
-
+    
     try {
       setIsProcessing(true);
 
@@ -82,17 +92,25 @@ const ImageUploader = () => {
       });
 
       const formData = new FormData();
-      formData.append("patient_id", patientId.toString());
       formData.append("image", file, file.name);
-
-      for (let [key, value] of formData.entries()) {
-        console.log(
-          key,
-          value instanceof File ? `${value.name} (${value.type})` : value
-        );
-      }
-
-      mutation.mutate(formData);
+      if (user && patientId) {
+        formData.append("patient_id", patientId.toString());
+        for (let [key, value] of formData.entries()) {
+          console.log(
+            key,
+            value instanceof File ? `${value.name} (${value.type})` : value
+          );
+        }
+        mutation.mutate(formData); 
+      } else {
+        for (let [key, value] of formData.entries()) {
+          console.log(
+            key,
+            value instanceof File ? `${value.name} (${value.type})` : value
+          );
+        }
+        publicMutation.mutate(formData); 
+      }      
     } catch (error) {
       console.error("Submission error details:", {
         error: error.message,
@@ -162,6 +180,7 @@ const ImageUploader = () => {
  };
 
   const textLevel = detectionResult?.percentage >= 50 ? "Tidak Aman" : "Aman";
+  const melanomaLevel = detectionResult?.percentage >= 50 ? "Melanoma" : "Bukan Melanoma";
 
   return (
     <div className="flex justify-center py-10 px-10 md:px-20 w-full">
@@ -249,7 +268,7 @@ const ImageUploader = () => {
               <div className="w-full h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4 border border-gray-100">
                 <img src={melanoma} alt="Melanoma" className="w-16 h-16" />
                 <h4 className="text-black font-semibold">Melanoma</h4>
-                <p>{detectionResult.diagnosis}</p>
+                <p>{detectionResult.diagnosis || melanomaLevel}</p>
               </div>
               <div className="w-full h-48 shadow-md rounded-lg bg-white flex flex-col justify-center items-center gap-y-2 px-4 py-4 border border-gray-100">
                 <img src={keakuratan} alt="Keakuratan" className="w-16 h-16" />

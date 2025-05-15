@@ -17,6 +17,7 @@ export const Endpoint = {
   },
   detectionsPatient: {
     history: `${API_BASE_URL}/patient/detections`,
+    createPublic: `${API_BASE_URL}/detect`,
     create: `${API_BASE_URL}/patient/detections`,
     update: `${API_BASE_URL}/patient/submission`,
     detail: `${API_BASE_URL}/patient/detection`,

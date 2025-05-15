@@ -2,6 +2,15 @@ import { Endpoint } from "../endpoint.service";
 import { axiosReq } from "../axios.service";
 
 export const SubmissionsPatientService = {
+  // public detection
+  createPublicDetection: (formData) => {
+    return axiosReq.post(Endpoint.detectionsPatient.createPublic, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+
   // Deteksi Pasien
   getDetections(params) {
     return axiosReq.get(Endpoint.detectionsPatient.history, { params });

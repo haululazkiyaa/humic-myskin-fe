@@ -44,12 +44,6 @@ const SignUpForm = ({ onOpenDoctorForm }) => {
       return;
     }
 
-    const domain = formData.email.split("@")[1];
-    if (domain !== "pasien.myskin.ac.id" && domain !== "dokter.myskin.ac.id") {
-      alert("Email harus menggunakan domain yang valid!");
-      return;
-    }
-
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
 
     const payload = {

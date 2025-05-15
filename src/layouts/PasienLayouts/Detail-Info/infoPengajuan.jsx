@@ -78,9 +78,13 @@ const InfoPengajuan = () => {
             }
             alt="Hasil Deteksi"
           />
-          <button className="w-full lg:w-1/2 px-4 py-2 my-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer">
+          <a
+            href={data.imageUrl}
+            download
+            className="w-full lg:w-1/2 px-4 py-2 text-white font-bold rounded-full bg-sky-800 hover:bg-sky-900 cursor-pointer text-center"
+          >
             Unduh Gambar
-          </button>
+          </a>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 mt-4 gap-4 w-full">
             <div className="lg:col-span-3 p-4 text-left rounded-lg shadow-md">

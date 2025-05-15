@@ -35,8 +35,6 @@ const PengajuanPasien = () => {
     queryKey: ["submissions", userId],
     queryFn: () => SubmissionsPatientService.getSubmissions({ userId }),
     enabled: !!userId,
-    staleTime: 5 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
   });
 
   const submissions = useMemo(() => {
@@ -45,7 +43,7 @@ const PengajuanPasien = () => {
 
   const filteredData =
     submissions?.filter((item) =>
-      item.complaint?.toLowerCase().includes(searchTerm.toLowerCase())
+      item.verifiedBy?.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
   const totalData = filteredData.length;
@@ -110,7 +108,7 @@ const PengajuanPasien = () => {
           <div>
             <input
               type="text"
-              placeholder="Cari keluhan..."
+              placeholder="Cari dokter..."
               className="border rounded px-3 py-1 w-full md:w-64"
               value={searchTerm}
               onChange={(e) => {
@@ -162,6 +160,12 @@ const PengajuanPasien = () => {
                 <tr>
                   <td colSpan={10} className="text-center font-bold py-6">
                     Anda belum memiliki riwayat pengajuan
+                  </td>
+                </tr>
+              ): filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan={10} className="text-center font-bold py-6">
+                    Data tidak ditemukan untuk pencarian: <i>{searchTerm}</i>
                   </td>
                 </tr>
               ) : (

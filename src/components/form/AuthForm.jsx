@@ -43,15 +43,6 @@ const AuthForm = ({ onClose, showLogin, onOpenDoctorForm }) => {
           <SignUpForm onOpenDoctorForm={onOpenDoctorForm} />
         )}
 
-        <p className="text-[12px] text-[#646464] text-center mt-4">
-          Email harus mengandung salah satu dari domain berikut:
-          <span className="text-[#2699E8]"> @pasien.myskin.ac.id </span>
-          untuk {showForm === "login" ? "masuk" : "mendaftar"} sebagai pasien,
-          atau
-          <span className="text-[#2699E8]"> @dokter.myskin.ac.id </span>
-          untuk {showForm === "login" ? "masuk" : "mendaftar"} sebagai dokter.
-        </p>
-
         {showForm === "login" ? (
           <p className="text-[12px] text-center text-[#646464] mt-2">
             Belum memiliki akun?{" "}
