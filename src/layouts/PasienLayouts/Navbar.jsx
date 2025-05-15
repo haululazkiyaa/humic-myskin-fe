@@ -63,7 +63,7 @@ const Navbar = () => {
                   onClick={() => goDashboard()}
                   className="cursor-pointer"
                 >
-                  Dashboard
+                  {user?.data?.role === "doctor" && "Dashboard"}
                 </button>
                 <button
                   onClick={handleLogout}
@@ -109,7 +109,7 @@ const Navbar = () => {
         ) : (
           <div className="flex space-x-4">
             <button onClick={() => goDashboard()} className="cursor-pointer">
-              Dashboard
+              {user?.data?.role === "doctor" && "Dashboard"}
             </button>
             <button
               onClick={handleLogout}
