@@ -190,7 +190,7 @@ const DeteksiPasien = () => {
                         {item.diagnosisAi}
                       </td>
                       <td>
-                        <div className="w-40 h-32 rounded-lg flex items-center justify-start overflow-hidden py-2">
+                        <div className="w-40 h-32 rounded-lg flex items-center justify-start overflow-hidden p-2">
                           <img
                             className="max-w-full max-h-full object-contain"
                             src={item.imageUrl}
