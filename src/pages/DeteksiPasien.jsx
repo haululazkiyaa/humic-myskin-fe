@@ -198,7 +198,7 @@ const DeteksiPasien = () => {
                           />
                         </div>
                       </td>
-                      <td className="text-ellipsis">{item?.complaint}</td>
+                      <td className="text-ellipsis">{item?.complaint || "-"}</td>
                       <td
                         className={`font-semibold ${
                           item?.isSubmitted === "Sudah"
@@ -206,10 +206,10 @@ const DeteksiPasien = () => {
                             : "text-red-600"
                         }`}
                       >
-                        {item?.isSubmitted}
+                        {item?.isSubmitted || "-"}
                       </td>
                       <td className={`font-semibold capitalize ${statusColor}`}>
-                        {item.status}
+                        {item?.status || "-"}
                       </td>
                       <td>
                         <div className="flex gap-x-3">
