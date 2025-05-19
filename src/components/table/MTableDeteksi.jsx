@@ -3,7 +3,7 @@ import deleteBtn from "../../assets/icon/delete-button.png";
 import infoBtn from "../../assets/icon/info-btn.png";
 import testImage from "../../assets/img/test-myskin.jpg";
 
-const MTableDeteksi = ({ item, handleinfo, handleDelete, handleSubmission }) => {
+const MTableDeteksi = ({ item, handleInfo, handleDelete, handleSubmission }) => {
   const percentValue = parseFloat(item.persentase);
   let textColor = "text-green-600";
   if (percentValue >= 50) {
@@ -72,11 +72,8 @@ const MTableDeteksi = ({ item, handleinfo, handleDelete, handleSubmission }) => 
 
         {/* Tombol Aksi */}
         <div className="flex justify-center gap-4 mt-4">
-          <button
-            onClick={handleinfo}
-            className="rounded-full flex items-center justify-center shadow-md cursor-pointer"
-          >
-            <img src={infoBtn} alt="Info" />
+          <button className="rounded-full flex items-center justify-center shadow-md cursor-pointer">
+            <img src={infoBtn} alt="Info" onClick={handleInfo} />
           </button>
           <button className="rounded-full flex items-center justify-center shadow-md cursor-pointer">
             <img src={deleteBtn} alt="Hapus" onClick={handleDelete} />
@@ -99,7 +96,7 @@ const MTableDeteksi = ({ item, handleinfo, handleDelete, handleSubmission }) => 
 
 MTableDeteksi.propTypes = {
   item: PropTypes.object.isRequired,
-  handleinfo: PropTypes.func.isRequired,
+  handleInfo: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleSubmission: PropTypes.func.isRequired,
 };
