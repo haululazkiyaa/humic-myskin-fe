@@ -43,7 +43,7 @@ const DeteksiPasien = () => {
 
   const filteredData =
     data?.filter((item) =>
-      item.complaint?.toLowerCase().includes(searchTerm.toLowerCase())
+      (item.complaint || "-").toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
 
   const totalData = filteredData.length;
@@ -209,7 +209,7 @@ const DeteksiPasien = () => {
                         {item?.isSubmitted || "-"}
                       </td>
                       <td className={`font-semibold capitalize ${statusColor}`}>
-                        {item?.status || "-"}
+                        {item?.status || "Tidak"}
                       </td>
                       <td>
                         <div className="flex gap-x-3">
@@ -231,7 +231,7 @@ const DeteksiPasien = () => {
                             />
                           </button>
                         </div>
-                        {item.isSubmitted === "Tidak" && (
+                        {(item.isSubmitted || "Tidak") === "Tidak" && (
                           <button
                             type="button"
                             onClick={() =>
