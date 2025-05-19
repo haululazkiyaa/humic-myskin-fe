@@ -4,7 +4,7 @@ import { DoctorService } from "../../services/doctor/doctor.services";
 import TanstackDaftarPasien from "../../components/table/TanstackDaftarPasien";
 
 const SkeletonTable = () => (
-  <div className="py-10 px-6 w-full">
+  <div className="py-10 w-full">
     <h1 className="text-3xl font-bold text-black text-center mb-6">
       Daftar Pasien
     </h1>
@@ -71,7 +71,7 @@ const DaftarPasien = () => {
 
   if (loading) {
     return (
-      <div className="px-6 flex justify-center">
+      <div className="flex px-6 justify-center">
         <SkeletonTable />
       </div>
     );
@@ -83,7 +83,7 @@ const DaftarPasien = () => {
         <h1 className="text-3xl font-bold text-black text-center">
           Daftar Pasien
         </h1>
-        <div className="py-10 px-6 flex justify-center">
+        <div className="py-10 flex justify-center">
           <p className="text-lg text-red-500">{error}</p>
         </div>
       </div>
@@ -95,7 +95,7 @@ const DaftarPasien = () => {
       <h1 className="text-3xl font-bold text-black text-center">
         Daftar Pasien
       </h1>
-      <div className="px-6 flex justify-center">
+      <div className="flex justify-center">
         {patients.length === 0 ? (
           <div className="w-full flex flex-col items-center py-10">
             <img

@@ -70,7 +70,7 @@ const DashboardDokter = () => {
           {error}
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-4 mt-4">
+        <div className="space-y-3 md:grid grid-cols-3 gap-4 mt-4">
           <Card
             title="Pasien"
             count={stats.totalPatients || "-"}
@@ -160,13 +160,19 @@ const VerificationTable = () => {
 
   return (
     <div>
-      <h2 className="lg:hidden font-bold text-[24px]">Ajuan Verifikasi</h2>
+      <div className="lg:hidden flex items-center justify-between mb-3">
+        <h2 className="font-bold text-[24px]">Ajuan Verifikasi</h2>
+        <a
+          href="/dokter/daftar-pengajuan"
+          className="text-[#12476B] flex items-center gap-2 text-[16px] font-bold"
+        >
+          Lihat semua <FaArrowRight />
+        </a>
+      </div>
 
       <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="hidden lg:block font-bold text-[30px]">
-            Ajuan Verifikasi
-          </h2>
+        <div className="hidden lg:flex items-center justify-between mb-3">
+          <h2 className="font-bold text-[30px]">Ajuan Verifikasi</h2>
           <a
             href="/dokter/daftar-pengajuan"
             className="text-[#12476B] flex items-center gap-2 text-[16px] font-bold"
@@ -174,60 +180,60 @@ const VerificationTable = () => {
             Lihat semua <FaArrowRight />
           </a>
         </div>
-        <hr className="hidden lg:block border border-[#E3E3E3]" />
+        <hr className="hidden lg:block border border-[#E3E3E3] mb-3" />
 
         {loading ? (
-          <div className="animate-pulse space-y-4 mt-5">
+          <div className="animate-pulse space-y-4 ">
             {[...Array(3)].map((_, idx) => (
               <div key={idx} className="h-12 bg-gray-200 rounded w-full"></div>
             ))}
           </div>
         ) : error ? (
-          <div className="mt-5 p-3 bg-red-100 text-red-700 rounded-md">
-            {error}
-          </div>
+          <div className=" p-3 bg-red-100 text-red-700 rounded-md">{error}</div>
         ) : pendingSummaries.length === 0 ? (
-          <div className="mt-5 text-center py-8 text-gray-500">
+          <div className=" text-center py-8 text-gray-500">
             Tidak ada ajuan verifikasi saat ini
           </div>
         ) : (
-          <table className="w-full mt-5">
-            <thead>
-              <tr>
-                <th className="text-[16px] py-4">Tanggal</th>
-                <th className="text-[16px] py-4">Pasien</th>
-                <th className="text-[16px] py-4">Diagnosis AI</th>
-                <th className="text-[16px] py-4">Verifikasi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pendingSummaries.map((summary) => (
-                <tr key={summary.id}>
-                  <td className="text-[16px] py-2 text-center">
-                    {summary.submittedAt
-                      ? formatDate(summary.submittedAt)
-                      : "-"}
-                  </td>
-                  <td className="text-[16px] py-2 text-center">
-                    {summary.patientName || "-"}
-                  </td>
-                  <td className="text-[16px] py-2 text-center text-[#C11616]">
-                    {summary.diagnosisAi || "-"}
-                  </td>
-                  <td className="text-[16px] py-2 text-center">
-                    <button
-                      className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
-                      onClick={() =>
-                        (window.location.href = `/dokter/riwayat-verifikasi/informasi-penyakit/${summary.id}`)
-                      }
-                    >
-                      <FaFileAlt /> Verifikasi
-                    </button>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[600px]">
+              <thead>
+                <tr>
+                  <th className="text-[16px] py-4">Tanggal</th>
+                  <th className="text-[16px] py-4">Pasien</th>
+                  <th className="text-[16px] py-4">Diagnosis AI</th>
+                  <th className="text-[16px] py-4">Verifikasi</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {pendingSummaries.map((summary) => (
+                  <tr key={summary.id}>
+                    <td className="text-[16px] py-2 text-center px-5">
+                      {summary.submittedAt
+                        ? formatDate(summary.submittedAt)
+                        : "-"}
+                    </td>
+                    <td className="text-[16px] py-2 text-center px-5">
+                      {summary.patientName || "-"}
+                    </td>
+                    <td className="text-[16px] py-2 text-center px-5 text-[#C11616]">
+                      {summary.diagnosisAi || "-"}
+                    </td>
+                    <td className="text-[16px] py-2 text-center px-5">
+                      <button
+                        className="w-full bg-[#12476B] text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
+                        onClick={() =>
+                          (window.location.href = `/dokter/riwayat-verifikasi/informasi-penyakit/${summary.id}`)
+                        }
+                      >
+                        <FaFileAlt /> Verifikasi
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
@@ -259,10 +265,19 @@ const PatientsTable = () => {
 
   return (
     <div>
-      <h2 className="lg:hidden font-bold mb-3 text-[24px]">Pasien</h2>
+      <div className="lg:hidden flex items-center justify-between mb-3">
+        <h2 className="font-bold text-[24px]">Pasien</h2>
+        <a
+          href="/dokter/daftar-pasien"
+          className="text-[#12476B] flex items-center gap-2 text-[16px] font-bold"
+        >
+          Lihat semua <FaArrowRight />
+        </a>
+      </div>
+
       <div className="p-5 rounded-lg shadow-xl bg-white border border-[#f7f7f7]">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="hidden lg:block font-bold mb-3 text-[30px]">Pasien</h2>
+        <div className="hidden lg:flex items-center justify-between mb-3">
+          <h2 className="font-bold text-[30px]">Pasien</h2>
           <a
             href="/dokter/daftar-pasien"
             className="text-[#12476B] flex items-center gap-2 text-[16px] font-bold"
@@ -270,46 +285,48 @@ const PatientsTable = () => {
             Lihat semua <FaArrowRight />
           </a>
         </div>
-        <hr className="hidden lg:block border border-[#E3E3E3]" />
+        <hr className="hidden lg:block border border-[#E3E3E3] mb-3" />
 
         {loading ? (
-          <div className="animate-pulse space-y-4 mt-5">
+          <div className="animate-pulse space-y-4 ">
             {[...Array(3)].map((_, idx) => (
               <div key={idx} className="h-12 bg-gray-200 rounded w-full"></div>
             ))}
           </div>
         ) : error ? (
-          <div className="mt-5 p-3 bg-red-100 text-red-700 rounded-md">
-            {error}
-          </div>
+          <div className=" p-3 bg-red-100 text-red-700 rounded-md">{error}</div>
         ) : patients.length === 0 ? (
-          <div className="mt-5 text-center py-8 text-gray-500">
+          <div className=" text-center py-8 text-gray-500">
             Tidak ada data pasien saat ini
           </div>
         ) : (
-          <table className="w-full mt-5">
-            <thead>
-              <tr>
-                <th className="text-[16px] py-4">Nama</th>
-                <th className="text-[16px] py-4">Nomor Telepon</th>
-                <th className="text-[16px] py-4">Jumlah Ajuan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {patients.map((patient, index) => (
-                <tr
-                  key={patient.id || index}
-                  className={`text-[16px] py-2 text-center ${
-                    index % 2 === 0 ? "bg-[#F6F4F4]" : ""
-                  }`}
-                >
-                  <td className="py-2">{patient.name || "-"}</td>
-                  <td className="py-2">{patient.phone || "-"}</td>
-                  <td className="py-2">{patient.submissionCount || 0}</td>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[600px]">
+              <thead>
+                <tr>
+                  <th className="text-[16px] py-4">Nama</th>
+                  <th className="text-[16px] py-4">Nomor Telepon</th>
+                  <th className="text-[16px] py-4">Jumlah Ajuan</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="scroll-auto">
+                {patients.map((patient, index) => (
+                  <tr
+                    key={patient.id || index}
+                    className={`text-[16px] py-2 px-3 text-center ${
+                      index % 2 === 0 ? "bg-[#F6F4F4]" : ""
+                    }`}
+                  >
+                    <td className="py-2 px-3">{patient.name || "-"}</td>
+                    <td className="py-2 px-3">{patient.phone || "-"}</td>
+                    <td className="py-2 px-3">
+                      {patient.submissionCount || 0}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
