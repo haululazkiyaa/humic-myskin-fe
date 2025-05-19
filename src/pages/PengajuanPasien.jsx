@@ -238,6 +238,7 @@ const PengajuanPasien = () => {
         <div className="lg:hidden mt-4 space-y-4">
           {currentData.map((item, index) => {
             const mappedItem = {
+              id: item.id,
               date: item.submittedAt,
               persentase: item.diagnosisAi,
               keluhan: item.complaint,
